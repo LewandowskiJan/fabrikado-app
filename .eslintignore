@@ -1,0 +1,8 @@
+/**/*.js
+/**/*.html
+/**/test.ts
+/**/polyfills.ts
+/node_modules/*
+/dist/*
+/mock/node_modules/*
+/mock/dist/*
