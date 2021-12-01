@@ -11,7 +11,7 @@ app.use(logErrors);
 app.use(defaultErrorHandler);
 
 app.get('/', (request: Request, response: Response) => {
-  response.send('The sedulous hyena ate the antelope!');
+  response.send('Works');
 });
 
 app.listen(port, () => {
