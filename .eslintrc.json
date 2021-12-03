@@ -25,7 +25,7 @@
     {
       "files": ["src/**/*.ts", "api/**/*.ts"],
       "parserOptions": {
-        "project": ["tsconfig.json"],
+        "project": ["../tsconfig.app.json"],
         "createDefaultProgram": true
       },
       "extends": [
@@ -66,9 +66,31 @@
       }
     },
     {
-      "files": ["*.html"],
-      "extends": ["plugin:@angular-eslint/template/recommended"],
-      "rules": {}
+      "files": ["src/**/*.component.html"],
+      "parser": "@angular-eslint/template-parser",
+      "parserOptions": {
+        "project": ["../tsconfig.app.json"],
+        "createDefaultProgram": true
+      },
+      "rules": {
+        "@angular-eslint/template/accessibility-alt-text": "error",
+        "@angular-eslint/template/accessibility-elements-content": "error",
+        "@angular-eslint/template/accessibility-label-for": "error",
+        "@angular-eslint/template/no-positive-tabindex": "error",
+        "@angular-eslint/template/accessibility-table-scope": "error",
+        "@angular-eslint/template/accessibility-valid-aria": "error",
+        "@angular-eslint/template/click-events-have-key-events": "error",
+        "@angular-eslint/template/mouse-events-have-key-events": "error",
+        "@angular-eslint/template/no-autofocus": "error",
+        "@angular-eslint/template/no-distracting-elements": "error",
+        "@typescript-eslint/dot-notation": "off",
+        "@typescript-eslint/no-implied-eval": "off",
+        "@typescript-eslint/no-throw-literal": "off",
+        "strict": "off",
+        "import/first": "off",
+        "lines-around-directive": "off"
+      },
+      "plugins": ["@angular-eslint/template"]
     }
   ]
 }
