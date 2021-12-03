@@ -14,8 +14,4 @@ export class AppComponent {
   public setTitle(newTitle: string): void {
     this.titleService.setTitle(newTitle);
   }
-
-  public onClick(): void {
-    console.log('clicked');
-  }
 }
