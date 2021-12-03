@@ -23,7 +23,7 @@
   },
   "overrides": [
     {
-      "files": ["src/**/*.ts", "api/**/*.ts"],
+      "files": ["src/**/*.ts"],
       "parserOptions": {
         "project": ["../tsconfig.app.json"],
         "createDefaultProgram": true
@@ -91,6 +91,27 @@
         "lines-around-directive": "off"
       },
       "plugins": ["@angular-eslint/template"]
+    },
+    {
+      "files": ["src/**/*.ts", "api/**/*.ts"],
+      "rules": {
+        "quotes": ["error", "single"],
+        "@typescript-eslint/typedef": [
+          "error",
+          {
+            "arrayDestructuring": true,
+            "arrowCallSignature": true,
+            "arrowParameter": true,
+            "callSignature": true,
+            "memberVariableDeclaration": true,
+            "parameter": true,
+            "propertyDeclaration": true,
+            "objectDestructuring": true,
+            "variableDeclaration": true,
+            "variableDeclarationIgnoreFunction": true
+          }
+        ]
+      }
     }
   ]
 }

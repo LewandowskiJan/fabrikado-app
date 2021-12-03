@@ -7,7 +7,7 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'fabrikado-app';
+  public title: string = 'fabrikado-app';
 
   public constructor(private titleService: Title) {}
 
