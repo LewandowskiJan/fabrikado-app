@@ -1,3 +1,5 @@
 <div>
+    <button (click)="addTodo()">Add</button>
+     <!-- <button ="delete(todo?.id)">delete</button> -->
   <app-todo *ngFor="let todo of todoList" (deleteEmitter)="deleteTodo($event)" [todo]="todo"></app-todo>
 </div>

@@ -38,4 +38,10 @@ export class TodoListComponent implements OnInit {
   public deleteTodo(id: number | undefined): void {
     this.todoList = this.todoList.filter((todo: Todo) => todo.id !== id);
   }
+
+  public addTodo(): void {
+    this.todoList.push(this.todoToAdd);
+  }
 }
+
+
