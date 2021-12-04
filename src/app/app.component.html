@@ -1,7 +1,9 @@
 <div class="nav">
-  <button [routerLink]="''">todo list</button>
-  <button [routerLink]="'welcome'">welcome</button>
-
+  <button [routerLinkActive]="'active'" [routerLink]="'todo'">todo list</button>
+  <button [routerLinkActive]="'active'" [routerLink]="'cosmos'">cosmos</button>
+  <button [routerLinkActive]="'active'" [routerLink]="'welcome'">
+    welcome
+  </button>
 </div>
 
 <router-outlet></router-outlet>

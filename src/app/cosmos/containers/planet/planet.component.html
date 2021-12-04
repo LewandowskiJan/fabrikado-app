@@ -1,0 +1,11 @@
+<app-planet-container>
+    <button side-navigation [routerLinkActive]="'active'" [routerLink]="['overview']">
+      overview
+    </button>
+    <button side-navigation [routerLinkActive]="'active'" [routerLink]="['buildings']">
+      buildings
+    </button>
+  <div content>
+    <router-outlet></router-outlet>
+  </div>
+</app-planet-container>

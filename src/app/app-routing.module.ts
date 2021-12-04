@@ -6,7 +6,7 @@ import { TodoListComponent } from './core/containers/todo-list/todo-list.compone
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'todo',
     component: TodoListComponent,
   },
   {
@@ -14,8 +14,13 @@ const routes: Routes = [
     component: AngularWelcomePageComponent,
   },
   {
+    path: 'cosmos',
+    loadChildren: () =>
+      import('./cosmos/cosmos.module').then((m: any) => m.CosmosModule),
+  },
+  {
     path: '**',
-    redirectTo: '',
+    redirectTo: 'todo',
   },
 ];
 
