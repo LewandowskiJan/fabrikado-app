@@ -1,0 +1,5 @@
+@use './../../../../assets/styles/button'as button;
+
+.menu-button {
+  @include button.default-button('\2728')
+}

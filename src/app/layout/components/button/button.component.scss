@@ -1,0 +1,5 @@
+@use './../../../../assets/styles/button'as button;
+
+.button {
+  @include button.default-button('\00bb')
+}

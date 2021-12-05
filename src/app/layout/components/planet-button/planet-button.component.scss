@@ -1,0 +1,55 @@
+.planet-button {
+  ::ng-deep.button {
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    padding: 10px;
+    margin: 5px;
+    color: white;
+
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+
+    &:not(.active) {
+      background: #090979;
+      background: radial-gradient(circle, rgba(9, 9, 121, 1) 20%, rgba(31, 41, 133, 1) 40%, rgba(36, 4, 0, 1) 80%);
+      border: 1px solid rgb(0, 0, 0);
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    &:after {
+      content: '\00bb';
+      opacity: 0;
+      transition: 0.5s;
+    }
+
+    &:hover {
+      // padding-right: 25px;
+      background: radial-gradient(circle, rgb(55, 55, 131) 20%, rgb(25, 32, 95) 30%, rgb(30, 33, 82) 90%);
+      border: 1px solid rgb(25, 0, 100);
+
+      &:after {
+        opacity: 1;
+        right: 0;
+      }
+    }
+
+    &:focus {
+      background: #1a1a79;
+    }
+
+    &.active {
+      background: radial-gradient(circle, rgb(70, 131, 55) 20%, rgb(70, 95, 25) 30%, rgb(33, 82, 33) 90%);
+      border: 1px solid rgb(0, 100, 25);
+
+      &:after {
+        opacity: 1;
+        right: 0;
+      }
+    }
+  }
+}

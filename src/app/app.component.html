@@ -1,9 +1,36 @@
-<div class="nav">
-  <button [routerLinkActive]="'active'" [routerLink]="'todo'">todo list</button>
-  <button [routerLinkActive]="'active'" [routerLink]="'cosmos'">cosmos</button>
-  <button [routerLinkActive]="'active'" [routerLink]="'welcome'">
-    welcome
-  </button>
-</div>
+<app-layout>
+  <ng-container menu class="nav">
+    <app-menu-button>
+      <button
+        class="button"
+        [routerLinkActive]="'active'"
+        [routerLink]="'todo'"
+      >
+        todo list
+      </button>
+    </app-menu-button>
 
-<router-outlet></router-outlet>
+    <app-menu-button>
+      <button
+        class="button"
+        [routerLinkActive]="'active'"
+        [routerLink]="'cosmos'"
+      >
+        cosmos
+      </button>
+    </app-menu-button>
+
+    <app-menu-button>
+      <button
+        class="button"
+        [routerLinkActive]="'active'"
+        [routerLink]="'welcome'"
+      >
+        welcome
+      </button>
+    </app-menu-button>
+  </ng-container>
+  <ng-container content>
+    <router-outlet></router-outlet>
+  </ng-container>
+</app-layout>
