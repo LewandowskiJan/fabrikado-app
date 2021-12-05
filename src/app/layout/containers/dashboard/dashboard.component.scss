@@ -1,0 +1,41 @@
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 100px 1fr 100px;
+  grid-template-areas:
+    "menu"
+    "content"
+    "footer";
+  height: 100vh;
+  margin: 0;
+  padding: 10px;
+
+  background-image: url('./../../../../assets/images/planet-background.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+
+  .menu {
+    grid-area: menu;
+    padding: 10px;
+
+    .box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba($color: #777777, $alpha: .3);
+      border-radius: 10px;
+      height: 50px;
+      border: 2px solid silver;
+    }
+  }
+
+  .content {
+    grid-area: content;
+  }
+
+  .footer {
+    grid-area: footer;
+  }
+}
