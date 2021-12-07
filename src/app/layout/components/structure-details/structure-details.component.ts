@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Structure } from 'src/app/cosmos/components/buildings/buildings.component';
+import { Structure } from 'src/app/cosmos/models/structure';
 
 @Component({
   selector: 'app-structure-details',

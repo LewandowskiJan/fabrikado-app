@@ -1,1 +1,8 @@
-<p>defence works!</p>
+<div class="buildings">
+  <div class="container">
+    <app-structure *ngFor="let defenceDetails of structures" (selectEmitter)="selectDetails1($event)" [structureDetails] = "defenceDetails" > </app-structure>
+  </div>
+  <aside class="details">
+    <app-structure-details [structureDetails]="currentDetails"> </app-structure-details>
+  </aside>
+</div>

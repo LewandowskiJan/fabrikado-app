@@ -1,20 +1,8 @@
 import { Component } from '@angular/core';
 
-import { BuildingsService } from './../../services/buildings.service';
-export interface Cost {
-  m: number;
-  k: number;
-  d: number;
-}
-export interface Structure {
-  id: string;
-  name: string;
-  cost: Cost;
-  image: string;
-  canBuild: boolean;
-  description: string;
-  buildingTime: string;
-}
+import { Structure } from '../../models/structure';
+import { BuildingsService } from '../../services/buildings.service';
+
 @Component({
   selector: 'app-buildings',
   templateUrl: './buildings.component.html',

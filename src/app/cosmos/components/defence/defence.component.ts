@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+
+import { Structure } from '../../models/structure';
+import { DefenceService } from '../../services/defence.service';
 
 @Component({
   selector: 'app-defence',
   templateUrl: './defence.component.html',
-  styleUrls: ['./defence.component.scss']
+  styleUrls: ['./defence.component.scss'],
 })
-export class DefenceComponent implements OnInit {
+export class DefenceComponent {
+  public structures: Structure[] = this.defenceService.defence;
+  public currentDetails: Structure | undefined;
 
-  constructor() { }
+  constructor(private defenceService: DefenceService) {}
 
-  ngOnInit(): void {
+  public selectDetails1(details: Structure): void {
+    this.currentDetails = details;
   }
-
 }

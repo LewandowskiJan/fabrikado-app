@@ -5,8 +5,8 @@ import { Structure } from '../models/structure';
 @Injectable({
   providedIn: 'root',
 })
-export class BuildingsService {
-  public structures: Structure[] = [
+export class DefenceService {
+  public defence: Structure[] = [
     {
       id: 'BMM',
       name: 'Metal Mine',
