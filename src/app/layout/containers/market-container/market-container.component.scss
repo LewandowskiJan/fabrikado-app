@@ -1,0 +1,58 @@
+$breakpoint-tablet: 1080px;
+
+.market-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr auto;
+  grid-template-areas:
+    "market-grid details-view"
+    ". details-view";
+
+  @media (max-width: $breakpoint-tablet) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+      "details-view"
+      "market-grid";
+  }
+
+  .details-view {
+    grid-area: details-view;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 100%;
+
+    ::ng-deep.image {
+      min-height: 300px;
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .market-grid {
+    grid-area: market-grid;
+    display: flex;
+    overflow-y: auto;
+    gap: 5px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+
+    ::ng-deep .image {
+      flex-wrap: wrap;
+      height: 100px;
+      width: 100px;
+
+      &:hover {
+        cursor: pointer;
+        transform: scale(0.95);
+        transition: .5s ease-out;
+      }
+
+      &:not(:hover) {
+        transform: scale(1);
+        transition: .5s ease-out;
+      }
+    }
+  }
+}

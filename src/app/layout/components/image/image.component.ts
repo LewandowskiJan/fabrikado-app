@@ -6,5 +6,9 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./image.component.scss'],
 })
 export class ImageComponent {
-  @Input() public imageName: string = '';
+  public backgroundImage: string | undefined;
+  @Input() type: string = '';
+  @Input() set imageName(name: string) {
+    this.backgroundImage = `url("./../../../../assets/images/${name}.jpg")`;
+  }
 }

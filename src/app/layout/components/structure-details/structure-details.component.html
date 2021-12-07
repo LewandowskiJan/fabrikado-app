@@ -1,6 +1,16 @@
 <div class="structure-details">
   <ng-container *ngIf="structureDetails; else noDetails">
-    <app-image [imageName]="structureDetails.image"></app-image>
+    <app-image [type]="'shadowed'" [imageName]="structureDetails.image"></app-image>
+
+    <div class="details">
+      <p>id:</p>
+      <p>name:</p>
+      <p>cost:</p>
+      <p>image:</p>
+      <p>canBuild:</p>
+      <p>description:</p>
+      <p>buildingTime:</p>
+    </div>
   </ng-container>
   <ng-template #noDetails>
     <app-image [imageName]="'structure'"></app-image>

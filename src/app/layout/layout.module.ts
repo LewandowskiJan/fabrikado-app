@@ -9,6 +9,7 @@ import { StructureComponent } from './components/structure/structure.component';
 import { StructureDetailsComponent } from './components/structure-details/structure-details.component';
 import { DashboardComponent } from './containers/dashboard/dashboard.component';
 import { LayoutComponent } from './containers/layout/layout.component';
+import { MarketContainerComponent } from './containers/market-container/market-container.component';
 import { PlanetContainerComponent } from './containers/planet-container/planet-container.component';
 
 @NgModule({
@@ -22,6 +23,7 @@ import { PlanetContainerComponent } from './containers/planet-container/planet-c
     StructureComponent,
     StructureDetailsComponent,
     ImageComponent,
+    MarketContainerComponent,
   ],
   imports: [CommonModule],
   exports: [
@@ -34,6 +36,7 @@ import { PlanetContainerComponent } from './containers/planet-container/planet-c
     StructureComponent,
     StructureDetailsComponent,
     ImageComponent,
+    MarketContainerComponent,
   ],
 })
 export class LayoutModule {}
