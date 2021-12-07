@@ -1,0 +1,8 @@
+<div class="structure-details">
+  <ng-container *ngIf="structureDetails; else noDetails">
+    <app-image [imageName]="structureDetails.image"></app-image>
+  </ng-container>
+  <ng-template #noDetails>
+    <app-image [imageName]="'structure'"></app-image>
+  </ng-template>
+</div>

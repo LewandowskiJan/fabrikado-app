@@ -1,1 +1,10 @@
+<div class="buildings">
+  <div class="container">
+<!-- uzyc *ngfor tak aby zrobić appstructure w pętli, przekazać do kolejnego appstructure dane z danego budynku(bazując na todolist)-->
+    <app-structure *ngFor="let structureDetails of structures" (selectEmitter)="selectDetails($event)" [structureDetails] = "structureDetails" > </app-structure>
+  </div>
+  <aside class="details">
+    <app-structure-details [structureDetails]="currentDetails"> </app-structure-details>
+  </aside>
+</div>
 
