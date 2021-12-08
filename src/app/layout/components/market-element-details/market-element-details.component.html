@@ -1,8 +1,26 @@
-<div class="details">
-  <div class="data">
-    <ng-content></ng-content>
-  </div>
-  <div class="buttons">
-    <ng-content select="app-buttons"></ng-content>
+<div class="details-wrapper">
+  <div class="details">
+    <div class="data">
+      <ng-content select=".info"></ng-content>
+    </div>
+    <div class="diodes">
+      <app-diode
+        [diodeSize]="diodeSizes.MEDIUM"
+        [diodeType]="diodeTypes.ACTIVE"
+      ></app-diode>
+      <app-diode
+        [diodeSize]="diodeSizes.MEDIUM"
+        [diodeType]="diodeTypes.NOT_ACTIVE"
+      ></app-diode>
+      <app-diode
+        [diodeSize]="diodeSizes.MEDIUM"
+        [diodeType]="diodeTypes.ON_WORKING"
+      ></app-diode>
+    </div>
+    <div class="corner"></div>
+    <div class="spacer2"></div>
+    <div class="footer">
+      <ng-content select="app-button"></ng-content>
+    </div>
   </div>
 </div>

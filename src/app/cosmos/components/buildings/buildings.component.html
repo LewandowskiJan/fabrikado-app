@@ -8,13 +8,19 @@
   </app-structure>
   <app-structure-details details-view [structureDetails]="currentDetails">
     <app-market-element-details>
-      <p info>name:</p>
-      <p info>cost:</p>
-      <p info>canBuild:</p>
-      <p info>description:</p>
-      <p info>buildingTime:</p>
+      <div class="info">
+        <p>name:</p>
+        <p>cost:</p>
+        <p>canBuild:</p>
+        <p>description:</p>
+        <p>buildingTime:</p>
+      </div>
+
       <app-button>
         <button class="button">buy</button>
+      </app-button>
+      <app-button>
+        <button class="button">recycle</button>
       </app-button>
     </app-market-element-details>
   </app-structure-details>

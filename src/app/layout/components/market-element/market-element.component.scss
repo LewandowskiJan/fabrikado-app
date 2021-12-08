@@ -1,0 +1,28 @@
+.market-element-wrapper {
+  display: grid;
+  grid-template-columns: 2px 1fr 15px 2px;
+  grid-template-rows: 2px 1fr 1fr 2px;
+  grid-template-areas:
+    "border-top border-top border-top border-top"
+    "border-left content option border-right"
+    "border-left content option border-right"
+    "border-bottom border-bottom border-bottom border-bottom";
+  margin: 0;
+
+  .market-element {
+    grid-area: content;
+    border: 4px solid rgb(37, 46, 61);
+    border-radius: 4px 0 0px 4px;
+    background-color: rgb(36, 41, 59);
+  }
+
+  .option {
+    grid-area: option;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(27, 31, 44);
+    border-bottom-right-radius: 60%;
+    padding: 2px;
+  }
+}

@@ -8,6 +8,7 @@ $breakpoint-tablet: 1080px;
     "market-grid details-view"
     ". details-view";
 
+
   @media (max-width: $breakpoint-tablet) {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
@@ -22,6 +23,7 @@ $breakpoint-tablet: 1080px;
     justify-content: center;
     align-items: center;
     min-width: 100%;
+    margin-bottom: 20px;
 
     ::ng-deep.image {
       min-height: 300px;

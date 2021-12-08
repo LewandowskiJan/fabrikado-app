@@ -1,4 +1,10 @@
-
-<div *ngIf = "structureDetails as details" class="structure" (click)="selectStructure()" (keydown)="selectStructure()">
-  <app-image [imageName]="details.image"> </app-image>
-</div>
+<app-market-element>
+  <div
+    *ngIf="structureDetails as details"
+    class="structure"
+    (click)="selectStructure()"
+    (keydown)="selectStructure()"
+  >
+    <app-image [imageName]="details.image"> </app-image>
+  </div>
+</app-market-element>

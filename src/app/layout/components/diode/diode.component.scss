@@ -1,0 +1,56 @@
+ .diode {
+   border-radius: 100%;
+
+   &.small {
+     width: 8px;
+     height: 8px;
+     border: 2px solid black;
+     margin: 1px;
+   }
+
+   &.medium {
+     width: 16px;
+     height: 16px;
+     border: 4px solid black;
+     margin: 2px;
+   }
+
+   &.large {
+     width: 40px;
+     height: 40px;
+     border: 6px solid black;
+     margin: 4px;
+   }
+
+
+   &.active {
+     background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(171, 255, 160, 1) 14%, rgba(66, 208, 73, 1) 18%, rgba(40, 152, 26, 1) 22%);
+     // animation: diode-active-animation 2s infinite forwards ease-in-out;
+   }
+
+   &.on-woriking {
+     animation: diode-on-working-animation 2s infinite forwards ease-in-out;
+   }
+
+
+   &.not-active {
+     background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgb(255, 160, 160) 14%, rgb(208, 66, 66) 18%, rgb(152, 26, 26) 22%);
+     // animation: diode-not-active-animation 2s infinite forwards ease-in-out;
+   }
+ }
+
+ @mixin diode-animation-mixin($animation-name, $color, $color1, $color2, $color3) {
+   @keyframes #{$animation-name} {
+     0% {
+       background: radial-gradient(circle, $color 0%, $color1 14%, $color2 18%, $color3 22%);
+     }
+
+     100% {
+       background: radial-gradient(circle, #ffffff 0%, #777777 14%, #444444 18%, #262c3d 22%);
+     }
+   }
+ }
+
+ @include diode-animation-mixin(diode-active-animation, #ffffff, #abffa0, #42d049, #28981a);
+ @include diode-animation-mixin(diode-not-active-animation, #ffffff, #ffa0a0, #d04242, #981a1a);
+ @include diode-animation-mixin(diode-on-working-animation, #ffffff, #deffa0, #d0bb42, #98961a);

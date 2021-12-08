@@ -1,0 +1,17 @@
+<ng-container [ngSwitch]="diodeType">
+  <div
+    *ngSwitchCase="diodeTypes.ACTIVE"
+    class="diode active"
+    [ngClass]="diodeSize"
+  ></div>
+  <div
+    *ngSwitchCase="diodeTypes.NOT_ACTIVE"
+    class="diode not-active"
+    [ngClass]="diodeSize"
+  ></div>
+  <div
+    *ngSwitchCase="diodeTypes.ON_WORKING"
+    class="diode on-woriking"
+    [ngClass]="diodeSize"
+  ></div>
+</ng-container>

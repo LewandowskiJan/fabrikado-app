@@ -1,4 +1,74 @@
-  .details {
-    padding: 20px;
+:host {
+  display: flex;
+  height: 100%;
+  width: 100%;
+
+  .details-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas:
+      "details";
+
+    height: 100%;
+    width: 100%;
     color: white;
+
+    .details {
+      display: grid;
+      grid-area: details;
+      grid-template-columns: minmax(50px, auto) 20px 1fr;
+      grid-template-rows: 1fr 20px minmax(50px, auto);
+      grid-template-areas:
+        "diodes spacer1 data"
+        "diodes corner spacer3"
+        "spacer2 footer footer";
+      margin: 0;
+
+      .data {
+        grid-area: data;
+      }
+
+      .diodes {
+        grid-area: diodes;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 20px;
+        border-top-right-radius: 20px;
+        box-shadow: 1px 1px 0px 0px #009971;
+      }
+
+      .footer {
+        grid-area: footer;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        border-top-right-radius: 20px;
+        box-shadow: 0px -2px 0px 0px #009971;
+      }
+
+      app-button {
+        min-width: 200px;
+      }
+
+      .spacer2 {
+        grid-area: spacer2;
+      }
+
+      .diodes,
+      .footer,
+      .spacer2 {
+        background-color: rgb(12, 10, 24);
+      }
+
+      .corner {
+        grid-area: corner;
+        border-top: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid rgba($color: #121120, $alpha: .2);
+        border-left: 10px solid rgba($color: #121120, $alpha: .2);
+      }
+    }
   }
+}

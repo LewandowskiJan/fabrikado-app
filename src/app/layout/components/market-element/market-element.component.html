@@ -1,1 +1,10 @@
-<p>market-element works!</p>
+<div class="market-element-wrapper">
+  <div class="market-element">
+    <ng-content></ng-content>
+  </div>
+  <div class="option">
+    <app-diode [diodeType]="diodeTypes.ACTIVE"></app-diode>
+    <app-diode [diodeType]="diodeTypes.NOT_ACTIVE"></app-diode>
+    <app-diode [diodeType]="diodeTypes.ON_WORKING"></app-diode>
+  </div>
+</div>
