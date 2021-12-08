@@ -7,7 +7,7 @@ $shadow-color-blue-green: #009971;
   grid-template-areas:
     "details description";
   margin: 0;
-
+  height: 100%;
   color: lighten($color: $shadow-color-blue-green, $amount: 40);
 
   .details {
