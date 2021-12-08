@@ -22,7 +22,8 @@
     }
 
     &:after {
-      content: '\00bb';
+      content: '\1F310';
+      font: icon;
       opacity: 0;
       transition: 0.5s;
     }

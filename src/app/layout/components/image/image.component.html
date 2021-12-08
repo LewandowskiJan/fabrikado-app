@@ -1,4 +1,7 @@
 <div class="image-container">
   <div class="image" [style.background-image]="backgroundImage" alt=""></div>
   <div [ngClass]="type"></div>
+  <div class="data">
+    <ng-content></ng-content>
+  </div>
 </div>
