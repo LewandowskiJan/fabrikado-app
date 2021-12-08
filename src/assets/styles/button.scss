@@ -51,6 +51,11 @@
     }
 
     &.active {
+      &:not(.menu-button) {
+        width: 160px;
+        transition: .5s;
+      }
+
       color: greenyellow;
       background: linear-gradient(180deg, rgb(54, 54, 54) 10%, rgb(42, 44, 48) 20%, rgb(5, 0, 36) 90%);
       border: 1px solid rgb(0, 100, 25);

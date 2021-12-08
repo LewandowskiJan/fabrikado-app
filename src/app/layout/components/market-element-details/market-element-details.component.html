@@ -4,18 +4,20 @@
       <ng-content select=".info"></ng-content>
     </div>
     <div class="diodes">
-      <app-diode
-        [diodeSize]="diodeSizes.MEDIUM"
-        [diodeType]="diodeTypes.ACTIVE"
-      ></app-diode>
-      <app-diode
-        [diodeSize]="diodeSizes.MEDIUM"
-        [diodeType]="diodeTypes.NOT_ACTIVE"
-      ></app-diode>
-      <app-diode
-        [diodeSize]="diodeSizes.MEDIUM"
-        [diodeType]="diodeTypes.ON_WORKING"
-      ></app-diode>
+      <div class="diodes-box">
+        <app-diode
+          [diodeSize]="diodeSizes.MEDIUM"
+          [diodeType]="diodeTypes.ACTIVE"
+        ></app-diode>
+        <app-diode
+          [diodeSize]="diodeSizes.MEDIUM"
+          [diodeType]="diodeTypes.NOT_ACTIVE"
+        ></app-diode>
+        <app-diode
+          [diodeSize]="diodeSizes.MEDIUM"
+          [diodeType]="diodeTypes.ON_WORKING"
+        ></app-diode>
+      </div>
     </div>
     <div class="corner"></div>
     <div class="spacer2"></div>
