@@ -3,7 +3,7 @@ $breakpoint-tablet: 1080px;
 .market-container {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 4fr 1fr;
+  // grid-template-rows: 4fr 1fr;
   grid-template-areas:
     "details-view"
     "market-grid";
@@ -11,7 +11,7 @@ $breakpoint-tablet: 1080px;
 
   @media (max-width: $breakpoint-tablet) {
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
+    // grid-template-rows: 1fr 1fr;
     grid-template-areas:
       "details-view"
       "market-grid";

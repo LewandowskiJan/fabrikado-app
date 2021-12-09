@@ -1,6 +1,30 @@
 $shadow-color-blue-green: #009971;
 
 .dashboard {
+  --scrollbarBG: #252525;
+  --thumbBG: #009971;
+}
+
+.dashboard::-webkit-scrollbar {
+  width: 11px;
+}
+
+.dashboard {
+  scrollbar-width: thin;
+  scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+}
+
+.dashboard::-webkit-scrollbar-track {
+  background: var(--scrollbarBG);
+}
+
+.dashboard::-webkit-scrollbar-thumb {
+  background-color: var(--thumbBG);
+  border-radius: 6px;
+  border: 3px solid var(--scrollbarBG);
+}
+
+.dashboard {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 100px 1fr 100px;
@@ -16,7 +40,7 @@ $shadow-color-blue-green: #009971;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-
+  overflow: auto;
 
   .menu {
     grid-area: menu;
