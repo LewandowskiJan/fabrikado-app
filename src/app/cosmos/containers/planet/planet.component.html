@@ -108,8 +108,8 @@
   >
 
   <ng-container content>
-    <ng-container [@fadeInRouteNavigation]="prepareRoute(outlet)">
+    <div class="router" [@fadeInRouteNavigation]="prepareRoute(outlet)">
       <router-outlet #outlet="outlet"></router-outlet>
-    </ng-container>
+    </div>
   </ng-container>
 </app-planet-container>
