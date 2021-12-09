@@ -9,10 +9,6 @@ import {
   trigger,
 } from '@angular/animations';
 
-// TodoPage;
-// WelcomePage;
-// CosmosPage;
-
 export const slideInAnimation: AnimationTriggerMetadata = trigger(
   'routeAnimations',
   [
