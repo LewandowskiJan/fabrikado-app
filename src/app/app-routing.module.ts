@@ -8,19 +8,22 @@ const routes: Routes = [
   {
     path: 'todo',
     component: TodoListComponent,
+    data: { animation: 'TodoPage' }
   },
   {
     path: 'welcome',
     component: AngularWelcomePageComponent,
+    data: { animation: 'WelcomePage' }
   },
   {
     path: 'cosmos',
     loadChildren: () =>
       import('./cosmos/cosmos.module').then((m: any) => m.CosmosModule),
+      data: { animation: 'CosmosPage' }
   },
   {
     path: '**',
-    redirectTo: 'todo',
+    redirectTo: 'cosmos',
   },
 ];
 

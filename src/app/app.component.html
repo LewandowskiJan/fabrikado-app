@@ -4,19 +4,18 @@
       <button
         class="button menu-button"
         [routerLinkActive]="'active'"
-        [routerLink]="'todo'"
+        [routerLink]="'cosmos'"
       >
-        todo list
+        cosmos
       </button>
     </app-menu-button>
-
     <app-menu-button>
       <button
         class="button menu-button"
         [routerLinkActive]="'active'"
-        [routerLink]="'cosmos'"
+        [routerLink]="'todo'"
       >
-        cosmos
+        todo list
       </button>
     </app-menu-button>
 
@@ -31,6 +30,8 @@
     </app-menu-button>
   </ng-container>
   <ng-container content>
-    <router-outlet></router-outlet>
+    <div [@routeAnimations]="prepareRoute(outlet)">
+      <router-outlet #outlet="outlet"></router-outlet>
+    </div>
   </ng-container>
 </app-layout>
