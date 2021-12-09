@@ -8,6 +8,7 @@ import { FleetComponent } from './components/fleet/fleet.component';
 import { GalaxyComponent } from './components/galaxy/galaxy.component';
 import { MarketComponent } from './components/market/market.component';
 import { OverviewComponent } from './components/overview/overview.component';
+import { PlanetRedirectComponent } from './components/planet-redirect/planet-redirect.component';
 import { ResearchComponent } from './components/research/research.component';
 import { ShipyardComponent } from './components/shipyard/shipyard.component';
 import { ShopComponent } from './components/shop/shop.component';
@@ -20,6 +21,7 @@ const routes: Routes = [
     path: '',
     component: CosmosComponent,
     children: [
+      { path: '', component: PlanetRedirectComponent },
       {
         path: 'planet/:id',
         component: PlanetComponent,
