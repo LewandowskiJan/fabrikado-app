@@ -1,0 +1,101 @@
+$shadow-color-blue-green: #009971;
+
+:host {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.overview {
+  display: grid;
+  padding: 20px;
+  grid-template-columns: .5fr .5fr .1fr 1fr auto;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas:
+    "description description description description description"
+    ". . . . right-space"
+    "space-1 space-1 space-1 details-1 right-space"
+    "space-11 line-1 line-1 details-1 right-space"
+    "planet planet space-2 space-2  right-space"
+    "planet planet line-2 details-2 right-space"
+    "planet planet space-3 details-2 right-space"
+    "planet planet space-4 space-4  right-space"
+    "planet planet space-5 details-3 right-space"
+    "planet planet line-3 details-3 right-space"
+    "planet planet space-6 space-6 right-space"
+    "space-12 line-4 line-4 details-4 right-space"
+    "space-7 space-7 space-7 details-4 right-space";
+  margin: 0;
+
+  color: lighten($color: $shadow-color-blue-green, $amount: 40);
+
+  .description {
+    grid-area: description;
+  }
+
+  .planet {
+    grid-area: planet;
+    box-shadow: 1px 0px 1px 1px $shadow-color-blue-green;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .sources {
+      display: flex;
+      margin-top: 10px;
+      border-radius: 10px;
+      box-shadow: inset 0px 0px 10px 5px rgba($color: #000000, $alpha: 1);
+      background-color: rgb(53, 53, 53);
+      border: 2px solid $shadow-color-blue-green;
+      padding: 5px 20px;
+      gap: 10px;
+    }
+  }
+
+  .line-1 {
+    grid-area: line-1;
+    border-left: 1px solid $shadow-color-blue-green;
+    border-top: 1px solid $shadow-color-blue-green;
+  }
+
+  .details-1 {
+    grid-area: details-1;
+  }
+
+  .line-2 {
+    grid-area: line-2;
+    border-bottom: 1px solid $shadow-color-blue-green;
+  }
+
+  .details-2 {
+    grid-area: details-2;
+  }
+
+  .line-3 {
+    grid-area: line-3;
+    border-top: 1px solid $shadow-color-blue-green;
+  }
+
+  .details-3 {
+    grid-area: details-3;
+  }
+
+  .line-4 {
+    grid-area: line-4;
+    border-left: 1px solid $shadow-color-blue-green;
+    border-bottom: 1px solid $shadow-color-blue-green;
+  }
+
+  .details-4 {
+    grid-area: details-4;
+  }
+
+  .details {
+    box-shadow: 0px 0px 5px 2px $shadow-color-blue-green;
+    padding: 5px;
+  }
+}

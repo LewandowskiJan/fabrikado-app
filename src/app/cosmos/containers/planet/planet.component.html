@@ -107,9 +107,9 @@
     </button></app-button
   >
 
-  <div content>
-    <div [@fadeInRouteNavigation]="prepareRoute(outlet)">
+  <ng-container content>
+    <ng-container [@fadeInRouteNavigation]="prepareRoute(outlet)">
       <router-outlet #outlet="outlet"></router-outlet>
-    </div>
-  </div>
+    </ng-container>
+  </ng-container>
 </app-planet-container>
