@@ -1,3 +1,5 @@
+$planet-texture: linear-gradient(0deg, rgba(105, 43, 1, 0.9598214285714286) 0%, rgba(152, 109, 26, 1) 10%, rgba(113, 73, 10, 1) 20%, rgba(125, 61, 17, 1) 30%, rgba(152, 91, 26, 1) 40%, rgba(169, 124, 38, 1) 50%, rgba(110, 89, 25, 0.9878326330532213) 60%, rgba(92, 44, 0, 1) 70%, rgba(145, 111, 9, 1) 80%, rgba(79, 50, 10, 1) 90%, rgba(38, 46, 3, 1) 100%);
+
 .planet-button {
   ::ng-deep.button {
     text-transform: uppercase;
@@ -6,15 +8,14 @@
     padding: 10px;
     margin: 5px;
     color: white;
-
+    border: none;
     height: 70px;
     width: 70px;
     border-radius: 50%;
 
     &:not(.active) {
-      background: #090979;
-      background: radial-gradient(circle, rgba(9, 9, 121, 1) 20%, rgba(31, 41, 133, 1) 40%, rgba(36, 4, 0, 1) 80%);
-      border: 1px solid rgb(0, 0, 0);
+      background: $planet-texture;
+      box-shadow: inset 2px 2px 4px 4px rgba($color: #000, $alpha: .4);
 
       &:hover {
         cursor: pointer;
@@ -22,16 +23,18 @@
     }
 
     &:after {
-      content: '\1F310';
+      display: block;
+      content: '\00bb';
       font: icon;
+      transform: rotate(90deg);
       opacity: 0;
       transition: 0.5s;
     }
 
     &:hover {
       // padding-right: 25px;
-      background: radial-gradient(circle, rgb(55, 55, 131) 20%, rgb(25, 32, 95) 30%, rgb(30, 33, 82) 90%);
-      border: 1px solid rgb(25, 0, 100);
+      background: $planet-texture;
+      box-shadow: inset 2px 2px 4px 4px rgba($color: #fff, $alpha: .4);
 
       &:after {
         opacity: 1;
@@ -40,12 +43,12 @@
     }
 
     &:focus {
-      background: #1a1a79;
+      background: $planet-texture;
     }
 
     &.active {
-      background: radial-gradient(circle, rgb(70, 131, 55) 20%, rgb(70, 95, 25) 30%, rgb(33, 82, 33) 90%);
-      border: 1px solid rgb(0, 100, 25);
+      background: $planet-texture;
+      box-shadow: inset 2px 2px 4px 4px rgba($color: #fff, $alpha: .4);
 
       &:after {
         opacity: 1;

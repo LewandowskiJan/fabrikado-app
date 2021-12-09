@@ -1,3 +1,5 @@
+$shadow-color-blue-green: #009971;
+
 .container {
   display: flex;
   flex-direction: row;
@@ -24,6 +26,8 @@
     .box {
       height: 100%;
       background-color: rgba($color: #000000, $alpha: 0.5);
+      box-shadow: 0px 0px 5px 0px $shadow-color-blue-green;
+      border-bottom-right-radius: 10px;
     }
   }
 }
