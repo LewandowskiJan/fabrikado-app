@@ -11,8 +11,8 @@ $shadow-color-blue-green: #009971;
 .overview {
   display: grid;
   padding: 20px;
-  grid-template-columns: .5fr .5fr .1fr 1fr auto;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: .3fr .6fr .1fr 1fr auto;
+  grid-template-rows: .3fr .3fr .3fr .3fr .3fr .3fr .3fr .3fr .3fr .3fr .3fr .3fr .3fr;
   grid-template-areas:
     "description description description description description"
     ". . . . right-space"
@@ -37,12 +37,12 @@ $shadow-color-blue-green: #009971;
 
   .planet {
     grid-area: planet;
-    box-shadow: 1px 0px 1px 1px $shadow-color-blue-green;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    box-shadow: 1px 0px 1px 1px $shadow-color-blue-green;
+    padding: 10px;
 
     .sources {
       display: flex;
