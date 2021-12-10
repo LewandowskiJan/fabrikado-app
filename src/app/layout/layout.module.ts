@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { ButtonComponent } from './components/button/button.component';
 import { DiodeComponent } from './components/diode/diode.component';
 import { ImageComponent } from './components/image/image.component';
+import { LoaderComponent } from './components/loader/loader.component';
 import { MarketElementComponent } from './components/market-element/market-element.component';
 import { MarketElementDetailsComponent } from './components/market-element-details/market-element-details.component';
 import { MenuButtonComponent } from './components/menu-button/menu-button.component';
@@ -30,6 +31,7 @@ import { PlanetContainerComponent } from './containers/planet-container/planet-c
     MarketElementComponent,
     MarketElementDetailsComponent,
     DiodeComponent,
+    LoaderComponent,
   ],
   imports: [CommonModule],
   exports: [
@@ -46,6 +48,7 @@ import { PlanetContainerComponent } from './containers/planet-container/planet-c
     MarketElementComponent,
     MarketElementDetailsComponent,
     DiodeComponent,
+    LoaderComponent,
   ],
 })
 export class LayoutModule {}

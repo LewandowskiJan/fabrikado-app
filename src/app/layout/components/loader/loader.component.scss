@@ -1,0 +1,82 @@
+$shadow-color-blue-green: #009971;
+
+.loader-wrapper {
+  display: grid;
+  grid-template-columns: 2px auto auto 2px;
+  grid-template-rows: 2px auto 2px;
+  grid-template-areas:
+    "top top top top"
+    "left loader loader right"
+    "bottom bottom bottom bottom";
+  margin: 0;
+  height: 20px;
+  width: 100px;
+  border: 1px solid $shadow-color-blue-green;
+  border-radius: 5px;
+
+  .loader {
+    grid-area: loader;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "one two three four five";
+    margin: 0;
+    border: 1px solid $shadow-color-blue-green;
+    border-radius: 5px;
+
+    gap: 2px;
+
+    .one {
+      background-color: rgba($color: #000000, $alpha: .4);
+      animation: loading-animation-green 5s;
+      animation-fill-mode: forwards;
+    }
+
+    .two {
+      background-color: rgba($color: #000000, $alpha: .4);
+      animation: loading-animation-greenyellow 4s;
+      animation-delay: 1s;
+      animation-fill-mode: forwards;
+    }
+
+    .three {
+      background-color: rgba($color: #000000, $alpha: .4);
+      animation: loading-animation-yellow 3s;
+      animation-delay: 2s;
+      animation-fill-mode: forwards;
+    }
+
+    .four {
+      background-color: rgba($color: #000000, $alpha: .4);
+      animation: loading-animation-orange 2s;
+      animation-delay: 3s;
+      animation-fill-mode: forwards;
+    }
+
+    .five {
+      background-color: rgba($color: #000000, $alpha: .4);
+      animation: loading-animation-orangered 1s;
+      animation-delay: 4s;
+      animation-fill-mode: forwards;
+    }
+  }
+}
+
+@mixin loader-animation-mixin($animation-name, $color-start, $color-end) {
+  @keyframes #{$animation-name} {
+    0% {
+      background-color: $color-start;
+    }
+
+    100% {
+      background-color: $color-end;
+    }
+  }
+}
+
+@include loader-animation-mixin('loading-animation-green', rgba($color: #000000, $alpha: .4), green);
+@include loader-animation-mixin('loading-animation-greenyellow', rgba($color: #000000, $alpha: .4), greenyellow);
+@include loader-animation-mixin('loading-animation-yellow', rgba($color: #000000, $alpha: .4), yellow);
+@include loader-animation-mixin('loading-animation-orange', rgba($color: #000000, $alpha: .4), orange);
+@include loader-animation-mixin('loading-animation-orangered', rgba($color: #000000, $alpha: .4), orangered);
