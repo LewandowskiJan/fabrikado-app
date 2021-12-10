@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+
+import { Structure } from '../../models/structure';
+import { ShipyardService } from '../../services/shipyard.service';
 
 @Component({
   selector: 'app-shipyard',
   templateUrl: './shipyard.component.html',
-  styleUrls: ['./shipyard.component.scss']
+  styleUrls: ['./shipyard.component.scss'],
 })
-export class ShipyardComponent implements OnInit {
+export class ShipyardComponent {
+  public structures: Structure[] = this.shipyardService.shipyard;
+  public currentDetails: Structure | undefined;
 
-  constructor() { }
+  constructor(private shipyardService: ShipyardService) {}
 
-  ngOnInit(): void {
+  public selectDetails(details: Structure): void {
+    this.currentDetails = details;
   }
-
 }

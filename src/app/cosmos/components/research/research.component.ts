@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+
+import { Structure } from '../../models/structure';
+import { ResearchService } from '../../services/research.service';
 
 @Component({
   selector: 'app-research',
   templateUrl: './research.component.html',
-  styleUrls: ['./research.component.scss']
+  styleUrls: ['./research.component.scss'],
 })
-export class ResearchComponent implements OnInit {
+export class ResearchComponent {
+  public structures: Structure[] = this.researchService.research;
+  public currentDetails: Structure | undefined;
 
-  constructor() { }
+  constructor(private researchService: ResearchService) {}
 
-  ngOnInit(): void {
+  public selectDetails(details: Structure): void {
+    this.currentDetails = details;
   }
-
 }

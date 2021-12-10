@@ -1,0 +1,31 @@
+$shadow-color-blue-green: #009971;
+
+.info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas:
+    "details description";
+  margin: 0;
+  height: 100%;
+  color: lighten($color: $shadow-color-blue-green, $amount: 40);
+
+  .details {
+    grid-area: details;
+
+  }
+
+  .description {
+    grid-area: description;
+  }
+
+  .details,
+  .description {
+    margin: 10px;
+    padding: 5px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px 0px $shadow-color-blue-green;
+  }
+
+
+}

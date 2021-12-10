@@ -1,1 +1,32 @@
-<p>shipyard works!</p>
+<p>research works!</p>
+<app-market-container>
+  <app-structure
+    market-grid
+    *ngFor="let structureDetails of structures"
+    (selectEmitter)="selectDetails($event)"
+    [structureDetails]="structureDetails"
+  >
+  </app-structure>
+  <app-structure-details details-view [structureDetails]="currentDetails">
+    <app-market-element-details>
+      <div class="info">
+        <div class="details">
+          <p>name:</p>
+          <p>cost:</p>
+          <p>canBuild:</p>
+          <p>buildingTime:</p>
+        </div>
+        <div class="description">
+          <p>description:</p>
+        </div>
+      </div>
+
+      <app-button>
+        <button class="button">buy</button>
+      </app-button>
+      <app-button>
+        <button class="button">recycle</button>
+      </app-button>
+    </app-market-element-details>
+  </app-structure-details>
+</app-market-container>
