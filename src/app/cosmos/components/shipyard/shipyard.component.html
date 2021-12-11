@@ -9,14 +9,17 @@
   <app-structure-details details-view [structureDetails]="currentDetails">
     <app-market-element-details>
       <div class="info">
-        <div class="details">
-          <p>name:</p>
-          <p>cost:</p>
-          <p>canBuild:</p>
-          <p>buildingTime:</p>
+         <div class="details">
+          <p>name: {{ currentDetails?.name }}</p>
+          <p>
+            cost: d: {{ currentDetails?.cost?.d }} | k:
+            {{ currentDetails?.cost?.k }} | m: {{ currentDetails?.cost?.m }}
+          </p>
+          <p>canBuild: {{ currentDetails?.canBuild }}</p>
+          <p>buildingTime: {{ currentDetails?.buildingTime }}</p>
         </div>
         <div class="description">
-          <p>description:</p>
+          <p>description: {{ currentDetails?.description }}</p>
         </div>
       </div>
 
