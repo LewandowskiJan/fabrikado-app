@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-planet-3d',
@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./planet.component.scss'],
 })
 export class PlanetComponent {
-
+  @Input() size: number = 200;
 }

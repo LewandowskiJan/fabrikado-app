@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  ViewChild,
+} from '@angular/core';
 
 import { Sphere } from './../../model/sphere';
 import { Texture } from './../../model/texture';
@@ -9,14 +15,15 @@ import { Texture } from './../../model/texture';
   styleUrls: ['./planet-view.component.scss'],
 })
 export class PlanetViewComponent implements AfterViewInit {
+  @Input() width: number = 200;
+  @Input() height: number = 200;
+
   @ViewChild('planetCanvas', { static: false }) public planetCanvas:
     | ElementRef<HTMLCanvasElement>
     | undefined
     | any;
   public context: CanvasRenderingContext2D | undefined | null;
 
-  public width: number = 400;
-  public height: number = 400;
   public rotation: number = 0;
   public dots: any[] = [];
 
@@ -39,7 +46,7 @@ export class PlanetViewComponent implements AfterViewInit {
       this.setupCanvas();
       this.setupConst();
       if (this.context) {
-        this.sphere = new Sphere(this.context);
+        this.sphere = new Sphere(this.context, this.width, this.height);
 
         this.texture1 = new Texture(
           this.width / 2,
@@ -60,8 +67,8 @@ export class PlanetViewComponent implements AfterViewInit {
   }
 
   private setupCanvas(): void {
-    this.width = this.planetCanvas?.nativeElement.clientWidth;
-    this.height = this.planetCanvas?.nativeElement.clientHeight;
+    // this.width = this.planetCanvas?.nativeElement.clientWidth;
+    // this.height = this.planetCanvas?.nativeElement.clientHeight;
   }
 
   private setupConst() {

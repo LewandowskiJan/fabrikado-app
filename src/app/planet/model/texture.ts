@@ -43,12 +43,12 @@ export class Texture {
       this.context.fillStyle = grd;
     } else {
       grd = this.context.createRadialGradient(
-        100,
+        height / 5,
         height / 2,
-        200,
-        200,
+        (height / 5) * 2,
+        (height / 5) * 2,
         height / 2,
-        500
+        height
       );
 
       grd.addColorStop(0, 'rgba(150,150,150, .4)');
@@ -63,8 +63,8 @@ export class Texture {
   public update(isTexture: boolean = false): void {
     this.rotation += Math.PI / 360.0;
 
-    if (this.distance < 200) {
-      this.distance += 20;
+    if (this.distance < (this.x / 3) * 2) {
+      this.distance += this.x / 10;
     }
   }
 }

@@ -3,15 +3,24 @@ import { Point } from './point';
 export class Sphere {
   private points: Point[];
   private radius: number;
+  private width: number;
+  private height: number;
   private numberOfVertexes: number;
   private rotation: number;
   private distance: number;
   private context: CanvasRenderingContext2D;
 
-  constructor(context: CanvasRenderingContext2D, radius: number = 20.0) {
+  constructor(
+    context: CanvasRenderingContext2D,
+    width: number,
+    height: number,
+    radius: number = 20.0
+  ) {
     this.context = context;
     this.points = [];
     this.radius = radius;
+    this.width = width;
+    this.height = height;
     this.numberOfVertexes = 0;
 
     this.rotation = 0;
@@ -78,9 +87,9 @@ export class Sphere {
       if (x >= 0 && x < width) {
         if (y >= 0 && y < height) {
           if (p.z < 0) {
-            // p.draw(x, y, 1, 'rgba(100,100,100,0.3)');
+            // p.draw(x, y, 1, 'rgba(100,100,100,0.1)');
           } else {
-            p.draw(x, y, 1, 'rgb(220, 150, 100, 0.3)');
+            p.draw(x, y, 0.5, 'rgb(200, 200, 250, 0.1)');
           }
         }
       }
@@ -90,8 +99,8 @@ export class Sphere {
   public update(): void {
     this.rotation += Math.PI / 360.0;
 
-    if (this.distance < 1000) {
-      this.distance += 100;
+    if (this.distance < this.width * 2) {
+      this.distance += this.width / 5;
     }
   }
 }
