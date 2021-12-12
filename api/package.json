@@ -18,6 +18,8 @@
     "typescript": "^3.3.3"
   },
   "dependencies": {
-    "express": "^4.16.4"
+    "@types/socket.io": "^3.0.2",
+    "express": "^4.16.4",
+    "socket.io": "^4.4.0"
   }
 }
