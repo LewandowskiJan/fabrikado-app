@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
+import { PlanetModule } from '../planet/planet.module';
 import { LayoutModule } from './../layout/layout.module';
 import { AllianceComponent } from './components/alliance/alliance.component';
 import { BuildingsComponent } from './components/buildings/buildings.component';
@@ -35,6 +36,6 @@ import { CosmosRoutingModule } from './cosmos-routing.module';
     ShopComponent,
     PlanetRedirectComponent,
   ],
-  imports: [CommonModule, CosmosRoutingModule, LayoutModule],
+  imports: [CommonModule, CosmosRoutingModule, LayoutModule, PlanetModule],
 })
 export class CosmosModule {}
