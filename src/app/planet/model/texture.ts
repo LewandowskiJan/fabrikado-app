@@ -63,8 +63,8 @@ export class Texture {
   public update(isTexture: boolean = false): void {
     this.rotation += Math.PI / 360.0;
 
-    if (this.distance < (this.x / 3) * 2) {
-      this.distance += this.x / 10;
+    if (this.distance < (this.x * 2) / 3) {
+      this.distance += this.x / 15;
     }
   }
 }
