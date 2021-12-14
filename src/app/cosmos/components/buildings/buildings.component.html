@@ -24,7 +24,7 @@
       </div>
 
       <app-button>
-        <button class="button">buy</button>
+        <button class="button" (click)="onBuild()">buy</button>
       </app-button>
       <app-button>
         <button class="button">recycle</button>
@@ -32,3 +32,4 @@
     </app-market-element-details>
   </app-structure-details>
 </app-market-container>
+<p style="color: red">{{ buildings$ | async | json }}</p>
