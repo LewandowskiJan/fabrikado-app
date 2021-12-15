@@ -1,7 +1,7 @@
 <app-market-container>
   <app-structure
     market-grid
-    *ngFor="let structureDetails of structures"
+    *ngFor="let structureDetails of structures$ | async"
     (selectEmitter)="selectDetails($event)"
     [structureDetails]="structureDetails"
   >
@@ -9,7 +9,7 @@
   <app-structure-details details-view [structureDetails]="currentDetails">
     <app-market-element-details>
       <div class="info">
-         <div class="details">
+        <div class="details">
           <p>name: {{ currentDetails?.name }}</p>
           <p>
             cost: d: {{ currentDetails?.cost?.d }} | k:

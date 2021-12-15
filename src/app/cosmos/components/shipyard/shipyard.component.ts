@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { Observable } from 'rxjs';
+
 import { Structure } from '../../models/structure';
 import { ShipyardService } from '../../services/shipyard.service';
 
@@ -9,7 +11,7 @@ import { ShipyardService } from '../../services/shipyard.service';
   styleUrls: ['./shipyard.component.scss'],
 })
 export class ShipyardComponent {
-  public structures: Structure[] = this.shipyardService.shipyard;
+  public structures$: Observable<Structure[]> = this.shipyardService.shipyard$;
   public currentDetails: Structure | undefined;
 
   constructor(private shipyardService: ShipyardService) {}

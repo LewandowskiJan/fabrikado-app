@@ -18,6 +18,8 @@ import { StaffComponent } from './components/staff/staff.component';
 import { CosmosComponent } from './containers/cosmos/cosmos.component';
 import { PlanetComponent } from './containers/planet/planet.component';
 import { CosmosRoutingModule } from './cosmos-routing.module';
+import { GalaxyTableComponent } from './components/galaxy/galaxy-table/galaxy-table.component';
+import { GalaxyRowComponent } from './components/galaxy/galaxy-row/galaxy-row.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { CosmosRoutingModule } from './cosmos-routing.module';
     StaffComponent,
     ShopComponent,
     PlanetRedirectComponent,
+    GalaxyTableComponent,
+    GalaxyRowComponent,
   ],
   imports: [CommonModule, CosmosRoutingModule, LayoutModule, PlanetModule],
 })

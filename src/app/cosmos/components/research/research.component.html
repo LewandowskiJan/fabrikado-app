@@ -1,7 +1,7 @@
 <app-market-container>
   <app-structure
     market-grid
-    *ngFor="let structureDetails of structures"
+    *ngFor="let structureDetails of structures$ | async"
     (selectEmitter)="selectDetails($event)"
     [structureDetails]="structureDetails"
   >

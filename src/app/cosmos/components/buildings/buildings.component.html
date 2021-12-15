@@ -19,12 +19,16 @@
           <p>buildingTime: {{ currentDetails?.buildingTime }}</p>
         </div>
         <div class="description">
+          <p>{{ itemsCount }}</p>
+          <p>{{ itemsCount1 }}</p>
+          <p>{{ structures$1 | async }}</p>
+
           <p>description: {{ currentDetails?.description }}</p>
         </div>
       </div>
 
       <app-button>
-        <button class="button">buy</button>
+        <button class="button" (click)="buy()">buy</button>
       </app-button>
       <app-button>
         <button class="button">recycle</button>

@@ -1,0 +1,83 @@
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.planet-position {
+  width: 20px;
+  height: 20px;
+  border-radius: 5%;
+  margin-right: 2px;
+  margin-left: 20px;
+  background-color: rgb(255, 255, 255);
+  align-self: center;
+
+}
+
+.planet-pic {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 2px;
+  margin-left: 2px;
+  background-color: rgba(90, 89, 89, 0.363);
+  align-self: center;
+}
+
+.planet-name,
+.player-name {
+  width: 120px;
+  height: 20px;
+  border-radius: 15%;
+  margin-right: 2px;
+  margin-left: 2px;
+  background-color: rgb(255, 255, 255);
+  align-self: center;
+}
+
+.moon-pic {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 2px;
+  margin-left: 2px;
+  background-color: rgba(163, 163, 163, 0.541);
+  align-self: center;
+
+}
+
+.debris-field {
+  width: 20px;
+  height: 20px;
+  border-radius: 30%;
+  margin-right: 2px;
+  margin-left: 2px;
+  background-color: rgb(255, 255, 255);
+  align-self: center;
+}
+
+.alliance {
+  width: 80px;
+  height: 20px;
+  border-radius: 15%;
+  margin-right: 2px;
+  margin-left: 2px;
+  background-color: rgb(255, 255, 255);
+  align-self: center;
+}
+
+.action-bar1,
+.action-bar2,
+.action-bar3 {
+  width: 15px;
+  height: 15px;
+  border-radius: 10%;
+  margin-right: 2px;
+  margin-left: 2px;
+  background-color: rgb(255, 255, 255);
+  align-self: center;
+}
+
+.lol {
+  text-align: center;
+}
