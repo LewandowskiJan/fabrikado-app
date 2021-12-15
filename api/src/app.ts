@@ -6,7 +6,7 @@ import { defaultErrorHandler } from './handlers/default-error-handler';
 import { logErrors } from './handlers/log-error';
 
 import { Server } from 'socket.io';
-import { setupSocketConfiguration } from './sockets/config/socket.configuration';
+import { Game } from './models/class/game';
 
 const app: Express = express();
 const server: http.Server = http.createServer(app);
@@ -21,10 +21,8 @@ app.get('/', (request: Request, response: Response) => {
   response.send('Works');
 });
 
-setupSocketConfiguration(io);
+Game.startGame(io);
 
 server.listen(port, () => {
   return console.log(`server is listening on ${port}`);
 });
-
-// io.attach(server);

@@ -1,7 +1,7 @@
 <app-market-container>
   <app-structure
     market-grid
-    *ngFor="let structureDetails of structures"
+    *ngFor="let structureDetails of structures$ | async"
     (selectEmitter)="selectDetails($event)"
     [structureDetails]="structureDetails"
   >
@@ -19,16 +19,12 @@
           <p>buildingTime: {{ currentDetails?.buildingTime }}</p>
         </div>
         <div class="description">
-          <p>{{ itemsCount }}</p>
-          <p>{{ itemsCount1 }}</p>
-          <p>{{ structures$1 | async }}</p>
-
           <p>description: {{ currentDetails?.description }}</p>
         </div>
       </div>
 
       <app-button>
-        <button class="button" (click)="buy()">buy</button>
+        <button class="button" (click)="onBuild()">buy</button>
       </app-button>
       <app-button>
         <button class="button">recycle</button>
@@ -36,3 +32,6 @@
     </app-market-element-details>
   </app-structure-details>
 </app-market-container>
+<p style="color: red" *ngFor="let build of buildings$ | async">
+  {{ build | json }}
+</p>
