@@ -1,23 +1,51 @@
-<div class="overview">
-  <div class="description">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus
-    accusantium delectus reiciendis tenetur, maxime consequuntur porro iure hic
-    minima vel doloribus officia facere ducimus ullam quod sint vero animi quia.
-  </div>
-  <div class="planet">
-    <app-planet-3d [size]="200"></app-planet-3d>
+<ng-container *ngIf="planet$ | async as planet">
+  <div class="overview">
+    <div class="description">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus
+      accusantium delectus reiciendis tenetur, maxime consequuntur porro iure
+      hic minima vel doloribus officia facere ducimus ullam quod sint vero animi
+      quia.
+    </div>
+    <div class="planet">
+      <app-planet-3d [size]="200"></app-planet-3d>
 
-    <div class="sources">
-      <p>Energy: 1000</p>
-      <p>Iron: 1000</p>
+      <div class="sources">
+        <ng-container *ngIf="resources$ | async as resources">
+          <p>metal: {{ resources.metal }}</p>
+          <p>crystal: {{ resources.crystal }}</p>
+          <p>deuterium: {{ resources.deuterium }}</p>
+          <p>energy: {{ resources.energy }}</p>
+        </ng-container>
+      </div>
+    </div>
+    <div class="line-1"></div>
+    <div class="line-2"></div>
+    <div class="line-3"></div>
+    <div class="line-4"></div>
+
+    <div class="details details-1">
+      <p>Name: {{ planet.name }}</p>
+      <p>
+        Coordinates [{{ planet.coordinates.galacticIndex }}:{{
+          planet.coordinates.solarSystemIndex
+        }}:{{ planet.coordinates.planetIndex }}]
+      </p>
+      <p></p>
+    </div>
+    <div class="details details-2">
+      <p>Size</p>
+      <p>{{ planet.size }}</p>
+    </div>
+    <div class="details details-3">
+      <p>Resources potential</p>
+      <p>Crystal: {{ planet.crystal }} | Deuterium: {{ planet.deuterium }}</p>
+    </div>
+    <div class="details details-4">
+      <p>Temperature</p>
+      <p>
+        min: {{ planet.minTemperature }}C - max: {{ planet.maxTemperature }}C |
+        avg: {{ planet.averageTemperature }}C
+      </p>
     </div>
   </div>
-  <div class="line-1"></div>
-  <div class="line-2"></div>
-  <div class="line-3"></div>
-  <div class="line-4"></div>
-  <div class="details details-1">Name: Nebula</div>
-  <div class="details details-2">Type: frozen</div>
-  <div class="details details-3">Population: 3200000</div>
-  <div class="details details-4">Buildings: 1200000</div>
-</div>
+</ng-container>

@@ -56,8 +56,32 @@
             "groups": [
               ["^@angular*"],
               ["^rxjs*"],
+              ["^ngx*"],
               ["^@*"],
               ["^@src*"],
+              ["^@domain"],
+              ["^\\."],
+              ["^"]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["api/src/**/*.ts"],
+      "parserOptions": {
+        "project": ["./api/tsconfig.json"],
+        "createDefaultProgram": true
+      },
+      "rules": {
+        "simple-import-sort/imports": [
+          "error",
+          {
+            "groups": [
+              ["^@*"],
+              ["^@src*"],
+              ["^@domain"],
+              ["^@game"],
               ["^\\."],
               ["^"]
             ]
@@ -110,7 +134,8 @@
             "variableDeclaration": true,
             "variableDeclarationIgnoreFunction": true
           }
-        ]
+        ],
+        "max-len": ["error", { "code": 160 }]
       }
     }
   ]

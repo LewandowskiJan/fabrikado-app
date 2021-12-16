@@ -2,6 +2,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@domain/*": ["./../src/app/domain/*"],
+      "@game/*": ["./src/game/*"],
       "@src/*": ["./src/*"]
     },
     "module": "commonjs",

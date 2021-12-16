@@ -32,4 +32,6 @@
     </app-market-element-details>
   </app-structure-details>
 </app-market-container>
-<p style="color: red">{{ buildings$ | async | json }}</p>
+<p style="color: red" *ngFor="let build of buildings$ | async">
+  {{ build | json }}
+</p>

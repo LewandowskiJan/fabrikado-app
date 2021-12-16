@@ -1,16 +1,16 @@
 import express from 'express';
-import http from 'http';
 import { Express, Request, Response } from 'express';
+import http from 'http';
+import { Server } from 'socket.io';
 
+import { Game } from './game/game';
 import { defaultErrorHandler } from './handlers/default-error-handler';
 import { logErrors } from './handlers/log-error';
-
-import { Server } from 'socket.io';
-import { Game } from './models/class/game';
+import { ClientEvents } from './sockets/configuration/socket-event.map';
+import { SocketSetup } from './sockets/configuration/socket-setup';
 
 const app: Express = express();
 const server: http.Server = http.createServer(app);
-const io: Server<any> = new Server(server);
 
 const port: number = 3000;
 
@@ -21,6 +21,7 @@ app.get('/', (request: Request, response: Response) => {
   response.send('Works');
 });
 
+const io: Server<ClientEvents, ClientEvents> = SocketSetup.setup(server);
 Game.startGame(io);
 
 server.listen(port, () => {

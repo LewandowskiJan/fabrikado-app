@@ -15,6 +15,7 @@ import { ShopComponent } from './components/shop/shop.component';
 import { StaffComponent } from './components/staff/staff.component';
 import { CosmosComponent } from './containers/cosmos/cosmos.component';
 import { PlanetComponent } from './containers/planet/planet.component';
+import { PlanetResolver } from './resolvers/planet.resolver';
 
 const routes: Routes = [
   {
@@ -26,6 +27,9 @@ const routes: Routes = [
         path: 'planet/:id',
         component: PlanetComponent,
         data: { animation: '1' },
+        resolve: {
+          planet: PlanetResolver,
+        },
         children: [
           { path: '', redirectTo: 'overview', pathMatch: 'full' },
           {

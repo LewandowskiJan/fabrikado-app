@@ -53,6 +53,8 @@ $shadow-color-blue-green: #009971;
       border: 2px solid $shadow-color-blue-green;
       padding: 5px 20px;
       gap: 10px;
+      min-height: 80px;
+      min-width: 300px;
     }
   }
 

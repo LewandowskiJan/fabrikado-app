@@ -1,12 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+
+import { Observable } from 'rxjs';
+
+import { Resource } from '@src/app/models/resource';
+import { SocketService } from '@src/app/services/socket.service';
+
+import { PlanetSocketData } from './../../../domain/endpoints/planet/planet-data';
+import { PlanetService } from './../../services/planet.service';
 
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.scss'],
 })
-export class OverviewComponent implements OnInit {
-  constructor() {}
+export class OverviewComponent {
+  public resources$: Observable<Resource> = this.socketService.onFetchSources();
+  public planet$: Observable<PlanetSocketData> =
+    this.socketService.onFetchPlanet();
 
-  ngOnInit(): void {}
+  constructor(
+    private socketService: SocketService,
+    private planetService: PlanetService
+  ) {
+    this.socketService.preparePlanet(this.planetService.planetId);
+  }
 }

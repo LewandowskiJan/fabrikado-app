@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { Building } from 'api/src/models/class/building';
 import { BuildingType } from 'src/app/models/buildingType';
 import { SocketService } from 'src/app/services/socket.service';
+
+import { Building } from '@src/app/models/building';
 
 import { Structure } from '../../models/structure';
 import { BuildingsService } from '../../services/buildings.service';
@@ -31,6 +32,6 @@ export class BuildingsComponent {
   }
 
   public onBuild(): void {
-    this.socketService.onBuild(BuildingType.SHIPYARD);
+    this.socketService.onBuild(BuildingType.METAL_MINE);
   }
 }
