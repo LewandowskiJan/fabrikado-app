@@ -16,7 +16,7 @@ import { BuildingsService } from '../../services/buildings.service';
   styleUrls: ['./buildings.component.scss'],
 })
 export class BuildingsComponent {
-  public structures: Structure[] = this.buildingsService.structures;
+  public structures$: Observable<Structure[]> = this.buildingsService.structures$;
   public currentDetails: Structure | undefined;
   public buildings$: Observable<Building[]>;
 

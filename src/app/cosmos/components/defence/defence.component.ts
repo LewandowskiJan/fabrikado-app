@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { Observable } from 'rxjs';
+
 import { Structure } from '../../models/structure';
 import { DefenceService } from '../../services/defence.service';
 
@@ -9,7 +11,7 @@ import { DefenceService } from '../../services/defence.service';
   styleUrls: ['./defence.component.scss'],
 })
 export class DefenceComponent {
-  public structures: Structure[] = this.defenceService.defence;
+  public structures$: Observable<Structure[]> = this.defenceService.defence$;
   public currentDetails: Structure | undefined;
 
   constructor(private defenceService: DefenceService) {}
