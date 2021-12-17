@@ -8,6 +8,8 @@ import { BuildingsComponent } from './components/buildings/buildings.component';
 import { DefenceComponent } from './components/defence/defence.component';
 import { FleetComponent } from './components/fleet/fleet.component';
 import { GalaxyComponent } from './components/galaxy/galaxy.component';
+import { GalaxyRowComponent } from './components/galaxy/galaxy-row/galaxy-row.component';
+import { GalaxyTableComponent } from './components/galaxy/galaxy-table/galaxy-table.component';
 import { MarketComponent } from './components/market/market.component';
 import { OverviewComponent } from './components/overview/overview.component';
 import { PlanetRedirectComponent } from './components/planet-redirect/planet-redirect.component';
@@ -18,8 +20,6 @@ import { StaffComponent } from './components/staff/staff.component';
 import { CosmosComponent } from './containers/cosmos/cosmos.component';
 import { PlanetComponent } from './containers/planet/planet.component';
 import { CosmosRoutingModule } from './cosmos-routing.module';
-import { GalaxyTableComponent } from './components/galaxy/galaxy-table/galaxy-table.component';
-import { GalaxyRowComponent } from './components/galaxy/galaxy-row/galaxy-row.component';
 
 @NgModule({
   declarations: [

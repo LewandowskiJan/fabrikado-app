@@ -1,15 +1,16 @@
 import { Server, Socket } from 'socket.io';
+import { ExtendedError } from 'socket.io/dist/namespace';
 
 import { BuildingType } from '@game/planet/building/buildingType';
 
 import { fetchBuildings } from '../sockets/components/buildings/buildings.socket';
 import { AllEvents } from '../sockets/configuration/socket-event.map';
 import { Coordinates } from './coordinates/coordinates';
-import { CoordinatesUtil } from './coordinates/coordinates.util';
 import { Galaxy } from './galaxy/galaxy';
 import { GameConfiguration } from './game-configuration';
 import { PlanetFactory } from './planet/factory/planet.factory';
 import { Planet } from './planet/planet';
+import { PlanetSearch } from './planet/util/planet-search.util';
 import { SolarSystem } from './solar-system/solar-system';
 
 export class Game {
@@ -31,16 +32,21 @@ export class Game {
     this.setupInterval();
   }
 
+  public static getPlanetByCoordinates(coordinates: Coordinates): Planet {
+    const createdIndexFromCoordinates: number =
+      PlanetSearch.searchPlanetIndexByCoordinatesAndGameConfiguration(
+        coordinates,
+        this.gameConfiguration
+      );
+
+    return Game.planets[createdIndexFromCoordinates];
+  }
+
   public static updateBuilding(
     planetCoordinate: Coordinates,
     buildingType: BuildingType
   ): void {
-    this.planets
-      .find((planet: Planet) => {
-        console.log(planet);
-        return CoordinatesUtil.compare(planet.coordinates, planetCoordinate);
-      })
-      .upgradeBuilding(buildingType);
+    Game.getPlanetByCoordinates(planetCoordinate).upgradeBuilding(buildingType);
   }
 
   private static setupConfiguration(): void {
@@ -48,45 +54,79 @@ export class Game {
   }
 
   private static setupSocket(): void {
-    this.io.on('connection', (socket: Socket<AllEvents, AllEvents>) => {
-      console.log('A user connected');
+    this.io
+      .use(
+        (
+          socket: Socket<AllEvents, AllEvents>,
+          next: (err?: ExtendedError) => void
+        ) => {
+          if (Game.checkAuthorization(socket)) {
+            next();
+          } else {
+            next(new Error('Authentication error'));
+          }
+        }
+      )
 
-      socket.on('disconnect', () => {
-        console.log('A user disconnected');
-      });
+      .on('connection', (socket: Socket<AllEvents, AllEvents>) => {
+        console.log('A user connected');
 
-      socket.on('add:building', (buildingType: BuildingType) =>
-        Game.updateBuilding(
-          { planetIndex: 1, galacticIndex: 1, solarSystemIndex: 1 },
-          buildingType
-        )
-      );
+        socket.on('disconnect', () => {
+          console.log('A user disconnected');
+        });
 
-      socket.on('fetchBuildings', () =>
-        fetchBuildings(this.io, this.planets[0].buildings)
-      );
+        socket.on('add:building', (buildingType: BuildingType) =>
+          Game.updateBuilding(
+            { planetIndex: 1, galacticIndex: 1, solarSystemIndex: 1 },
+            buildingType
+          )
+        );
 
-      socket.on('prepare:planet', (id: string) => {
-        Game.currentId = id;
-      });
+        socket.on('fetchBuildings', () =>
+          fetchBuildings(this.io, this.planets[0].buildings)
+        );
 
-      socket.on('read:planet', () => {
-        const planet: Planet = Game.planets.find((planet: Planet) =>
-          CoordinatesUtil.compare(planet.coordinates, {
-            planetIndex: +Game.currentId,
+        socket.on('prepare:planet', (id: string) => {
+          Game.currentId = id;
+        });
+
+        socket.on('read:planet', () => {
+          const planet: Planet = Game.getPlanetByCoordinates({
             galacticIndex: 1,
             solarSystemIndex: 1,
-          })
-        );
-        console.log(planet);
-        this.io.emit('read:planet', planet.getData());
-      });
+            planetIndex: +Game.currentId,
+          });
 
-      socket.on('fetchSource', () => {
-        console.log('fetchSource');
-        this.io.emit('fetchSource', { metal: 50 });
+          if (planet) {
+            this.io.emit('read:planet', planet.getData());
+            this.io.emit('error:planet', undefined);
+          } else {
+            this.io.emit('error:planet', 'no planet on given coordinates');
+          }
+        });
+
+        socket.on('fetchSource', () => {
+          this.io.emit('fetchSource', { metal: 50 });
+        });
       });
-    });
+  }
+
+  private static checkAuthorization(
+    socket: Socket<AllEvents, AllEvents>
+  ): boolean {
+    if (socket.handshake.query && socket.handshake.query.token) {
+      // jwt.verify(
+      //   socket.handshake.query.token,
+      //   'SECRET_KEY',
+      //   (err, decoded) => {
+      //     if (err) return next(new Error('Authentication error'));
+      //     socket.decoded = decoded;
+      //     next();
+      //   }
+      // );
+      return true;
+    }
+    return false;
   }
 
   private static setupInterval(): void {

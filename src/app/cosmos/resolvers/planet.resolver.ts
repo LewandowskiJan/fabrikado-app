@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  Resolve,
-  RouterStateSnapshot,
+  Resolve
 } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
 
-import { SocketService } from 'src/app/services/socket.service';
+import { SocketPlanetService } from 'src/app/services/socket.service';
 
 import { PlanetService } from './../services/planet.service';
 
@@ -16,7 +15,7 @@ import { PlanetService } from './../services/planet.service';
 })
 export class PlanetResolver implements Resolve<boolean> {
   constructor(
-    private socketService: SocketService,
+    private socketService: SocketPlanetService,
     private planetService: PlanetService
   ) {}
 

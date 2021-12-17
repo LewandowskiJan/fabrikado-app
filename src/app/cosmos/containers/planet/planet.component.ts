@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 
 import { fadeInAnimation } from '../../animation';
-import { PlanetSocketData } from './../../../domain/endpoints/planet/planet-data';
-import { PlanetService } from './../../services/planet.service';
 
 @Component({
   selector: 'app-planet',

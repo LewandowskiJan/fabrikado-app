@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { BuildingType } from 'src/app/models/buildingType';
-import { SocketService } from 'src/app/services/socket.service';
+import { SocketPlanetService } from 'src/app/services/socket.service';
 
 import { Building } from '@src/app/models/building';
 
@@ -22,7 +22,7 @@ export class BuildingsComponent {
 
   constructor(
     private buildingsService: BuildingsService,
-    private socketService: SocketService
+    private socketService: SocketPlanetService
   ) {
     this.buildings$ = this.socketService.onFetchBuildings();
   }

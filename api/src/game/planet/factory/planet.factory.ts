@@ -43,6 +43,7 @@ export class PlanetFactory {
         coordinates.planetIndex
       );
 
+    // todo: test only
     let playerId: string;
     if (
       coordinates.galacticIndex === 1 &&
@@ -59,6 +60,7 @@ export class PlanetFactory {
     ) {
       playerId = '1';
     }
+    // remove under
 
     const planetInitialData: PlanetData = {
       playerId,

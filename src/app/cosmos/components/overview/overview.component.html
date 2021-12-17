@@ -1,3 +1,6 @@
+<ng-container *ngIf="error$ | async as error">
+  <div style="color: red">{{ error }}</div>
+</ng-container>
 <ng-container *ngIf="planet$ | async as planet">
   <div class="overview">
     <div class="description">

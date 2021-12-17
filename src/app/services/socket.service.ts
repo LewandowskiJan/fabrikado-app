@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 
-import { Socket } from 'ngx-socket-io';
-
+import { SocketService } from '../domain/services/socket.service';
 import { Building } from '../models/building';
 import { BuildingType } from '../models/buildingType';
 import { Resource } from '../models/resource';
@@ -13,36 +11,37 @@ import { PlanetSocketData } from './../domain/endpoints/planet/planet-data';
 @Injectable({
   providedIn: 'root',
 })
-export class SocketService {
-  constructor(private socket: Socket) {}
+export class SocketPlanetService {
+  constructor(private socketService: SocketService) {}
 
   // emit event
   public fetchSources(): void {
-    this.socket.emit('fetchSource');
+    this.socketService.sendToEvent('fetchSource');
   }
 
   public preparePlanet(id: string): void {
-    this.socket.emit('prepare:planet', id);
-    this.socket.emit('read:planet');
+    this.socketService.sendToEvent('prepare:planet', id);
+    this.socketService.sendToEvent('read:planet');
   }
   public onFetchPlanet(): Observable<PlanetSocketData> {
-    return this.socket.fromEvent<PlanetSocketData>('read:planet');
+    return this.socketService.listeningOnEvent<PlanetSocketData>('read:planet');
   }
 
-  // listen event
+  public planetErrorListener(): Observable<string> {
+    return this.socketService.listeningOnEvent<string>('error:planet');
+  }
+
   public onFetchSources(): Observable<Resource> {
-    return this.socket.fromEvent<Resource>('fetchSource');
+    return this.socketService.listeningOnEvent<Resource>('fetchSource');
   }
 
   public onBuild(buildingType: BuildingType): void {
-    this.socket.emit('add:building', buildingType);
+    this.socketService.sendToEvent('add:building', buildingType);
     this.onFetchBuildings();
   }
 
   public onFetchBuildings(): Observable<Building[]> {
-    this.socket.emit('fetchBuildings');
-    return this.socket
-      .fromEvent<Building[]>('fetchBuildings')
-      .pipe(tap(console.log));
+    this.socketService.sendToEvent('fetchBuildings');
+    return this.socketService.listeningOnEvent<Building[]>('fetchBuildings');
   }
 }

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Resource } from '@src/app/models/resource';
-import { SocketService } from '@src/app/services/socket.service';
+import { SocketPlanetService } from '@src/app/services/socket.service';
 
 import { PlanetSocketData } from './../../../domain/endpoints/planet/planet-data';
 import { PlanetService } from './../../services/planet.service';
@@ -15,11 +15,13 @@ import { PlanetService } from './../../services/planet.service';
 })
 export class OverviewComponent {
   public resources$: Observable<Resource> = this.socketService.onFetchSources();
+  public error$: Observable<string> =
+    this.socketService.planetErrorListener();
   public planet$: Observable<PlanetSocketData> =
     this.socketService.onFetchPlanet();
 
   constructor(
-    private socketService: SocketService,
+    private socketService: SocketPlanetService,
     private planetService: PlanetService
   ) {
     this.socketService.preparePlanet(this.planetService.planetId);
