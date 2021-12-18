@@ -145,7 +145,7 @@ export class Game {
           }
           planet.upgradeResources();
         });
-        this.io.emit('fetchSource', this.planetsDiscovered[0].resources);
+        this.io.emit('resource:listen', this.planetsDiscovered[0].resources);
         fetchBuildings(this.io, this.planetsDiscovered[0].buildings);
       }, 1_000);
     }

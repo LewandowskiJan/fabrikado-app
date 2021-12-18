@@ -11,15 +11,7 @@
     </div>
     <div class="planet">
       <app-planet-3d [size]="200"></app-planet-3d>
-
-      <div class="sources">
-        <ng-container *ngIf="resources$ | async as resources">
-          <p>metal: {{ resources.metal }}</p>
-          <p>crystal: {{ resources.crystal }}</p>
-          <p>deuterium: {{ resources.deuterium }}</p>
-          <p>energy: {{ resources.energy }}</p>
-        </ng-container>
-      </div>
+      <app-resources class="sources"></app-resources>
     </div>
     <div class="line-1"></div>
     <div class="line-2"></div>

@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 
+import { Observable, of } from 'rxjs';
+
 import { Building } from '@src/app/models/building';
 
 @Component({
@@ -8,5 +10,6 @@ import { Building } from '@src/app/models/building';
   styleUrls: ['./structure-details.component.scss'],
 })
 export class StructureDetailsComponent {
-  @Input() public buildingDetails: Building | undefined | null;
+  @Input() public buildingDetails$: Observable<Building | undefined> =
+    of(undefined);
 }

@@ -1,0 +1,20 @@
+<app-market-container>
+  <app-structure-details details-view [buildingDetails$]="currentMine$">
+    <app-market-element-details *ngIf="currentMine$ | async as mine">
+      <app-mine-detail class="info" [mine]="mine"></app-mine-detail>
+      <app-button>
+        <button class="button" (click)="onBuild(mine.type)">buy</button>
+      </app-button>
+      <app-button>
+        <button class="button">recycle</button>
+      </app-button>
+    </app-market-element-details>
+  </app-structure-details>
+  <app-structure
+    market-grid
+    *ngFor="let mine of mines$ | async"
+    (selectEmitter)="selectDetails($event)"
+    [building]="mine"
+  >
+  </app-structure>
+</app-market-container>

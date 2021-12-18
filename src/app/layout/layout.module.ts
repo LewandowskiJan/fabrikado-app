@@ -15,6 +15,7 @@ import { DashboardComponent } from './containers/dashboard/dashboard.component';
 import { LayoutComponent } from './containers/layout/layout.component';
 import { MarketContainerComponent } from './containers/market-container/market-container.component';
 import { PlanetContainerComponent } from './containers/planet-container/planet-container.component';
+import { ResourcesModule } from './modules/resources/resources.module';
 
 @NgModule({
   declarations: [
@@ -33,8 +34,9 @@ import { PlanetContainerComponent } from './containers/planet-container/planet-c
     DiodeComponent,
     LoaderComponent,
   ],
-  imports: [CommonModule],
+  imports: [CommonModule, ResourcesModule],
   exports: [
+    ResourcesModule,
     PlanetContainerComponent,
     ButtonComponent,
     DashboardComponent,

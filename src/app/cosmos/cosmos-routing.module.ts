@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AllianceComponent } from './components/alliance/alliance.component';
-import { BuildingsComponent } from './components/buildings/buildings.component';
 import { DefenceComponent } from './components/defence/defence.component';
 import { FleetComponent } from './components/fleet/fleet.component';
 import { GalaxyComponent } from './components/galaxy/galaxy.component';
@@ -15,6 +14,7 @@ import { ShopComponent } from './components/shop/shop.component';
 import { StaffComponent } from './components/staff/staff.component';
 import { CosmosComponent } from './containers/cosmos/cosmos.component';
 import { PlanetComponent } from './containers/planet/planet.component';
+import { MineComponent } from './modules/building/mine/container/mine/mine.component';
 import { PlanetResolver } from './resolvers/planet.resolver';
 
 const routes: Routes = [
@@ -39,7 +39,7 @@ const routes: Routes = [
           },
           {
             path: 'buildings',
-            component: BuildingsComponent,
+            component: MineComponent,
             data: { animation: 'Buildings' },
           },
           {

@@ -49,9 +49,9 @@ export class Planet extends PlanetAbstract {
     this.size = planetInitialData.size;
 
     this.resources = {
-      metal: 100,
-      crystal: 100,
-      deuterium: 100,
+      metal: 50,
+      crystal: 50,
+      deuterium: 50,
       energy: 100,
     };
 

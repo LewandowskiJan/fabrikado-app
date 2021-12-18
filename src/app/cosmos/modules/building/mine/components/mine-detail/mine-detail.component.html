@@ -1,0 +1,11 @@
+<div class="info" *ngIf="mine">
+  <div class="details">
+    <p>name: {{ mine.name }}</p>
+    <p>cost: {{ mine.nextLevelCosts | json }}</p>
+    <p>upgradingTime: {{ mine.upgradingTimeLeft }}</p>
+    <p>level: {{ mine.level }}</p>
+  </div>
+  <div class="description">
+    <p>mining: {{ mine.miningResource | json }}</p>
+  </div>
+</div>

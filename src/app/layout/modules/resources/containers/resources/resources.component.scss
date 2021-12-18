@@ -1,0 +1,21 @@
+$shadow-color-blue-green: #009971;
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 10px;
+
+  .panel {
+    display: flex;
+    justify-content: center;
+    color: $shadow-color-blue-green;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: inset 0px 0px 10px 5px black;
+    background-color: #353535;
+    border: 2 px solid $shadow-color-blue-green;
+    min-width: 360px;
+  }
+}

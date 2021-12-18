@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="panel">
+    <div class="stats" *ngIf="resource$ | async as resource; else loading">
+      <span>m: {{ resource.metal | numberDisplay }} |</span>
+      <span> c: {{ resource.crystal | numberDisplay }} |</span>
+      <span> d: {{ resource.deuterium | numberDisplay }} |</span>
+      <span> e: {{ resource.energy | numberDisplay }}</span>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="loader">...loading</div>
+</ng-template>
