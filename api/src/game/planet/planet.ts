@@ -1,13 +1,15 @@
+import { OnUpdateCost } from '@game/building/building-type/building.abstract';
 import { Coordinates } from '@game/coordinates/coordinates';
 
-import { Building } from './building/building';
-import { BuildingType } from './building/buildingType';
+import { BuildingType } from '../building/configuration/buildingType';
+import { Building } from './../building/building';
 import { PlanetData } from './factory/planet.factory';
 import { PlanetAbstract } from './planet.abstract';
 import { Resource } from './resources/resource';
+import { ResourcesUtil } from './resources/resources-util';
 
 export class Planet extends PlanetAbstract {
-  public playerId: string;
+  public playerId: string | undefined;
   public name: string;
   public coordinates: Coordinates;
   public size: number;
@@ -27,6 +29,8 @@ export class Planet extends PlanetAbstract {
 
   public buildings: Building[] = [];
 
+  public onUpgradeBuilding: Building[] = [];
+
   constructor(planetInitialData: PlanetData) {
     super();
 
@@ -45,33 +49,72 @@ export class Planet extends PlanetAbstract {
     this.size = planetInitialData.size;
 
     this.resources = {
-      metal: 0,
-      crystal: 0,
-      deuterium: 0,
-      energy: 0,
+      metal: 100,
+      crystal: 100,
+      deuterium: 100,
+      energy: 100,
     };
 
     this.miningForce = {
-      metal: 10,
-      crystal: 10,
-      deuterium: 10,
-      energy: 10,
+      metal: 1,
+      crystal: 1,
+      deuterium: 1,
+      energy: 1,
     };
   }
 
   public upgradeResources(): void {
-    this.resources.crystal += this.miningForce.crystal;
-    this.resources.metal += this.miningForce.metal;
-    this.resources.deuterium += this.miningForce.deuterium;
-    this.resources.energy += this.miningForce.energy;
+    this.resources.crystal += Math.ceil(this.miningForce.crystal);
+    this.resources.metal += Math.ceil(this.miningForce.metal);
+    this.resources.deuterium += Math.ceil(this.miningForce.deuterium);
+    this.resources.energy += Math.ceil(this.miningForce.energy);
   }
 
   public upgradeBuilding(buildingType: BuildingType): void {
-    this.buildings
-      .find((building: Building) => {
-        return building.type === buildingType;
-      })
-      .upgrade();
+    const building: Building = this.buildings.find((building: Building) => {
+      return building.type === buildingType && !building.onNextLevelUpgrade;
+    });
+
+    if (!building) {
+      return;
+    }
+
+    const onUpdateCost: OnUpdateCost | undefined = building.upgrade(
+      this.resources,
+      this.buildings
+    );
+
+    if (onUpdateCost) {
+      this.resources = ResourcesUtil.decreaseResourceByResource(
+        this.resources,
+        onUpdateCost.buildingCost
+      );
+      this.onUpgradeBuilding.push(building);
+    }
+  }
+
+  public decrementBuildingUpdateTime(): void {
+    this.onUpgradeBuilding.forEach((building: Building) => {
+      if (building.decrementUpgradeTime()) {
+        building.finishUpdate();
+        this.upgradeMiningForce(building);
+
+        this.onUpgradeBuilding = this.onUpgradeBuilding.filter(
+          (currentBuilding: Building) => currentBuilding.type !== building.type
+        );
+      }
+    });
+  }
+
+  private upgradeMiningForce(building: Building): void {
+    const miningResource: Partial<Resource> = building.miningResource;
+
+    if (miningResource.metal === 0) delete miningResource.metal;
+    if (miningResource.crystal === 0) delete miningResource.crystal;
+    if (miningResource.deuterium === 0) delete miningResource.deuterium;
+    if (miningResource.energy === 0) delete miningResource.energy;
+
+    this.miningForce = { ...this.miningForce, ...miningResource };
   }
 
   public getData(): PlanetData {

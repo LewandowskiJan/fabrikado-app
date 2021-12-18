@@ -1,24 +1,16 @@
+import { BuildingType } from './building/configuration/buildingType';
+
 export const gameConfigurationMap: Map<string, string> = new Map([['1', '1']]);
 
-export enum BuildingType {
-  CRYSTAL_MINE = 'CRYSTAL_MINE',
-  DEUTERIUM_SYNTHESIZER = 'DEUTERIUM_SYNTHESIZER',
-  METAL_MINE = 'METAL_MINE',
-}
-
-export interface BaseCost {
+export interface Cost {
   metal: number;
   crystal: number;
   deuterium: number;
   energy: number;
 }
 
-export interface ResourceProduction {
-  metal: number;
-  crystal: number;
-  deuterium: number;
-  energy: number;
-}
+export type BaseCost = Cost;
+export type ResourceProduction = Cost;
 
 export interface GameConfig {
   galaxyNumber: number;

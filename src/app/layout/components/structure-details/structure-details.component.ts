@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Structure } from 'src/app/cosmos/models/structure';
+import { Building } from '@src/app/models/building';
 
 @Component({
   selector: 'app-structure-details',
@@ -8,5 +8,5 @@ import { Structure } from 'src/app/cosmos/models/structure';
   styleUrls: ['./structure-details.component.scss'],
 })
 export class StructureDetailsComponent {
-  @Input() public structureDetails: Structure | undefined;
+  @Input() public buildingDetails: Building | undefined | null;
 }

@@ -1,10 +1,9 @@
 import { Server, Socket } from 'socket.io';
 import { ExtendedError } from 'socket.io/dist/namespace';
 
-import { BuildingType } from '@game/planet/building/buildingType';
-
 import { fetchBuildings } from '../sockets/components/buildings/buildings.socket';
 import { AllEvents } from '../sockets/configuration/socket-event.map';
+import { BuildingType } from './building/configuration/buildingType';
 import { Coordinates } from './coordinates/coordinates';
 import { Galaxy } from './galaxy/galaxy';
 import { GameConfiguration } from './game-configuration';
@@ -23,6 +22,8 @@ export class Game {
   public static galaxies: Galaxy[] = [];
   public static solarSystems: SolarSystem[] = [];
   public static planets: Planet[] = [];
+
+  public static planetsDiscovered: Planet[] = [];
 
   public static startGame(io: Server): void {
     this.io = io;
@@ -131,16 +132,21 @@ export class Game {
 
   private static setupInterval(): void {
     if (!this.gameInterval) {
+      this.io.emit(
+        'onupdate:buildings',
+        this.planetsDiscovered[Game.currentId ? Game.currentId : 0]
+          .onUpgradeBuilding
+      );
+
       this.gameInterval = setInterval(() => {
-        this.planets
-          .filter((planet: Planet) => !!planet.playerId)
-          .forEach((planet: Planet) => {
-            planet.upgradeResources();
-          });
-        this.io.volatile.emit(
-          'fetchSource',
-          this.planets[Game.currentId ? Game.currentId : 0].resources
-        );
+        this.planetsDiscovered.forEach((planet: Planet) => {
+          if (planet.onUpgradeBuilding.length !== 0) {
+            planet.decrementBuildingUpdateTime();
+          }
+          planet.upgradeResources();
+        });
+        this.io.emit('fetchSource', this.planetsDiscovered[0].resources);
+        fetchBuildings(this.io, this.planetsDiscovered[0].buildings);
       }, 1_000);
     }
   }
@@ -176,9 +182,15 @@ export class Game {
             solarSystemIndex,
             planetIndex,
           });
-          this.planets.push(planet);
+
+          Game.pushPlanetToArray(planet);
         }
       }
     }
+  }
+
+  private static pushPlanetToArray(planet: Planet): void {
+    if (planet.playerId) Game.planetsDiscovered.push(planet);
+    Game.planets.push(planet);
   }
 }

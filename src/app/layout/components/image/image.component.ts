@@ -8,7 +8,7 @@ import { Component, Input } from '@angular/core';
 export class ImageComponent {
   public backgroundImage: string | undefined;
   @Input() type: string = '';
-  @Input() set imageName(name: string) {
+  @Input() set imageName(name: string | undefined) {
     this.backgroundImage = `url("./../../../../assets/images/${name}.jpg")`;
   }
 }

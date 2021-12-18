@@ -1,10 +1,10 @@
 <app-market-element>
   <div
-    *ngIf="structureDetails as details"
+    *ngIf="building as building"
     class="structure"
     (click)="selectStructure()"
     (keydown)="selectStructure()"
   >
-    <app-image [imageName]="details.image"> </app-image>
+    <app-image [imageName]="building.image"> </app-image>
   </div>
 </app-market-element>

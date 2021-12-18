@@ -1,37 +1,42 @@
+<p style="color: lightblue" *ngIf="resources$ | async as resource">
+  deuterium: {{ resource.deuterium }} | metal: {{ resource.metal }} | crystal:
+  {{ resource.crystal }} | energy: {{ resource.energy }}
+</p>
 <app-market-container>
-  <app-structure
-    market-grid
-    *ngFor="let structureDetails of structures$ | async"
-    (selectEmitter)="selectDetails($event)"
-    [structureDetails]="structureDetails"
+  <app-structure-details
+    details-view
+    [buildingDetails]="currentBuilding$ | async"
   >
-  </app-structure>
-  <app-structure-details details-view [structureDetails]="currentDetails">
-    <app-market-element-details>
+    <app-market-element-details
+      *ngIf="currentBuilding$ | async as currentBuilding"
+    >
       <div class="info">
         <div class="details">
-          <p>name: {{ currentDetails?.name }}</p>
-          <p>
-            cost: d: {{ currentDetails?.cost?.d }} | k:
-            {{ currentDetails?.cost?.k }} | m: {{ currentDetails?.cost?.m }}
-          </p>
-          <p>canBuild: {{ currentDetails?.canBuild }}</p>
-          <p>buildingTime: {{ currentDetails?.buildingTime }}</p>
+          <p>name: {{ currentBuilding.name }}</p>
+          <p>cost: {{ currentBuilding.nextLevelCosts | json }}</p>
+          <p>upgradingTime: {{ currentBuilding.upgradingTimeLeft }}</p>
+          <p>level: {{ currentBuilding.level }}</p>
         </div>
         <div class="description">
-          <p>description: {{ currentDetails?.description }}</p>
+          <p>mining: {{ currentBuilding.miningResource | json }}</p>
         </div>
       </div>
 
       <app-button>
-        <button class="button" (click)="onBuild()">buy</button>
+        <button class="button" (click)="onBuild(currentBuilding.type)">
+          buy
+        </button>
       </app-button>
       <app-button>
         <button class="button">recycle</button>
       </app-button>
     </app-market-element-details>
   </app-structure-details>
+  <app-structure
+    market-grid
+    *ngFor="let building of buildings$ | async"
+    (selectEmitter)="selectDetails($event)"
+    [building]="building"
+  >
+  </app-structure>
 </app-market-container>
-<p style="color: red" *ngFor="let build of buildings$ | async">
-  {{ build | json }}
-</p>

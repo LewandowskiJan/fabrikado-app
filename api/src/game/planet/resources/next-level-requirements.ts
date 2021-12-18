@@ -1,4 +1,4 @@
-import { Building } from '../building/building';
+import { Building } from './../../building/building';
 import { Resource } from './resource';
 
 export interface NextLevelRequirements {

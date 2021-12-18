@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Structure } from 'src/app/cosmos/models/structure';
+import { BuildingType } from '@src/app/models/buildingType';
+
+import { Building } from './../../../models/building';
 
 @Component({
   selector: 'app-structure',
@@ -8,11 +10,11 @@ import { Structure } from 'src/app/cosmos/models/structure';
   styleUrls: ['./structure.component.scss'],
 })
 export class StructureComponent {
-  @Input() public structureDetails: Structure | undefined;
-  @Output() public selectEmitter: EventEmitter<Structure> =
-    new EventEmitter<Structure>();
+  @Input() public building: Building | undefined;
+  @Output() public selectEmitter: EventEmitter<BuildingType | undefined> =
+    new EventEmitter();
 
   public selectStructure(): void {
-    this.selectEmitter.emit(this.structureDetails);
+    this.selectEmitter.emit(this.building?.type);
   }
 }

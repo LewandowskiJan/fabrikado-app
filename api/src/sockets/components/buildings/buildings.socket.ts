@@ -2,7 +2,7 @@ import { Server } from 'socket.io';
 
 import { BuildingEvents } from '@domain/endpoints/buildings/building-events.map';
 
-import { Building } from '@game/planet/building/building';
+import { Building } from '@game/building/building';
 
 export function fetchBuildings(
   io: Server<BuildingEvents, BuildingEvents>,

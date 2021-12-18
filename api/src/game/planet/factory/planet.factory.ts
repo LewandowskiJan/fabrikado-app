@@ -1,8 +1,9 @@
-import { Building } from '../building/building';
-import { BuildingType } from '../building/buildingType';
+import { Building } from '../../building/building';
 import { Planet } from '../planet';
 import { PlanetNameGenerator } from '../util/planet-name.generator';
 import { PlanetSizeGenerator } from '../util/planet-size.generator';
+import { BuildingFactory } from './../../building/building.factory';
+import { BuildingType } from './../../building/configuration/buildingType';
 import { Coordinates } from './../../coordinates/coordinates';
 import {
   PlanetConfiguration,
@@ -81,7 +82,7 @@ export class PlanetFactory {
         coordinates.planetIndex
       ).deuteriumEfficiency,
       ...temperatures,
-      buildings: PlanetFactory.setupBuildings(),
+      buildings: PlanetFactory.setupBuildings(temperatures.averageTemperature),
       size: PlanetSizeGenerator.generatePlanetSizeByPlanetIndex(
         coordinates.planetIndex
       ),
@@ -117,14 +118,16 @@ export class PlanetFactory {
     return Math.floor((maxTemperature + minTemperature) / 2);
   }
 
-  private static setupBuildings(): Building[] {
+  private static setupBuildings(averageTemperature: number): Building[] {
     const buildings: Building[] = [];
 
     [
       PlanetFactory.buildingType.CRYSTAL_MINE,
       PlanetFactory.buildingType.DEUTERIUM_SYNTHESIZER,
       PlanetFactory.buildingType.METAL_MINE,
-    ].forEach((type: BuildingType) => buildings.push(new Building(type)));
+    ].forEach((type: BuildingType) =>
+      buildings.push(BuildingFactory.generateBuilding(type, averageTemperature))
+    );
 
     return buildings;
   }

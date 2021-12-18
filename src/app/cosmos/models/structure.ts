@@ -1,3 +1,5 @@
+import { BuildingType } from '@src/app/models/buildingType';
+
 import { Cost } from './cost';
 
 export interface Structure {
@@ -8,4 +10,5 @@ export interface Structure {
   canBuild: boolean;
   description: string;
   buildingTime: string;
+  buildingType: BuildingType;
 }

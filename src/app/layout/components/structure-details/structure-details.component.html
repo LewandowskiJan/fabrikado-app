@@ -1,6 +1,6 @@
 <div class="structure-details">
-  <ng-container *ngIf="structureDetails; else noDetails">
-    <app-image [type]="'shadowed'" [imageName]="structureDetails.image">
+  <ng-container *ngIf="buildingDetails; else noDetails">
+    <app-image [type]="'shadowed'" [imageName]="buildingDetails.image">
       <ng-content select="app-market-element-details"></ng-content>
     </app-image>
   </ng-container>

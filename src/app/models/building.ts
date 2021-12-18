@@ -1,13 +1,22 @@
 import { BuildingType } from './buildingType';
-import { NextLevelRequirements } from './next-level-requirements';
+import { Resource } from './resource';
+
+export interface BuildingRequirement {
+  type: BuildingType;
+  level: number;
+}
 
 export interface Building {
   type: BuildingType;
-  name: string;
-  improvements: string;
   level: number;
-  cost: number;
-  buildTime: number;
-  weakness: string;
-  nextLevelRequirements: NextLevelRequirements;
+  name: string;
+  miningResource: Resource;
+  energyConsume: number;
+  nextLevelBuildingRequirements: BuildingRequirement[];
+  nextLevelCosts: Resource;
+  nextLevelBuildingTime: number;
+  onNextLevelUpgrade: boolean;
+  upgradingTimeLeft: number;
+  baseCost: Resource;
+  image?: string | undefined;
 }
