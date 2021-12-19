@@ -1,5 +1,13 @@
+import { LocationStrategy } from '@angular/common';
+import { MockLocationStrategy } from '@angular/common/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 
+import { MockComponent } from 'ng-mocks';
+
+import { PlanetButtonComponent } from './../../../layout/components/planet-button/planet-button.component';
+import { DashboardComponent } from './../../../layout/containers/dashboard/dashboard.component';
 import { CosmosComponent } from './cosmos.component';
 
 describe('CosmosComponent', () => {
@@ -8,9 +16,26 @@ describe('CosmosComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CosmosComponent ]
-    })
-    .compileComponents();
+      imports: [
+        RouterTestingModule.withRoutes([
+          { path: 'cosmos/planet/:id/overview', component: CosmosComponent },
+          {
+            path: '',
+            redirectTo: 'cosmos/planet/1/overview',
+            pathMatch: 'full',
+          },
+        ]),
+        NoopAnimationsModule,
+      ],
+      declarations: [
+        CosmosComponent,
+        MockComponent(PlanetButtonComponent),
+        MockComponent(DashboardComponent),
+      ],
+      providers: [
+        { provide: LocationStrategy, useClass: MockLocationStrategy },
+      ],
+    }).compileComponents();
   });
 
   beforeEach(() => {

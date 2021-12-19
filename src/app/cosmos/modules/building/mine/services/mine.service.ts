@@ -12,14 +12,14 @@ import { Mine } from '../model/mine';
 @Injectable()
 export class MineService {
   public mines$: Observable<Mine[]>;
-  public resources$: Observable<Resource> = this.socketService.onFetchSources();
+  public resources$: Observable<Resource> = this.socketPlanetService.onFetchSources();
   public upgradeRestTime$: Observable<Mine[]> =
-    this.socketService.onUpgradeTimeListener();
+    this.socketPlanetService.onUpgradeTimeListener();
 
   public currentMine$: Observable<Mine | undefined> = of(undefined);
 
-  constructor(private socketService: SocketPlanetService) {
-    this.mines$ = this.socketService.onFetchBuildings();
+  constructor(private socketPlanetService: SocketPlanetService) {
+    this.mines$ = this.socketPlanetService.onFetchBuildings();
   }
 
   public selectDetails(type: BuildingType | undefined): void {
@@ -30,6 +30,6 @@ export class MineService {
   }
 
   public onBuild(buildingType: BuildingType | undefined): void {
-    buildingType && this.socketService.onBuild(buildingType);
+    buildingType && this.socketPlanetService.onBuild(buildingType);
   }
 }

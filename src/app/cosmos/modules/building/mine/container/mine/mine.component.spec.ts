@@ -1,5 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { EMPTY, of } from 'rxjs';
+
+import { MockProvider } from 'ng-mocks';
+
+import { Building } from './../../../../../../models/building';
+import { Resource } from './../../../../../../models/resource';
+import { MineService } from './../../services/mine.service';
 import { MineComponent } from './mine.component';
 
 describe('MineComponent', () => {
@@ -8,9 +15,18 @@ describe('MineComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MineComponent ]
-    })
-    .compileComponents();
+      declarations: [MineComponent],
+      providers: [
+        MockProvider(MineService, {
+          mines$: of([]),
+          resources$: of({} as Resource),
+          upgradeRestTime$: of([]),
+          currentMine$: of({} as Building),
+          selectDetails: () => EMPTY,
+          onBuild: () => EMPTY,
+        }),
+      ],
+    }).compileComponents();
   });
 
   beforeEach(() => {

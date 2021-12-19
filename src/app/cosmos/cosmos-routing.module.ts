@@ -1,93 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AllianceComponent } from './components/alliance/alliance.component';
-import { DefenceComponent } from './components/defence/defence.component';
-import { FleetComponent } from './components/fleet/fleet.component';
-import { GalaxyComponent } from './components/galaxy/galaxy.component';
-import { MarketComponent } from './components/market/market.component';
-import { OverviewComponent } from './components/overview/overview.component';
-import { PlanetRedirectComponent } from './components/planet-redirect/planet-redirect.component';
-import { ResearchComponent } from './components/research/research.component';
-import { ShipyardComponent } from './components/shipyard/shipyard.component';
-import { ShopComponent } from './components/shop/shop.component';
-import { StaffComponent } from './components/staff/staff.component';
 import { CosmosComponent } from './containers/cosmos/cosmos.component';
-import { PlanetComponent } from './containers/planet/planet.component';
-import { MineComponent } from './modules/building/mine/container/mine/mine.component';
-import { PlanetResolver } from './resolvers/planet.resolver';
+import { CosmosStartPageComponent } from './containers/cosmos-start-page/cosmos-start-page.component';
+import { PlanetGuard } from './guards/planet.guard';
 
 const routes: Routes = [
+  { path: '', component: CosmosStartPageComponent },
   {
-    path: '',
+    path: 'planets',
     component: CosmosComponent,
     children: [
-      { path: '', component: PlanetRedirectComponent },
       {
-        path: 'planet/:id',
-        component: PlanetComponent,
-        data: { animation: '1' },
-        resolve: {
-          planet: PlanetResolver,
-        },
-        children: [
-          { path: '', redirectTo: 'overview', pathMatch: 'full' },
-          {
-            path: 'overview',
-            component: OverviewComponent,
-            data: { animation: 'Overview' },
-          },
-          {
-            path: 'buildings',
-            component: MineComponent,
-            data: { animation: 'Buildings' },
-          },
-          {
-            path: 'market',
-            component: MarketComponent,
-            data: { animation: 'Market' },
-          },
-          {
-            path: 'research',
-            component: ResearchComponent,
-            data: { animation: 'Research' },
-          },
-          {
-            path: 'shipyard',
-            component: ShipyardComponent,
-            data: { animation: 'Shipyard' },
-          },
-          {
-            path: 'defence',
-            component: DefenceComponent,
-            data: { animation: 'Defence' },
-          },
-          {
-            path: 'fleet',
-            component: FleetComponent,
-            data: { animation: 'Fleet' },
-          },
-          {
-            path: 'galaxy',
-            component: GalaxyComponent,
-            data: { animation: 'Galaxy' },
-          },
-          {
-            path: 'alliance',
-            component: AllianceComponent,
-            data: { animation: 'Alliance' },
-          },
-          {
-            path: 'staff',
-            component: StaffComponent,
-            data: { animation: 'Staff' },
-          },
-          {
-            path: 'shop',
-            component: ShopComponent,
-            data: { animation: 'Shop' },
-          },
-        ],
+        path: '',
+        loadChildren: () =>
+          import('./planet/planet.module').then((m: any) => m.PlanetModule),
+        data: { animation: 'CosmosPage' },
+        canLoad: [PlanetGuard],
       },
     ],
   },

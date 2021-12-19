@@ -24,15 +24,18 @@ const numberConfigurationMap: Map<number, NumberEnum> = new Map([
   name: 'numberDisplay',
 })
 export class NumberDisplayPipe implements PipeTransform {
-  transform(value: number): string | number {
+  transform(value: number, args?: string | undefined): string | number {
     const thousandValue: number | undefined = thousands.find(
       (thousandValue: number) => thousandValue && value >= thousandValue
     );
 
     if (thousandValue) {
-      const suffix: string =
+      let suffix: string =
         (thousandValue && numberConfigurationMap.get(thousandValue)) || '';
-      return Math.floor(value / thousandValue) + ` ${suffix}`;
+
+      if (args === 'bold-suffix') suffix = `<b>${suffix}</b>`;
+
+      return Math.floor(value / thousandValue) + `${suffix}`;
     } else {
       return value;
     }

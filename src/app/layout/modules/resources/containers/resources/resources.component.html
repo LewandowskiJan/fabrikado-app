@@ -1,14 +1,15 @@
 <div class="container">
   <div class="panel">
-    <div class="stats" *ngIf="resource$ | async as resource; else loading">
-      <span>m: {{ resource.metal | numberDisplay }} |</span>
-      <span> c: {{ resource.crystal | numberDisplay }} |</span>
-      <span> d: {{ resource.deuterium | numberDisplay }} |</span>
-      <span> e: {{ resource.energy | numberDisplay }}</span>
+    <div class="stats" *ngIf="resource$ | async as resources; else loading">
+      <app-resource-element
+        *ngFor="let resource of resources | keyvalue"
+        [resourceValue]="resource.value"
+        [resourceName]="resource.key"
+      ></app-resource-element>
     </div>
   </div>
 </div>
 
 <ng-template #loading>
-  <div class="loader">...loading</div>
+  <app-loader></app-loader>
 </ng-template>
