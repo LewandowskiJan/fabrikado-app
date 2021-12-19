@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Socket } from 'ngx-socket-io';
 
 import { environment } from './../../../environments/environment';
+import { RestService } from './rest.service';
 
 const accessToken: string = 'test';
 
@@ -12,10 +13,16 @@ const accessToken: string = 'test';
   providedIn: 'root',
 })
 export class SocketService extends Socket {
-  constructor() {
+  constructor(private restService: RestService) {
     super({
       url: environment.socketUrl,
-      options: { transports: ['websocket'], query: { token: accessToken } },
+      options: {
+        transports: ['websocket'],
+        query: {
+          token: accessToken,
+          id: restService.userData?.id ?? null,
+        },
+      },
     });
   }
 

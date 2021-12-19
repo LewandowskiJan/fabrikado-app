@@ -3,23 +3,25 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AngularWelcomePageComponent } from './core/components/angular-welcome-page/angular-welcome-page.component';
 import { TodoListComponent } from './core/containers/todo-list/todo-list.component';
+import { UserGuard } from './guards/user.guard';
 
 const routes: Routes = [
   {
     path: 'todo',
     component: TodoListComponent,
-    data: { animation: 'TodoPage' }
+    data: { animation: 'TodoPage' },
   },
   {
     path: 'welcome',
     component: AngularWelcomePageComponent,
-    data: { animation: 'WelcomePage' }
+    data: { animation: 'WelcomePage' },
   },
   {
     path: 'cosmos',
+    canLoad: [UserGuard],
     loadChildren: () =>
       import('./cosmos/cosmos.module').then((m: any) => m.CosmosModule),
-      data: { animation: 'CosmosPage' }
+    data: { animation: 'CosmosPage' },
   },
   {
     path: '**',

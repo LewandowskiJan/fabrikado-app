@@ -1,0 +1,9 @@
+import { Router } from 'express';
+
+import { getUser } from './user.controller';
+
+const router: Router = Router();
+
+router.get('/', getUser);
+
+export const UserRoute: Router = router;
