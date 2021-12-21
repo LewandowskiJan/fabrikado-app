@@ -43,7 +43,6 @@ export class PlanetViewComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     if (this.planetCanvas) {
       this.context = this.planetCanvas.nativeElement.getContext('2d');
-      this.setupCanvas();
       this.setupConst();
       if (this.context) {
         this.sphere = new Sphere(this.context, this.width, this.height);
@@ -64,11 +63,6 @@ export class PlanetViewComponent implements AfterViewInit {
         this.draw();
       }
     }
-  }
-
-  private setupCanvas(): void {
-    // this.width = this.planetCanvas?.nativeElement.clientWidth;
-    // this.height = this.planetCanvas?.nativeElement.clientHeight;
   }
 
   private setupConst() {

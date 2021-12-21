@@ -1,8 +1,7 @@
-export class BuildingEvents {
-  ['read:building']: any;
-  ['update:building']: any;
-  ['delete:building']: any;
-  ['add:building']: any;
-  ['fetchBuildings']: any;
-  ['fetchSource']: any;
+export enum BuildingEvents {
+  BUILDING_READ = 'building:read',
+  BUILDING_UPDATE = 'building:update',
+  BUILDING_DELETE = 'building:delete',
+  BUILDING_ADD = 'building:add',
+  BUILDING_PREPARE = 'building:prepare',
 }

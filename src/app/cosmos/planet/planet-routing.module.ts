@@ -20,7 +20,7 @@ import { PlanetsOverviewStatsComponent } from './containers/planets-overview-sta
 const routes: Routes = [
   {
     path: '',
-    component: PlanetsOverviewStatsComponent,
+    component: PlanetRedirectComponent,
   },
   {
     path: ':id',

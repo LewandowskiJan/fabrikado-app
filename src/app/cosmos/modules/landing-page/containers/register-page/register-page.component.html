@@ -1,0 +1,109 @@
+<app-landing-page-layout [color]="'BLUE'">
+  <h1 class="header">REGISTER</h1>
+  <div class="form-container">
+    <form
+      *ngIf="registerForm"
+      [formGroup]="registerForm"
+      class="registration-form"
+    >
+      <app-input-field>
+        <label for="email">Email</label>
+        <input
+          autocomplete="email"
+          formControlName="email"
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Your email..."
+        />
+        <ng-container *ngIf="registerForm.controls['email'] as control">
+          <div
+            *ngIf="control.invalid && (control.dirty || control.touched)"
+            class="error"
+          >
+            <div *ngIf="control.errors && control.errors.required">
+              Please enter email
+            </div>
+          </div>
+        </ng-container>
+      </app-input-field>
+      <app-input-field>
+        <label for="login">Login</label>
+        <input
+          autocomplete="off"
+          formControlName="login"
+          type="text"
+          id="login"
+          name="login"
+          placeholder="Your login.."
+        />
+        <ng-container *ngIf="registerForm.controls['login'] as control">
+          <div
+            *ngIf="control.invalid && (control.dirty || control.touched)"
+            class="error"
+          >
+            <div *ngIf="control.errors && control.errors.required">
+              Please enter login
+            </div>
+          </div>
+        </ng-container>
+      </app-input-field>
+      <app-input-field>
+        <label for="password">Password</label>
+        <input
+          autocomplete="new-password"
+          formControlName="password"
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Your password..."
+        />
+        <ng-container *ngIf="registerForm.controls['password'] as control">
+          <div
+            *ngIf="control.invalid && (control.dirty || control.touched)"
+            class="error"
+          >
+            <div *ngIf="control.errors && control.errors.required">
+              Please enter password
+            </div>
+          </div>
+        </ng-container>
+      </app-input-field>
+      <app-input-field>
+        <label for="repeat-password">Repeat Password</label>
+        <input
+          autocomplete="new-password"
+          formControlName="repeatPassword"
+          type="password"
+          id="repeat-password"
+          name="repeat-password"
+          placeholder="Repeat your password..."
+        />
+        <ng-container
+          *ngIf="registerForm.controls['repeatPassword'] as control"
+        >
+          <div
+            *ngIf="control.invalid && (control.dirty || control.touched)"
+            class="error"
+          >
+            <div *ngIf="control.errors && control.errors.required">
+              Please repeat password
+            </div>
+          </div>
+        </ng-container>
+      </app-input-field>
+
+      <app-form-submit>
+        <input
+          type="submit"
+          name="register"
+          value="Register"
+          [disabled]="!registerForm.valid"
+          [ngClass]="
+            registerForm.invalid && registerForm.touched ? 'disabled' : ''
+          "
+        />
+      </app-form-submit>
+    </form>
+  </div>
+</app-landing-page-layout>

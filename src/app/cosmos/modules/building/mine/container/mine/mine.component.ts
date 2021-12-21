@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 
-import { Observable, of } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 import { BuildingType } from '@src/app/models/buildingType';
-import { Resource } from '@src/app/models/resource';
 
 import { Mine } from '../../model/mine';
 import { MineService } from '../../services/mine.service';
@@ -16,7 +14,6 @@ import { MineService } from '../../services/mine.service';
 })
 export class MineComponent {
   public mines$: Observable<Mine[] | undefined> = this.mineService.mines$;
-  public resources$: Observable<Resource> = this.mineService.resources$;
   public upgradeRestTime$: Observable<Mine[]> =
     this.mineService.upgradeRestTime$;
 

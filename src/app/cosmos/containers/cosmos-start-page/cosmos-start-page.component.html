@@ -1,1 +1,4 @@
-<a [routerLink]="'planets/1'">go planets</a>
+
+<ng-container *ngIf="firstPlanetId$ | async as planetId">
+<a [routerLink]="'planets/'+planetId">go planets</a>
+</ng-container>

@@ -1,0 +1,17 @@
+<app-landing-page-layout [color]="'BLUE-GREEN'">
+  <h1 class="header">LOGOUT</h1>
+  <div class="form-container">
+    <div class="logout-container">
+      <h2>Logout successful</h2>
+
+      <app-form-submit>
+        <input
+          [routerLink]="'/welcome/login'"
+          type="button"
+          name="go-to-login"
+          value="Back to login"
+        />
+      </app-form-submit>
+    </div>
+  </div>
+</app-landing-page-layout>

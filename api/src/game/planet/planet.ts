@@ -93,10 +93,11 @@ export class Planet extends PlanetAbstract {
     }
   }
 
-  public decrementBuildingUpdateTime(): void {
+  public decrementBuildingUpdateTime(): boolean {
+    let shouldEmitAfterFinish: boolean;
     this.onUpgradeBuilding.forEach((building: Building) => {
       if (building.decrementUpgradeTime()) {
-        building.finishUpdate();
+        shouldEmitAfterFinish = building.finishUpdate();
         this.upgradeMiningForce(building);
 
         this.onUpgradeBuilding = this.onUpgradeBuilding.filter(
@@ -104,6 +105,7 @@ export class Planet extends PlanetAbstract {
         );
       }
     });
+    return shouldEmitAfterFinish;
   }
 
   private upgradeMiningForce(building: Building): void {

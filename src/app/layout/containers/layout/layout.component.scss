@@ -1,9 +1,8 @@
 .layout {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 39px 1fr;
+  grid-template-rows: 1fr;
   grid-template-areas:
-    "menu"
     "content";
   height: 100vh;
   margin: 0;

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { Socket } from 'ngx-socket-io';
 
+import { SocketEvent } from '../endpoints/socket-event';
 import { environment } from './../../../environments/environment';
 import { RestService } from './rest.service';
 
@@ -26,11 +27,11 @@ export class SocketService extends Socket {
     });
   }
 
-  public listeningOnEvent<T>(event: string): Observable<T> {
+  public listeningOnEvent<T>(event: SocketEvent): Observable<T> {
     return this.fromEvent<T>(event);
   }
 
-  public sendToEvent(event: string, data: any = {}): void {
+  public sendToEvent(event: SocketEvent, data: any = {}): void {
     this.emit(event, data);
   }
 }

@@ -25,8 +25,8 @@
       [routerLink]="['market']"
     >
       market
-    </button></app-button
-  >
+    </button>
+  </app-button>
 
   <app-button side-navigation>
     <button
@@ -35,8 +35,8 @@
       [routerLink]="['research']"
     >
       research
-    </button></app-button
-  >
+    </button>
+  </app-button>
 
   <app-button side-navigation>
     <button
@@ -45,8 +45,8 @@
       [routerLink]="['shipyard']"
     >
       shipyard
-    </button></app-button
-  >
+    </button>
+  </app-button>
 
   <app-button side-navigation>
     <button
@@ -55,8 +55,8 @@
       [routerLink]="['defence']"
     >
       defence
-    </button></app-button
-  >
+    </button>
+  </app-button>
 
   <app-button side-navigation>
     <button
@@ -65,8 +65,8 @@
       [routerLink]="['fleet']"
     >
       fleet
-    </button></app-button
-  >
+    </button>
+  </app-button>
 
   <app-button side-navigation>
     <button
@@ -75,8 +75,8 @@
       [routerLink]="['galaxy']"
     >
       galaxy
-    </button></app-button
-  >
+    </button>
+  </app-button>
 
   <app-button side-navigation>
     <button
@@ -85,8 +85,8 @@
       [routerLink]="['alliance']"
     >
       alliance
-    </button></app-button
-  >
+    </button>
+  </app-button>
 
   <app-button side-navigation>
     <button
@@ -95,8 +95,8 @@
       [routerLink]="['staff']"
     >
       staff
-    </button></app-button
-  >
+    </button>
+  </app-button>
 
   <app-button side-navigation>
     <button
@@ -105,8 +105,17 @@
       [routerLink]="['shop']"
     >
       shop
-    </button></app-button
-  >
+    </button>
+  </app-button>
+  <app-button side-navigation>
+    <button
+      class="button"
+      [routerLinkActive]="'active'"
+      [routerLink]="['/welcome/logout']"
+    >
+      logout
+    </button>
+  </app-button>
   <ng-container content>
     <div class="router" [@fadeInRouteNavigation]="prepareRoute(outlet)">
       <router-outlet #outlet="outlet"></router-outlet>

@@ -1,36 +1,6 @@
 <app-layout>
-  <ng-container menu class="nav">
-    <app-menu-button>
-      <button
-        class="button menu-button"
-        [routerLinkActive]="'active'"
-        [routerLink]="'cosmos'"
-      >
-        cosmos
-      </button>
-    </app-menu-button>
-    <app-menu-button>
-      <button
-        class="button menu-button"
-        [routerLinkActive]="'active'"
-        [routerLink]="'todo'"
-      >
-        todo list
-      </button>
-    </app-menu-button>
-
-    <app-menu-button>
-      <button
-        class="button menu-button"
-        [routerLinkActive]="'active'"
-        [routerLink]="'welcome'"
-      >
-        welcome
-      </button>
-    </app-menu-button>
-  </ng-container>
   <ng-container content>
-    <div [@routeAnimations]="prepareRoute(outlet)">
+    <div class="router-box" [@routeAnimations]="prepareRoute(outlet)">
       <router-outlet #outlet="outlet"></router-outlet>
     </div>
   </ng-container>

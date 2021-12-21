@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  Resolve
-} from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
 
-import { Observable, of } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 
 import { SocketPlanetService } from 'src/app/services/socket.service';
 
@@ -16,13 +13,19 @@ import { PlanetService } from './../services/planet.service';
 export class PlanetResolver implements Resolve<boolean> {
   constructor(
     private socketService: SocketPlanetService,
-    private planetService: PlanetService
+    private planetService: PlanetService,
+    private router: Router
   ) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<boolean> {
-    const id: string = route.paramMap.get('id') || '1';
-    this.socketService.preparePlanet(id);
-    this.planetService.planetId = id;
-    return of(true);
+    const id: string | null = route.paramMap.get('id');
+    console.log('aaaa: ', id);
+    if (id) {
+      this.planetService.planetId = id;
+      this.socketService.preparePlanet(id);
+      return of(true);
+    } else {
+      return from(this.router.navigateByUrl('/cosmos'));
+    }
   }
 }

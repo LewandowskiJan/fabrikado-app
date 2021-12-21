@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="margin-top"></div>
+  <header class="header" [ngClass]="color === 'BLUE' ? 'blue' : 'green-blue'">
+    <ng-content select=".header"></ng-content>
+  </header>
+
+  <div class="spacer"></div>
+  <div class="margin-left"></div>
+  <div
+    class="window-left"
+    [ngClass]="color === 'BLUE' ? 'blue' : 'green-blue'"
+  ></div>
+  <div class="space-left"></div>
+
+  <main class="login-form" [ngClass]="color === 'BLUE' ? 'blue' : 'green-blue'">
+    <ng-content select=".form-container"></ng-content>
+  </main>
+
+  <div class="space-right"></div>
+  <div
+    class="window-right"
+    [ngClass]="color === 'BLUE' ? 'blue' : 'green-blue'"
+  ></div>
+  <div class="margin-right"></div>
+  <div class="margin-bottom"></div>
+</div>

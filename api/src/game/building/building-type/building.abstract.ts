@@ -93,11 +93,12 @@ export abstract class BuildingAbstract {
     }
   }
 
-  public finishUpdate(): void {
+  public finishUpdate(): boolean {
     this.level++;
     this.setupUpdateRequirement();
     this.upgradingTimeLeft = 5;
     this.onNextLevelUpgrade = false;
+    return true;
   }
 
   public setupUpdateRequirement(): void {

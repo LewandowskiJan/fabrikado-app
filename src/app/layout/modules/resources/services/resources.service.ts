@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 
+import { ResourceEvents } from '@src/app/domain/endpoints/resource/resource-events.map';
 import { Resource } from '@src/app/models/resource';
 
 import { SocketService } from './../../../../domain/services/socket.service';
@@ -15,7 +16,7 @@ export class ResourcesService {
 
   public resourceListener(): Observable<Resource> {
     return this.socketService
-      .listeningOnEvent<Resource>('resource:listen')
+      .listeningOnEvent<Resource>(ResourceEvents.RESOURCE_READ)
       .pipe(shareReplay(1));
   }
 }

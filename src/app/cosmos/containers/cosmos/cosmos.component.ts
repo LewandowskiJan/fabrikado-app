@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+
+import { SocketPlanetService } from '@src/app/services/socket.service';
+
 import { fadeAnimation } from '../../animation';
-import { RestService } from './../../../domain/services/rest.service';
 
 @Component({
   selector: 'app-cosmos',
@@ -11,11 +15,11 @@ import { RestService } from './../../../domain/services/rest.service';
   animations: [fadeAnimation],
 })
 export class CosmosComponent {
-  public planetsIds: string[] = [];
-  constructor(private restService: RestService) {
-    this.restService.userData &&
-      this.planetsIds.push(...this.restService.userData.planets);
-  }
+  public planetsNames$: Observable<string[]> = this.socketPlanetService
+    .getPlanetsName()
+    .pipe(tap(console.log));
+
+  constructor(private socketPlanetService: SocketPlanetService) {}
 
   public prepareRoute(outlet: RouterOutlet): any {
     return {

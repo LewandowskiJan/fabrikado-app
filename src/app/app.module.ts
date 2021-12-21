@@ -9,14 +9,13 @@ import { environment } from 'src/environments/environment';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { CoreModule } from './core/core.module';
 import { LayoutModule } from './layout/layout.module';
 
 const config: SocketIoConfig = {
   url: environment.socketUrl,
   options: {
     transports: ['websocket'],
-    query: { token: 'test'}
+    query: { token: 'test' },
   },
 };
 
@@ -26,7 +25,6 @@ const config: SocketIoConfig = {
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    CoreModule,
     LayoutModule,
     HttpClientModule,
     SocketIoModule.forRoot(config),

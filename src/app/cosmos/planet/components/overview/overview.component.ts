@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { Resource } from '@src/app/models/resource';
 import { SocketPlanetService } from '@src/app/services/socket.service';
@@ -14,16 +15,14 @@ import { PlanetService } from '../../../services/planet.service';
   styleUrls: ['./overview.component.scss'],
 })
 export class OverviewComponent {
-  public resources$: Observable<Resource> = this.socketService.onFetchSources();
-  public error$: Observable<string> =
-    this.socketService.planetErrorListener();
-  public planet$: Observable<PlanetSocketData> =
-    this.socketService.onFetchPlanet();
+  public error$: Observable<string> = this.socketService.planetErrorListener();
+  public planet$: Observable<PlanetSocketData | null> = of(null);
 
   constructor(
     private socketService: SocketPlanetService,
     private planetService: PlanetService
   ) {
+    this.planet$ = this.socketService.onFetchPlanet().pipe(tap(console.log));
     this.socketService.preparePlanet(this.planetService.planetId);
   }
 }

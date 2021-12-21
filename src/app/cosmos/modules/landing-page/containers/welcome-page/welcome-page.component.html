@@ -1,0 +1,49 @@
+<div class="container">
+  <section class="content">
+    <div class="router-box" [@routeAnimations]="prepareRoute(outlet)">
+      <router-outlet #outlet="outlet"></router-outlet>
+    </div>
+  </section>
+  <aside class="info">
+    <div class="menu">
+      <div class="panel">
+        <div class="button-monitor">
+          <h1 class="menu-header">MENU</h1>
+          <app-link-button>
+            <a
+              class="button"
+              [routerLinkActive]="'active'"
+              [routerLink]="['login']"
+            >
+              Login
+            </a>
+          </app-link-button>
+          <app-link-button>
+            <a
+              class="button"
+              [routerLinkActive]="'active'"
+              [routerLink]="['register']"
+            >
+              Register
+            </a>
+          </app-link-button>
+          <app-link-button>
+            <a
+              class="button"
+              [routerLinkActive]="'active'"
+              [routerLink]="['info']"
+            >
+              Game Info
+            </a>
+          </app-link-button>
+        </div>
+      </div>
+    </div>
+    <div class="margin-left"></div>
+    <div class="margin-top"></div>
+    <div class="margin-right"></div>
+    <div class="margin-bottom"></div>
+    <div class="margin-top-left"></div>
+    <div class="margin-bottom-left"></div>
+  </aside>
+</div>

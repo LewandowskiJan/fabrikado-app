@@ -1,7 +1,11 @@
 <app-dashboard>
   <ng-container menu>
-    <app-planet-button *ngFor="let id of planetsIds">
-      <button [routerLinkActive]="'active'" [routerLink]="[id]" class="button">
+    <app-planet-button *ngFor="let name of planetsNames$ | async">
+      <button
+        [routerLinkActive]="'active'"
+        [routerLink]="[name]"
+        class="button"
+      >
         planet
       </button>
     </app-planet-button>

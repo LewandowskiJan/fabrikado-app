@@ -4,6 +4,18 @@
   margin-bottom: 20px;
 }
 
+.router-box {
+  height: 100%;
+  background-image: url('./../assets/images/structure2.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: auto;
+
+  justify-content: center;
+  align-items: center;
+}
+
 .active {
-background-color: green;
+  background-color: green;
 }

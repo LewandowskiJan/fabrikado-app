@@ -20,9 +20,9 @@ export class Texture {
 
   public draw(width: number, height: number, isTexture: boolean = false): void {
     this.context.beginPath();
-    const radius: number = this.distance; // Arc radius
-    const startAngle: number = 0; // Starting point on circle
-    const endAngle: number = 2 * Math.PI; // End point on circle
+    const radius: number = this.distance;
+    const startAngle: number = 0;
+    const endAngle: number = 2 * Math.PI;
 
     this.context.arc(this.x, this.y, radius, startAngle, endAngle);
 

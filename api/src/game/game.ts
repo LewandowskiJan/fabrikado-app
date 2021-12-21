@@ -1,15 +1,21 @@
 import { Server, Socket } from 'socket.io';
 import { ExtendedError } from 'socket.io/dist/namespace';
 
-import { fetchBuildings } from '../sockets/components/buildings/buildings.socket';
-import { AllEvents } from '../sockets/configuration/socket-event.map';
+import {
+  AllEvents,
+  ClientEvents,
+} from '../sockets/configuration/socket-event.map';
+import { BuildingEvents } from './../../../src/app/domain/endpoints/buildings/building-events.map';
+import { PlayerEvents } from './../../../src/app/domain/endpoints/player/player-events.map';
 import { BuildingType } from './building/configuration/buildingType';
 import { Coordinates } from './coordinates/coordinates';
 import { Galaxy } from './galaxy/galaxy';
+import { GameState } from './game.state';
 import { GameConfiguration } from './game-configuration';
 import { PlanetFactory } from './planet/factory/planet.factory';
 import { Planet } from './planet/planet';
 import { PlanetSearch } from './planet/util/planet-search.util';
+import { Player } from './player/player';
 import { SolarSystem } from './solar-system/solar-system';
 
 export class Game {
@@ -18,12 +24,6 @@ export class Game {
   public static io: Server;
 
   public static currentId: string;
-
-  public static galaxies: Galaxy[] = [];
-  public static solarSystems: SolarSystem[] = [];
-  public static planets: Planet[] = [];
-
-  public static planetsDiscovered: Planet[] = [];
 
   public static startGame(io: Server): void {
     this.io = io;
@@ -40,7 +40,7 @@ export class Game {
         this.gameConfiguration
       );
 
-    return Game.planets[createdIndexFromCoordinates];
+    return GameState.planets[createdIndexFromCoordinates];
   }
 
   public static updateBuilding(
@@ -55,6 +55,7 @@ export class Game {
   }
 
   private static setupSocket(): void {
+    console.log('here');
     this.io
       .use(
         (
@@ -68,48 +69,33 @@ export class Game {
           }
         }
       )
+      .on(
+        ClientEvents.SOCKET_CONNECTION,
+        (socket: Socket<AllEvents, AllEvents>) => {
+          const connectedUserId: string = socket.handshake.query.id as string;
 
-      .on('connection', (socket: Socket<AllEvents, AllEvents>) => {
-        console.log('A user connected');
+          if (
+            connectedUserId &&
+            !GameState.onGamePlayers.has(connectedUserId)
+          ) {
+            const userPlanets: Planet[] = GameState.planetsDiscovered.filter(
+              (planet: Planet) => planet.playerId === connectedUserId
+            );
 
-        socket.on('disconnect', () => {
-          console.log('A user disconnected');
-        });
-
-        socket.on('add:building', (buildingType: BuildingType) =>
-          Game.updateBuilding(
-            { planetIndex: 1, galacticIndex: 1, solarSystemIndex: 1 },
-            buildingType
-          )
-        );
-
-        socket.on('fetchBuildings', () =>
-          fetchBuildings(this.io, this.planets[0].buildings)
-        );
-
-        socket.on('prepare:planet', (id: string) => {
-          Game.currentId = id;
-        });
-
-        socket.on('read:planet', () => {
-          const planet: Planet = Game.getPlanetByCoordinates({
-            galacticIndex: 1,
-            solarSystemIndex: 1,
-            planetIndex: +Game.currentId,
-          });
-
-          if (planet) {
-            this.io.emit('read:planet', planet.getData());
-            this.io.emit('error:planet', undefined);
-          } else {
-            this.io.emit('error:planet', 'no planet on given coordinates');
+            const connectedPlayer: Player = new Player(userPlanets);
+            connectedPlayer.setupSocket(this.io, socket);
+            GameState.onGamePlayers.set(connectedPlayer.id, connectedPlayer);
+            this.io
+              .to(connectedPlayer.playerRoomName)
+              .emit(PlayerEvents.PLAYER_READ, connectedPlayer);
           }
-        });
 
-        socket.on('fetchSource', () => {
-          this.io.emit('fetchSource', { metal: 50 });
-        });
-      });
+          socket.on(ClientEvents.SOCKET_DISCONNECT, () => {
+            console.log('A user disconnected', connectedUserId);
+            GameState.onGamePlayers.delete(connectedUserId);
+          });
+        }
+      );
   }
 
   private static checkAuthorization(
@@ -133,20 +119,22 @@ export class Game {
   private static setupInterval(): void {
     if (!this.gameInterval) {
       this.io.emit(
-        'onupdate:buildings',
-        this.planetsDiscovered[Game.currentId ? Game.currentId : 0]
+        BuildingEvents.BUILDING_UPDATE,
+        GameState.planetsDiscovered[Game.currentId ? Game.currentId : 0]
           .onUpgradeBuilding
       );
 
       this.gameInterval = setInterval(() => {
-        this.planetsDiscovered.forEach((planet: Planet) => {
+        GameState.onGamePlayers.forEach((player: Player) => {
+          player.updateData(this.io);
+        });
+
+        GameState.planetsDiscovered.forEach((planet: Planet) => {
           if (planet.onUpgradeBuilding.length !== 0) {
             planet.decrementBuildingUpdateTime();
           }
           planet.upgradeResources();
         });
-        this.io.emit('resource:listen', this.planetsDiscovered[0].resources);
-        fetchBuildings(this.io, this.planetsDiscovered[0].buildings);
       }, 1_000);
     }
   }
@@ -160,7 +148,7 @@ export class Game {
       galacticIndex++
     ) {
       const galaxy: Galaxy = new Galaxy(galacticIndex);
-      this.galaxies.push(galaxy);
+      GameState.galaxies.push(galaxy);
       for (
         let solarSystemIndex: number = 1;
         solarSystemIndex <= this.gameConfiguration.solarSystemNumber;
@@ -170,7 +158,7 @@ export class Game {
           solarSystemIndex,
           galacticIndex
         );
-        this.solarSystems.push(solarSystem);
+        GameState.solarSystems.push(solarSystem);
 
         for (
           let planetIndex: number = 1;
@@ -190,7 +178,7 @@ export class Game {
   }
 
   private static pushPlanetToArray(planet: Planet): void {
-    if (planet.playerId) Game.planetsDiscovered.push(planet);
-    Game.planets.push(planet);
+    if (planet.playerId) GameState.planetsDiscovered.push(planet);
+    GameState.planets.push(planet);
   }
 }

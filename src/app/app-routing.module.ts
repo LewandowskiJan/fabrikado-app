@@ -1,19 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AngularWelcomePageComponent } from './core/components/angular-welcome-page/angular-welcome-page.component';
-import { TodoListComponent } from './core/containers/todo-list/todo-list.component';
+import { WelcomePageComponent } from './cosmos/modules/landing-page/containers/welcome-page/welcome-page.component';
 import { UserGuard } from './guards/user.guard';
 
 const routes: Routes = [
   {
-    path: 'todo',
-    component: TodoListComponent,
-    data: { animation: 'TodoPage' },
-  },
-  {
     path: 'welcome',
-    component: AngularWelcomePageComponent,
+    component: WelcomePageComponent,
+    loadChildren: () =>
+      import('./cosmos/modules/landing-page/landing-page.module').then(
+        (m: any) => m.LandingPageModule
+      ),
     data: { animation: 'WelcomePage' },
   },
   {
@@ -25,7 +23,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'cosmos',
+    redirectTo: 'welcome',
   },
 ];
 

@@ -1,0 +1,47 @@
+.button {
+  ::ng-deep {
+    a.button {
+      text-transform: uppercase;
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 1.5px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      text-decoration: none;
+
+      &:not(.active) {
+        color: white;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      &:hover {
+        cursor: default;
+      }
+
+      &:not(:hover) {
+        transition: 1s;
+      }
+
+      &:focus {
+        background: rgb(3, 24, 0);
+        transition: .3s;
+      }
+
+      &.active {
+        color: lawngreen;
+        background: rgb(6, 48, 0);
+        transition: 1s;
+
+        &:not(.menu-button) {
+          transition: .5s;
+        }
+      }
+    }
+  }
+}

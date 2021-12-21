@@ -1,4 +1,4 @@
-import { BuildingSocketData } from '../buildings/buildings';
+import { BuildingSocketData } from '../buildings/building';
 
 export interface CoordinatesSocketData {
   galacticIndex: number;

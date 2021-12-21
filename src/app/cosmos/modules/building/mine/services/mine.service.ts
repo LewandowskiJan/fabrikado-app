@@ -4,7 +4,6 @@ import { Observable, of } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
 import { BuildingType } from '@src/app/models/buildingType';
-import { Resource } from '@src/app/models/resource';
 import { SocketPlanetService } from '@src/app/services/socket.service';
 
 import { Mine } from '../model/mine';
@@ -12,7 +11,6 @@ import { Mine } from '../model/mine';
 @Injectable()
 export class MineService {
   public mines$: Observable<Mine[]>;
-  public resources$: Observable<Resource> = this.socketPlanetService.onFetchSources();
   public upgradeRestTime$: Observable<Mine[]> =
     this.socketPlanetService.onUpgradeTimeListener();
 

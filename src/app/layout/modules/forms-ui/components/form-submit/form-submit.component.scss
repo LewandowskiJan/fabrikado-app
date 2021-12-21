@@ -1,0 +1,52 @@
+  $shadow-color-blue-green: #009971;
+
+  :host {
+
+    .form-submit {
+      margin-bottom: 10px;
+
+      ::ng-deep {
+
+        &input[type=submit],
+        &input[type=button] {
+          width: 100%;
+          background-color: rgba($color: $shadow-color-blue-green, $alpha: .9);
+          color: white;
+          padding: 14px 20px;
+          margin: 8px 0;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          box-shadow: 0px 0px 2px 0px black;
+
+          &:not(.disabled) {
+            &:hover {
+              background-color: rgba($color: $shadow-color-blue-green, $alpha: 1);
+              transition: .5s;
+              box-shadow: 0px 0px 10px 0px black;
+            }
+
+            &:not(:hover) {
+              transition: .5s;
+            }
+
+            &:focus {
+              background-color: rgba($color: #007455, $alpha: 1);
+            }
+          }
+
+          &.disabled,
+          &[disabled] {
+            cursor: default;
+            color: gray;
+            background-color: grayscale($color: $shadow-color-blue-green);
+
+            &:hover {
+              background-color: grayscale($color: $shadow-color-blue-green);
+              box-shadow: unset;
+            }
+          }
+        }
+      }
+    }
+  }
