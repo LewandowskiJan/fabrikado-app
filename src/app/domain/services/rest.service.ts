@@ -71,24 +71,16 @@ export class RestService {
   }
 
   public requestPost<T>(options: Partial<HttpRequest<T>>): Observable<T> {
-    let headers: any;
     const defaultOptions: any = {
       ...options,
       url: options.url || '',
       body: options.body || {},
     };
 
-    if (this.userData) {
-      headers = {
-        ...this.defaultRequestOptions.headers,
-        ['user-id']: this.userData._id,
-      };
-    }
-
     return this.http.post<T>(
       `${this.baseUrl}/${defaultOptions.url}`,
       defaultOptions.body,
-      { headers, ...options.params }
+      { ...options.params }
     );
   }
 
