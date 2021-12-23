@@ -1,10 +1,9 @@
-import { Component, OnDestroy, OnInit, Pipe } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
 
 import { Subscription } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { take, tap } from 'rxjs/operators';
 
 import { environment } from '@src/environments/environment';
 
@@ -24,8 +23,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   public constructor(
     private titleService: Title,
     private loginService: LoginService,
-    private fb: FormBuilder,
-    private router: Router
+    private fb: FormBuilder
   ) {
     this.createForm();
   }
@@ -38,12 +36,14 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         password: '123',
       });
     }
-    this.formSubscription = this.loginForm?.valueChanges.subscribe(() => {
-      this.loginForm?.invalid &&
-      (this.loginForm?.touched || this.loginForm?.dirty)
-        ? (this.color = 'RED')
-        : (this.color = 'BLUE-GREEN');
-    });
+    this.formSubscription = this.loginForm?.valueChanges
+      .pipe(tap((res: any) => console.log('login form change:', res)))
+      .subscribe(() => {
+        this.loginForm?.invalid &&
+        (this.loginForm?.touched || this.loginForm?.dirty)
+          ? (this.color = 'RED')
+          : (this.color = 'BLUE-GREEN');
+      });
   }
 
   ngOnDestroy(): void {
@@ -65,7 +65,10 @@ export class LoginPageComponent implements OnInit, OnDestroy {
       };
       this.loginService
         .sendUserCredentials(credentials)
-        .pipe(take(1))
+        .pipe(
+          take(1),
+          tap((res: any) => console.log('login:', res))
+        )
         .subscribe();
     }
   }
