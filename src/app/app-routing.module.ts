@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { WelcomePageComponent } from './cosmos/modules/landing-page/containers/welcome-page/welcome-page.component';
-import { UserGuard } from './guards/user.guard';
+import { UserGuard } from './services/guards/user.guard';
+import { WelcomePageComponent } from './unauthorized/landing-page/containers/welcome-page/welcome-page.component';
 
 const routes: Routes = [
   {
     path: 'welcome',
     component: WelcomePageComponent,
     loadChildren: () =>
-      import('./cosmos/modules/landing-page/landing-page.module').then(
+      import('./unauthorized/landing-page/landing-page.module').then(
         (m: any) => m.LandingPageModule
       ),
     data: { animation: 'WelcomePage' },
@@ -18,7 +18,7 @@ const routes: Routes = [
     path: 'cosmos',
     canLoad: [UserGuard],
     loadChildren: () =>
-      import('./cosmos/cosmos.module').then((m: any) => m.CosmosModule),
+      import('./game/cosmos/cosmos.module').then((m: any) => m.CosmosModule),
     data: { animation: 'CosmosPage' },
   },
   {

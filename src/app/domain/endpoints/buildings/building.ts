@@ -1,5 +1,5 @@
-import { BuildingType } from '@src/app/models/buildingType';
-import { NextLevelRequirements } from '@src/app/models/next-level-requirements';
+import { BuildingType } from '@src/app/shared/models/buildingType';
+import { NextLevelRequirements } from '@src/app/shared/models/next-level-requirements';
 
 export interface BuildingSocketData {
   type: BuildingType;

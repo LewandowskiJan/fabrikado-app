@@ -1,15 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NumberDisplayPipe } from './number-display.pipe';
+import { NgModule } from '@angular/core';
 
-
+import { NumberDisplayPipe } from './pipes/number-display/number-display.pipe';
 
 @NgModule({
-  declarations: [
-    NumberDisplayPipe
-  ],
-  imports: [
-    CommonModule
-  ]
+  declarations: [NumberDisplayPipe],
+  exports: [NumberDisplayPipe],
+  imports: [CommonModule],
 })
-export class SharedModule { }
+export class SharedModule {}

@@ -1,0 +1,64 @@
+<app-landing-page-layout [color]="color">
+  <h1 class="header">LOGIN</h1>
+  <div class="form-container">
+    <form
+      *ngIf="loginForm"
+      [formGroup]="loginForm"
+      class="login-form"
+      (ngSubmit)="submitLogin()"
+    >
+      <app-input-field>
+        <label for="login">Login</label>
+        <input
+          autocomplete="username"
+          formControlName="login"
+          type="text"
+          id="login"
+          name="login"
+          placeholder="Your login..."
+        />
+        <ng-container *ngIf="loginForm.controls['login'] as control">
+          <div
+            *ngIf="control.invalid && (control.dirty || control.touched)"
+            class="error"
+          >
+            <div *ngIf="control.errors && control.errors.required">
+              Please enter login
+            </div>
+          </div>
+        </ng-container>
+      </app-input-field>
+      <app-input-field>
+        <label for="password">Password</label>
+        <input
+          autocomplete="current-password"
+          formControlName="password"
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Your password..."
+        />
+        <ng-container *ngIf="loginForm.controls['password'] as control">
+          <div
+            *ngIf="control.invalid && (control.dirty || control.touched)"
+            class="error"
+          >
+            <div *ngIf="control.errors && control.errors.required">
+              Please enter password
+            </div>
+          </div>
+        </ng-container>
+      </app-input-field>
+
+      <app-form-submit>
+        <input
+          type="submit"
+          name="register"
+          value="Login"
+          [disabled]="!loginForm.valid"
+          [ngClass]="loginForm.invalid && loginForm.touched ? 'disabled' : ''"
+        />
+      </app-form-submit>
+    </form>
+  </div>
+</app-landing-page-layout>

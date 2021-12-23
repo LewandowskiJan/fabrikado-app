@@ -9,7 +9,9 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { UserData } from './user/user.service';
+import { SocketService } from '@src/app/domain/services/socket.service';
+
+import { UserData } from './user/user-data';
 
 export interface RequestOptions {
   headers?:
@@ -30,6 +32,8 @@ export interface RequestOptions {
       };
   reportProgress?: boolean;
   withCredentials?: boolean;
+  body?: any;
+  url?: string;
 }
 
 const defaultHeaders: { [key: string]: string } = {
@@ -47,7 +51,7 @@ export class RestService {
   private baseUrl: string = 'http://localhost:3000/api';
 
   private defaultRequestOptions: RequestOptions = {
-    headers: new HttpHeaders({ ...defaultHeaders }),
+    headers: { ...defaultHeaders },
   };
 
   constructor(private http: HttpClient) {}
@@ -57,7 +61,7 @@ export class RestService {
     if (this.userData) {
       headers = {
         ...this.defaultRequestOptions.headers,
-        ['user-id']: this.userData.id,
+        ['user-id']: this.userData._id,
       };
     }
     return this.http.get<T>(`${this.baseUrl}/${options.url}`, {
@@ -66,7 +70,30 @@ export class RestService {
     });
   }
 
+  public requestPost<T>(options: Partial<HttpRequest<T>>): Observable<T> {
+    let headers: any;
+    const defaultOptions: any = {
+      ...options,
+      url: options.url || '',
+      body: options.body || {},
+    };
+
+    if (this.userData) {
+      headers = {
+        ...this.defaultRequestOptions.headers,
+        ['user-id']: this.userData._id,
+      };
+    }
+
+    return this.http.post<T>(
+      `${this.baseUrl}/${defaultOptions.url}`,
+      defaultOptions.body,
+      { headers, ...options.params }
+    );
+  }
+
   public setUserData(user: UserData): void {
+    if (user._id) localStorage.setItem('token', user._id);
     this.userData = user;
   }
 }

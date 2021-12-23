@@ -40,10 +40,8 @@ export class PlanetManager {
       const planet: Planet = Game.getPlanetByCoordinates({
         galacticIndex: 1,
         solarSystemIndex: 1,
-        planetIndex: +this.userId,
+        planetIndex: 1,
       });
-
-      console.log(planet);
 
       if (planet) {
         this.io

@@ -51,7 +51,7 @@ export class PlanetFactory {
       coordinates.solarSystemIndex === 1 &&
       coordinates.planetIndex === 1
     ) {
-      playerId = '1';
+      playerId = '61c3871db04d1e63f2ddbf2f';
     }
 
     if (
@@ -59,7 +59,7 @@ export class PlanetFactory {
       coordinates.solarSystemIndex === 1 &&
       coordinates.planetIndex === 2
     ) {
-      playerId = '1';
+      playerId = '61c3871db04d1e63f2ddbf2f';
     }
     // remove under
 

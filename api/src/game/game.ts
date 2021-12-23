@@ -7,6 +7,7 @@ import {
 } from '../sockets/configuration/socket-event.map';
 import { BuildingEvents } from './../../../src/app/domain/endpoints/buildings/building-events.map';
 import { PlayerEvents } from './../../../src/app/domain/endpoints/player/player-events.map';
+import { addTestUserToDatabase } from './../db/test/user.mock';
 import { BuildingType } from './building/configuration/buildingType';
 import { Coordinates } from './coordinates/coordinates';
 import { Galaxy } from './galaxy/galaxy';
@@ -25,10 +26,11 @@ export class Game {
 
   public static currentId: string;
 
-  public static startGame(io: Server): void {
+  public static async startGame(io: Server): Promise<void> {
     this.io = io;
     this.setupConfiguration();
     this.setupGameState();
+    await addTestUserToDatabase();
     this.setupSocket();
     this.setupInterval();
   }
@@ -55,7 +57,6 @@ export class Game {
   }
 
   private static setupSocket(): void {
-    console.log('here');
     this.io
       .use(
         (
@@ -73,6 +74,7 @@ export class Game {
         ClientEvents.SOCKET_CONNECTION,
         (socket: Socket<AllEvents, AllEvents>) => {
           const connectedUserId: string = socket.handshake.query.id as string;
+          console.log('A user connected', connectedUserId);
 
           if (
             connectedUserId &&
@@ -101,7 +103,11 @@ export class Game {
   private static checkAuthorization(
     socket: Socket<AllEvents, AllEvents>
   ): boolean {
-    if (socket.handshake.query && socket.handshake.query.token) {
+    if (
+      socket.handshake.query &&
+      socket.handshake.query.token &&
+      socket.handshake.query.id
+    ) {
       // jwt.verify(
       //   socket.handshake.query.token,
       //   'SECRET_KEY',

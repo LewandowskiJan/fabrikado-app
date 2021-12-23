@@ -9,8 +9,8 @@ import { PlanetEvents } from '@domain/endpoints/planet/planet-events.map';
 import { PlayerEvents } from '../domain/endpoints/player/player-events.map';
 import { ResourceEvents } from '../domain/endpoints/resource/resource-events.map';
 import { SocketService } from '../domain/services/socket.service';
-import { Building } from '../models/building';
-import { BuildingType } from '../models/buildingType';
+import { Building } from '../shared/models/building';
+import { BuildingType } from '../shared/models/buildingType';
 import { PlanetSocketData } from './../domain/endpoints/planet/planet-data';
 
 const buildingImageByTypeMap: Map<BuildingType, string> = new Map([
@@ -20,7 +20,7 @@ const buildingImageByTypeMap: Map<BuildingType, string> = new Map([
 ]);
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'any',
 })
 export class SocketPlanetService {
   constructor(private socketService: SocketService) {}
@@ -34,9 +34,7 @@ export class SocketPlanetService {
   }
 
   public preparePlanet(id: string): void {
-    console.log(id);
     this.socketService.sendToEvent(PlanetEvents.PLANET_PREPARE, id);
-    // this.socketService.sendToEvent(PlanetEvents.PLANET_READ);
   }
 
   public getPlanetsName(): Observable<string[]> {

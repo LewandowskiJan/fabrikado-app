@@ -9,13 +9,13 @@ import { environment } from 'src/environments/environment';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { LayoutModule } from './layout/layout.module';
+import { LayoutModule } from './shared/layout/layout.module';
 
 const config: SocketIoConfig = {
-  url: environment.socketUrl,
+  url: environment.socketUnauthorizedUrl,
   options: {
     transports: ['websocket'],
-    query: { token: 'test' },
+    query: {},
   },
 };
 

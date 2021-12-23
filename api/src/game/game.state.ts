@@ -4,6 +4,8 @@ import { Player } from './player/player';
 import { SolarSystem } from './solar-system/solar-system';
 
 export class GameState {
+  public static players: Player[] = [];
+
   public static galaxies: Galaxy[] = [];
   public static solarSystems: SolarSystem[] = [];
   public static planets: Planet[] = [];

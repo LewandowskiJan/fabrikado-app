@@ -1,4 +1,6 @@
 export interface Environment {
   production: boolean;
-  socketUrl: string;
+  socketUnauthorizedUrl: string;
+  socketAuthorizedUrl: string;
+  test: boolean;
 }

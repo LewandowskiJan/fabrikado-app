@@ -22,7 +22,7 @@ export class MicroServiceConfiguration {
 
   private static setupMicroServiceUrlPaths(): void {
     this.app.use(cors());
-    this.app.use('/api/user', cors(), UserRoute);
+    this.app.use('/api/login', cors(), UserRoute);
   }
 
   private static setupHandlers(): void {
@@ -50,7 +50,7 @@ export class MicroServiceConfiguration {
 
   private static setupPreFlight() {
     this.app.options('*', (request: Request, response: Response) => {
-      response.send(200);
+      response.sendStatus(200);
     });
   }
 }
