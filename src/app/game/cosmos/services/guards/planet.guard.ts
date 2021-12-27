@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { CanLoad, Route } from '@angular/router';
+import { CanLoad, Router } from '@angular/router';
 
-import { Observable, of } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { from, Observable, of } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 
 import { UserData } from '@src/app/domain/services/user/user-data';
 
@@ -15,23 +15,33 @@ import { CosmosService } from './../cosmos.service';
 export class PlanetGuard implements CanLoad {
   constructor(
     private cosmosService: CosmosService,
-    private restService: RestService
+    private restService: RestService,
+    private router: Router
   ) {}
 
-  canLoad(route: Route): Observable<boolean> {
+  canLoad(): Observable<boolean> {
     if (this.cosmosService.planetsName.length !== 0) {
       return of(true);
     }
+
     if (localStorage.getItem('token')) {
-      this.restService
+      return this.restService
         .request<UserData>({ url: `user/${localStorage.getItem('token')}` })
-        .pipe(take(1))
-        .subscribe((user: UserData) => {
-          this.cosmosService.planetsName = user.planets;
-        });
-      return of(true);
+        .pipe(
+          tap(
+            (userData: UserData) =>
+              (this.cosmosService.planetsName = userData.planets)
+          ),
+          switchMap((userData: UserData) => {
+            return from(
+              this.router.navigateByUrl(
+                `/cosmos/planets/${userData.planets[0]}`
+              )
+            );
+          })
+        );
     } else {
-      return of(false);
+      return from(this.router.navigateByUrl('/welcome/login'));
     }
   }
 }

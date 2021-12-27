@@ -112,6 +112,8 @@
       class="button"
       [routerLinkActive]="'active'"
       [routerLink]="['/welcome/logout']"
+      (click)="logout()"
+      (onKeyDown)="logout()"
     >
       logout
     </button>

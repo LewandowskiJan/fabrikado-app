@@ -15,6 +15,7 @@ export class WelcomePageComponent implements OnInit {
 
   public ngOnInit(): void {
     if (localStorage.getItem('token')) {
+      this.router.navigateByUrl('/cosmos/planets/');
     }
   }
   public prepareRoute(outlet: RouterOutlet): AnimationTriggerMetadata {

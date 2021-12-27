@@ -22,4 +22,8 @@ export class PlanetComponent {
   public prepareRoute(outlet: RouterOutlet): any {
     return outlet?.activatedRouteData?.['animation'];
   }
+
+  public logout(): void {
+    localStorage.removeItem('token');
+  }
 }

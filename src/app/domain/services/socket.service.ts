@@ -6,10 +6,7 @@ import { Socket, SocketIoConfig } from 'ngx-socket-io';
 
 import { SocketEvent } from '../endpoints/socket-event';
 import { environment } from './../../../environments/environment';
-import { RestService } from './rest.service';
 import { UserData } from './user/user-data';
-
-const accessToken: string = 'test';
 
 @Injectable({
   providedIn: 'any',
@@ -26,7 +23,7 @@ export class SocketService {
     },
   };
 
-  constructor(private socket: Socket, private restService: RestService) {
+  constructor(private socket: Socket) {
     this.socket = new Socket(this.config);
   }
 
