@@ -22,7 +22,7 @@ export class LoginService {
 
   public sendUserCredentials(credentials: Credentials): Observable<boolean> {
     const options: any = {
-      url: 'login',
+      url: 'user/login',
       body: credentials,
     };
 

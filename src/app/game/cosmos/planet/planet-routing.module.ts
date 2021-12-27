@@ -15,7 +15,6 @@ import { ShipyardComponent } from './components/shipyard/shipyard.component';
 import { ShopComponent } from './components/shop/shop.component';
 import { StaffComponent } from './components/staff/staff.component';
 import { PlanetComponent } from './containers/planet/planet.component';
-import { PlanetsOverviewStatsComponent } from './containers/planets-overview-stats/planets-overview-stats.component';
 
 const routes: Routes = [
   {

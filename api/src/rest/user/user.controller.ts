@@ -24,3 +24,22 @@ export async function getUser(
     return next(error);
   }
 }
+
+export async function getUserById(
+  request: Request,
+  response: Response,
+  next: any
+): Promise<any> {
+  try {
+    const userFromDb: UserData = await UserDao.findUserById({
+      params: { id: request.params.userId },
+    });
+
+    response.json(userFromDb);
+    //   userFromDb.password = request.body.password
+    //     ? response.json(userFromDb)
+    //     : next(new Error());
+  } catch (error) {
+    return next(error);
+  }
+}

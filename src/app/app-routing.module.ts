@@ -5,6 +5,7 @@ import { UserGuard } from './services/guards/user.guard';
 import { WelcomePageComponent } from './unauthorized/landing-page/containers/welcome-page/welcome-page.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'welcome', pathMatch: 'full' },
   {
     path: 'welcome',
     component: WelcomePageComponent,

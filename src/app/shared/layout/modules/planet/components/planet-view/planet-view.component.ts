@@ -84,7 +84,6 @@ export class PlanetViewComponent implements AfterViewInit, OnDestroy {
 
   private draw(): void {
     if (this.context && this.sphere && this.texture1) {
-      console.log('drawing');
       this.animationFrameId = requestAnimationFrame(this.draw.bind(this));
       this.context.save();
       this.context.clearRect(0, 0, this.width, this.height);

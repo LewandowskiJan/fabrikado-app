@@ -22,7 +22,7 @@ export class MicroServiceConfiguration {
 
   private static setupMicroServiceUrlPaths(): void {
     this.app.use(cors());
-    this.app.use('/api/login', cors(), UserRoute);
+    this.app.use('/api/user', cors(), UserRoute);
   }
 
   private static setupHandlers(): void {

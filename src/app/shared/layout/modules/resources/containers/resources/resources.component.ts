@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
-import { Observable, pipe } from 'rxjs';
-import { distinctUntilChanged, map, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 
 import { Resource } from '@src/app/shared/models/resource';
 import { NumberDisplayPipe } from '@src/app/shared/pipes/number-display/number-display.pipe';
