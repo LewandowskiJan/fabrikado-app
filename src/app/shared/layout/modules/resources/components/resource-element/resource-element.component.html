@@ -1,4 +1,4 @@
 <ng-container *ngIf="resourceName && resourceValue">
   {{ resourceShortCode.get(resourceName) }}:
-  <span [innerHTML]="resourceValue | numberDisplay: 'bold-suffix'"></span>
+  <span [innerHTML]="resourceValue"></span>
 </ng-container>
