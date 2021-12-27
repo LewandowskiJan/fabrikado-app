@@ -58,6 +58,7 @@ export class Player {
       ResourceEvents.RESOURCE_READ,
       this.currentPlanet.resources
     );
+
     io.to(this.playerRoomName).emit(
       PlanetEvents.PLANET_READ,
       this.currentPlanet

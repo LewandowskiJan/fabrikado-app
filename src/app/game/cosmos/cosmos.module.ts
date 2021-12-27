@@ -9,6 +9,6 @@ import { CosmosRoutingModule } from './cosmos-routing.module';
 
 @NgModule({
   declarations: [CosmosComponent, CosmosStartPageComponent],
-  imports: [CommonModule, CosmosRoutingModule, LayoutModule, ],
+  imports: [CommonModule, CosmosRoutingModule, LayoutModule],
 })
 export class CosmosModule {}

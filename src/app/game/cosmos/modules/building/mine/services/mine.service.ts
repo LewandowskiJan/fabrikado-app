@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
-import { SocketPlanetService } from '@src/app/services/socket.service';
+import { PlanetSocketService } from '@src/app/game/cosmos/planet/services/planet-socket.service';
 import { BuildingType } from '@src/app/shared/models/buildingType';
 
 import { Mine } from '../model/mine';
@@ -16,7 +16,7 @@ export class MineService {
 
   public currentMine$: Observable<Mine | undefined> = of(undefined);
 
-  constructor(private socketPlanetService: SocketPlanetService) {
+  constructor(private socketPlanetService: PlanetSocketService) {
     this.mines$ = this.socketPlanetService.onFetchBuildings();
   }
 

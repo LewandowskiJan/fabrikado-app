@@ -24,6 +24,6 @@ export class PlanetComponent {
   }
 
   public logout(): void {
-    localStorage.removeItem('token');
+    this.cosmosService.logout();
   }
 }

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { from, Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 
+import { SocketService } from '@src/app/domain/services/socket.service';
 import { UserData } from '@src/app/domain/services/user/user-data';
 
 import { Credentials } from '../model/credentials';
@@ -17,7 +18,8 @@ export class LoginService {
   constructor(
     private restService: RestService,
     private router: Router,
-    private cosmosService: CosmosService
+    private cosmosService: CosmosService,
+    private socketService: SocketService
   ) {}
 
   public sendUserCredentials(credentials: Credentials): Observable<boolean> {
@@ -29,6 +31,16 @@ export class LoginService {
     return this.restService.requestPost<UserData[]>(options).pipe(
       map((userArray: UserData[]) => userArray[0]),
       tap((user: UserData) => this.restService.setUserData(user)),
+      tap((user: UserData) =>
+        this.socketService.reconnect({
+          options: {
+            query: {
+              token: localStorage.getItem('token'),
+              id: localStorage.getItem('token'),
+            },
+          },
+        })
+      ),
       tap((user: UserData) => {
         this.cosmosService.planetsName = user.planets;
       }),

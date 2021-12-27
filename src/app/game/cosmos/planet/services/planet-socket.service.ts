@@ -3,15 +3,15 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
+import { PlanetSocketData } from '@src/app/domain/endpoints/planet/planet-data';
+import { PlayerEvents } from '@src/app/domain/endpoints/player/player-events.map';
+import { ResourceEvents } from '@src/app/domain/endpoints/resource/resource-events.map';
+import { SocketService } from '@src/app/domain/services/socket.service';
+import { Building } from '@src/app/shared/models/building';
+import { BuildingType } from '@src/app/shared/models/buildingType';
+
 import { BuildingEvents } from '@domain/endpoints/buildings/building-events.map';
 import { PlanetEvents } from '@domain/endpoints/planet/planet-events.map';
-
-import { PlayerEvents } from '../domain/endpoints/player/player-events.map';
-import { ResourceEvents } from '../domain/endpoints/resource/resource-events.map';
-import { SocketService } from '../domain/services/socket.service';
-import { Building } from '../shared/models/building';
-import { BuildingType } from '../shared/models/buildingType';
-import { PlanetSocketData } from './../domain/endpoints/planet/planet-data';
 
 const buildingImageByTypeMap: Map<BuildingType, string> = new Map([
   [BuildingType.CRYSTAL_MINE, 'structure'],
@@ -20,9 +20,9 @@ const buildingImageByTypeMap: Map<BuildingType, string> = new Map([
 ]);
 
 @Injectable({
-  providedIn: 'any',
+  providedIn: 'root',
 })
-export class SocketPlanetService {
+export class PlanetSocketService {
   constructor(private socketService: SocketService) {}
 
   public fetchSources(): void {

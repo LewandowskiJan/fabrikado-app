@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { SocketPlanetService } from '@src/app/services/socket.service';
+import { PlanetSocketService } from '../../planet/services/planet-socket.service';
 
 @Component({
   selector: 'app-cosmos-start-page',
@@ -14,5 +14,5 @@ export class CosmosStartPageComponent {
   public firstPlanetId$: Observable<any> = this.socketPlanetService
     .getPlayerData()
     .pipe(map((res: any) => res.currentPlanet.name));
-  constructor(private socketPlanetService: SocketPlanetService) {}
+  constructor(private socketPlanetService: PlanetSocketService) {}
 }

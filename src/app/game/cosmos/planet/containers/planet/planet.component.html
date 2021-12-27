@@ -108,13 +108,7 @@
     </button>
   </app-button>
   <app-button side-navigation>
-    <button
-      class="button"
-      [routerLinkActive]="'active'"
-      [routerLink]="['/welcome/logout']"
-      (click)="logout()"
-      (onKeyDown)="logout()"
-    >
+    <button class="button" (click)="logout()" (onKeyDown)="logout()">
       logout
     </button>
   </app-button>

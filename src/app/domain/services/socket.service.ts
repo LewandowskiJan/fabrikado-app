@@ -4,15 +4,15 @@ import { Observable } from 'rxjs';
 
 import { Socket, SocketIoConfig } from 'ngx-socket-io';
 
-import { SocketEvent } from '../endpoints/socket-event';
-import { environment } from './../../../environments/environment';
-import { UserData } from './user/user-data';
+import { environment } from '@src/environments/environment';
 
+import { SocketEvent } from '../endpoints/socket-event';
 @Injectable({
-  providedIn: 'any',
+  providedIn: 'root',
 })
 export class SocketService {
-  public userData: UserData | undefined;
+  public socket: Socket;
+
   private config: SocketIoConfig = {
     url: environment.socketUnauthorizedUrl,
     options: {
@@ -23,7 +23,7 @@ export class SocketService {
     },
   };
 
-  constructor(private socket: Socket) {
+  constructor() {
     this.socket = new Socket(this.config);
   }
 
@@ -35,16 +35,8 @@ export class SocketService {
     this.socket.emit(event, data);
   }
 
-  public setAuthorization(userData: UserData): void {
+  public reconnect(config: Partial<SocketIoConfig>): void {
     this.socket.disconnect();
-    if (userData._id) {
-      this.config.url = environment.socketUnauthorizedUrl;
-      if (this.config.options) {
-        this.config.options.path = 'auth';
-        this.config.options.query = { token: userData._id, id: userData._id };
-      }
-    }
-
-    this.socket = new Socket(this.config);
+    this.socket = new Socket({ ...this.config, ...config });
   }
 }

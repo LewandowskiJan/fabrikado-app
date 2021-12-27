@@ -3,8 +3,7 @@ import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
 
-import { SocketPlanetService } from 'src/app/services/socket.service';
-
+import { PlanetSocketService } from '../../planet/services/planet-socket.service';
 import { CosmosService } from './../cosmos.service';
 
 @Injectable({
@@ -13,7 +12,7 @@ import { CosmosService } from './../cosmos.service';
 export class PlanetResolver implements Resolve<boolean> {
   constructor(
     private cosmosService: CosmosService,
-    private socketPlanetService: SocketPlanetService
+    private socketPlanetService: PlanetSocketService
   ) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<boolean> {

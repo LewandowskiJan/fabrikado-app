@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { PlanetSocketData } from '@src/app/domain/endpoints/planet/planet-data';
-import { SocketPlanetService } from '@src/app/services/socket.service';
 
+import { PlanetSocketService } from '../../services/planet-socket.service';
 import { CosmosService } from './../../../services/cosmos.service';
 
 @Component({
@@ -13,15 +13,18 @@ import { CosmosService } from './../../../services/cosmos.service';
   styleUrls: ['./overview.component.scss'],
 })
 export class OverviewComponent {
-  public error$: Observable<string> = this.socketService.planetErrorListener();
+  public error$: Observable<string> =
+    this.socketPlanetService.planetErrorListener();
   public planet$: Observable<PlanetSocketData | null> =
-    this.socketService.onFetchPlanet();
+    this.socketPlanetService.onFetchPlanet();
 
   constructor(
-    private socketService: SocketPlanetService,
+    private socketPlanetService: PlanetSocketService,
     private cosmosService: CosmosService
   ) {
-    this.socketService.preparePlanet(this.cosmosService.currentPlanetName);
-    this.planet$ = this.socketService.onFetchPlanet();
+    this.socketPlanetService.preparePlanet(
+      this.cosmosService.currentPlanetName
+    );
+    this.planet$ = this.socketPlanetService.onFetchPlanet();
   }
 }
