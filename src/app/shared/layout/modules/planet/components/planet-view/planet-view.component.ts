@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   Input,
+  OnDestroy,
   ViewChild,
 } from '@angular/core';
 
@@ -14,7 +15,7 @@ import { Texture } from './../../model/texture';
   templateUrl: './planet-view.component.html',
   styleUrls: ['./planet-view.component.scss'],
 })
-export class PlanetViewComponent implements AfterViewInit {
+export class PlanetViewComponent implements AfterViewInit, OnDestroy {
   @Input() width: number = 200;
   @Input() height: number = 200;
 
@@ -32,6 +33,8 @@ export class PlanetViewComponent implements AfterViewInit {
   public texture: Texture | undefined;
   public texture1: Texture | undefined;
 
+  private animationFrameId: number | undefined;
+
   private DOTS_AMOUNT: number = 0;
   private DOT_RADIUS: number = 0;
   private GLOBE_RADIUS: number = 0;
@@ -40,7 +43,7 @@ export class PlanetViewComponent implements AfterViewInit {
   private PROJECTION_CENTER_Y: number = 0;
   private FIELD_OF_VIEW: number = 0;
 
-  ngAfterViewInit(): void {
+  public ngAfterViewInit(): void {
     if (this.planetCanvas) {
       this.context = this.planetCanvas.nativeElement.getContext('2d');
       this.setupConst();
@@ -65,6 +68,10 @@ export class PlanetViewComponent implements AfterViewInit {
     }
   }
 
+  public ngOnDestroy(): void {
+    this.animationFrameId && cancelAnimationFrame(this.animationFrameId);
+  }
+
   private setupConst() {
     this.DOTS_AMOUNT = 1000; // Amount of dots on the screen
     this.DOT_RADIUS = 4; // Radius of the dots
@@ -77,7 +84,8 @@ export class PlanetViewComponent implements AfterViewInit {
 
   private draw(): void {
     if (this.context && this.sphere && this.texture1) {
-      requestAnimationFrame(this.draw.bind(this));
+      console.log('drawing');
+      this.animationFrameId = requestAnimationFrame(this.draw.bind(this));
       this.context.save();
       this.context.clearRect(0, 0, this.width, this.height);
       this.texture?.draw(this.width, this.height);
