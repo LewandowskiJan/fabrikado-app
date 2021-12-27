@@ -21,7 +21,7 @@ const routes: Routes = [
   {
     path: 'info',
     component: GameInfoPageComponent,
-    data: { animation: 'Logout' },
+    data: { animation: 'Info' },
   },
   {
     path: 'logout',
