@@ -132,7 +132,7 @@ export class Game {
 
       this.gameInterval = setInterval(() => {
         GameState.onGamePlayers.forEach((player: Player) => {
-          player.updateData(this.io);
+          player.planets.size && player.updateData(this.io);
         });
 
         GameState.planetsDiscovered.forEach((planet: Planet) => {
