@@ -2,6 +2,7 @@ import { ACCELERATION } from './../../configuration/globals-variables';
 import {
   Cost,
   ResourceBuildingConfiguration,
+  ResourceCapacity,
   ResourceProduction,
 } from './../../game-configuration.map';
 import { BuildingType } from './buildingType';
@@ -37,7 +38,14 @@ export const fusionReactorConfiguration: [
     upgradeEnergyConsumeValueFn: (): number => 0,
     upgradeDeuteriumConsumeValueFn: (lvl: number): number =>
       Math.ceil(ACCELERATION * 10 * lvl * Math.pow(1.1, lvl)),
-    upgradeStorageCapacityFn: (): number => 0,
+    upgradeStorageCapacityFn: (): ResourceCapacity => {
+      return {
+        crystal: 0,
+        metal: 0,
+        energy: 0,
+        deuterium: 0,
+      };
+    },
   },
 ];
 
@@ -71,7 +79,14 @@ export const solarPlantConfiguration: [
     },
     upgradeEnergyConsumeValueFn: (): number => 0,
     upgradeDeuteriumConsumeValueFn: (): number => 0,
-    upgradeStorageCapacityFn: (): number => 0,
+    upgradeStorageCapacityFn: (): ResourceCapacity => {
+      return {
+        crystal: 0,
+        metal: 0,
+        energy: 0,
+        deuterium: 0,
+      };
+    },
   },
 ];
 
@@ -107,6 +122,13 @@ export const solarSatelliteConfiguration: [
     },
     upgradeEnergyConsumeValueFn: (): number => 0,
     upgradeDeuteriumConsumeValueFn: (): number => 0,
-    upgradeStorageCapacityFn: (): number => 0,
+    upgradeStorageCapacityFn: (): ResourceCapacity => {
+      return {
+        crystal: 0,
+        metal: 0,
+        energy: 0,
+        deuterium: 0,
+      };
+    },
   },
 ];

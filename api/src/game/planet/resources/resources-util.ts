@@ -24,7 +24,7 @@ export class ResourcesUtil {
     resource2: Resource
   ): boolean {
     return Object.entries(resource1).every(([key, value]: any) => {
-      return value > resource2[key];
+      return value >= resource2[key];
     });
   }
 }

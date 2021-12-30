@@ -16,13 +16,6 @@ import { BuildingEvents } from '@domain/endpoints/buildings/building-events.map'
 import { PlanetEvents } from '@domain/endpoints/planet/planet-events.map';
 
 import { PlanetService } from './planet.service';
-
-const buildingImageByTypeMap: Map<BuildingType, string> = new Map([
-  [BuildingType.CRYSTAL_MINE, 'structure'],
-  [BuildingType.DEUTERIUM_SYNTHESIZER, 'structure2'],
-  [BuildingType.METAL_MINE, 'structure4'],
-]);
-
 @Injectable({
   providedIn: 'root',
 })
@@ -33,6 +26,12 @@ export class PlanetSocketService {
     private socketService: SocketService,
     private planetService: PlanetService
   ) {}
+
+  public onPlanetListening(): Observable<PlanetSocketData> {
+    return this.socketService
+      .listeningOnEvent<PlanetSocketData>(PlanetEvents.PLANET_READ)
+      .pipe(shareReplay(1));
+  }
 
   public fetchSources(): void {
     this.socketService.sendToEvent(ResourceEvents.RESOURCE_READ);
@@ -72,45 +71,11 @@ export class PlanetSocketService {
     );
   }
 
-  public onUpgradeTimeListener(): Observable<Building[]> {
-    return this.socketService
-      .listeningOnEvent<Building[]>(BuildingEvents.BUILDING_UPDATE)
-      .pipe(
-        map((buildings: Building[]) => {
-          return buildings.map((building: Building) => {
-            return {
-              ...building,
-              image: buildingImageByTypeMap.get(building.type),
-            };
-          });
-        }),
-        shareReplay(1)
-      );
-  }
-
   public onBuild(buildingType: BuildingType): void {
     this.currentPlanetCoordinates &&
       this.socketService.sendToEvent(BuildingEvents.BUILDING_ADD, {
         buildingType,
         coordinates: this.currentPlanetCoordinates,
       });
-    this.onFetchBuildings();
-  }
-
-  public onFetchBuildings(): Observable<Building[]> {
-    this.socketService.sendToEvent(BuildingEvents.BUILDING_READ);
-    return this.socketService
-      .listeningOnEvent<Building[]>(BuildingEvents.BUILDING_READ)
-      .pipe(
-        map((buildings: Building[]) => {
-          return buildings.map((building: Building) => {
-            return {
-              ...building,
-              image: buildingImageByTypeMap.get(building.type) || 'structure',
-            };
-          });
-        }),
-        shareReplay(1)
-      );
   }
 }

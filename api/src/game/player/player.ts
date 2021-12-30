@@ -2,7 +2,6 @@ import { Server, Socket } from 'socket.io';
 
 import { BuildingEvents } from './../../../../src/app/domain/endpoints/buildings/building-events.map';
 import { PlanetEvents } from './../../../../src/app/domain/endpoints/planet/planet-events.map';
-import { ResourceEvents } from './../../../../src/app/domain/endpoints/resource/resource-events.map';
 import { BuildingManager } from './../../sockets/components/buildings/building-socket.manager';
 import { PlanetManager } from './../../sockets/components/planet/planet-socket.manager';
 import { ResourceManager } from './../../sockets/components/resources/resource-socket.manager';
@@ -53,11 +52,6 @@ export class Player {
     if (!this.currentPlanet) {
       this.currentPlanet = this.planets.get(this.planetsName[0]);
     }
-
-    io.to(this.playerRoomName).emit(
-      ResourceEvents.RESOURCE_READ,
-      this.currentPlanet.resources
-    );
 
     io.to(this.playerRoomName).emit(
       PlanetEvents.PLANET_READ,

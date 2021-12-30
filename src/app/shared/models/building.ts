@@ -11,6 +11,7 @@ export interface Building {
   level: number;
   name: string;
   miningResource: Resource;
+  capacity: Resource;
   energyConsume: number;
   nextLevelBuildingRequirements: BuildingRequirement[];
   nextLevelCosts: Resource;

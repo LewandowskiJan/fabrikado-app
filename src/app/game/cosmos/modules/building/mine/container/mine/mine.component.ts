@@ -14,8 +14,6 @@ import { MineService } from '../../services/mine.service';
 })
 export class MineComponent {
   public mines$: Observable<Mine[] | undefined> = this.mineService.mines$;
-  public upgradeRestTime$: Observable<Mine[]> =
-    this.mineService.upgradeRestTime$;
 
   public currentMine$: Observable<Mine | undefined> =
     this.mineService.currentMine$;

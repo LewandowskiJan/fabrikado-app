@@ -1,6 +1,7 @@
 import {
   Cost,
   ResourceBuildingConfiguration,
+  ResourceCapacity,
   ResourceProduction,
 } from '../../game-configuration.map';
 import { BuildingType } from './buildingType';
@@ -35,8 +36,14 @@ export const crystalStorageConfiguration: [
     },
     upgradeEnergyConsumeValueFn: (): number => 0,
     upgradeDeuteriumConsumeValueFn: (): number => 0,
-    upgradeStorageCapacityFn: (lvl: number): number =>
-      5000 * Math.floor(2.5 * Math.exp((20 / 33) * lvl)),
+    upgradeStorageCapacityFn: (lvl: number): ResourceCapacity => {
+      return {
+        metal: 0,
+        crystal: 5000 * Math.floor(2.5 * Math.exp((20 / 33) * lvl)),
+        energy: 0,
+        deuterium: 0,
+      };
+    },
   },
 ];
 
@@ -70,8 +77,14 @@ export const metalStorageConfiguration: [
     },
     upgradeEnergyConsumeValueFn: (): number => 0,
     upgradeDeuteriumConsumeValueFn: (): number => 0,
-    upgradeStorageCapacityFn: (lvl: number): number =>
-      5000 * Math.floor(2.5 * Math.exp((20 / 33) * lvl)),
+    upgradeStorageCapacityFn: (lvl: number): ResourceCapacity => {
+      return {
+        metal: 5000 * Math.floor(2.5 * Math.exp((20 / 33) * lvl)),
+        crystal: 0,
+        energy: 0,
+        deuterium: 0,
+      };
+    },
   },
 ];
 
@@ -105,7 +118,13 @@ export const deuteriumTankConfiguration: [
     },
     upgradeEnergyConsumeValueFn: (): number => 0,
     upgradeDeuteriumConsumeValueFn: (): number => 0,
-    upgradeStorageCapacityFn: (lvl: number): number =>
-      5000 * Math.floor(2.5 * Math.exp((20 / 33) * lvl)),
+    upgradeStorageCapacityFn: (lvl: number): ResourceCapacity => {
+      return {
+        metal: 0,
+        crystal: 0,
+        energy: 0,
+        deuterium: 5000 * Math.floor(2.5 * Math.exp((20 / 33) * lvl)),
+      };
+    },
   },
 ];

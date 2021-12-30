@@ -4,6 +4,7 @@ import {
   ResourceBuildingConfiguration,
   ResourceProduction,
 } from '../../game-configuration.map';
+import { ResourceCapacity } from './../../game-configuration.map';
 import { BuildingType } from './buildingType';
 
 export const crystalMineConfiguration: [
@@ -37,7 +38,14 @@ export const crystalMineConfiguration: [
     upgradeEnergyConsumeValueFn: (lvl: number): number =>
       Math.ceil(10 * lvl * Math.pow(1.1, lvl)),
     upgradeDeuteriumConsumeValueFn: (): number => 0,
-    upgradeStorageCapacityFn: (): number => 0,
+    upgradeStorageCapacityFn: (): ResourceCapacity => {
+      return {
+        crystal: 0,
+        metal: 0,
+        energy: 0,
+        deuterium: 0,
+      };
+    },
   },
 ];
 
@@ -79,7 +87,14 @@ export const deuteriumSynthesizerConfiguration: [
     upgradeEnergyConsumeValueFn: (lvl: number): number =>
       Math.ceil(10 * lvl * Math.pow(1.1, lvl)),
     upgradeDeuteriumConsumeValueFn: (): number => 0,
-    upgradeStorageCapacityFn: (): number => 0,
+    upgradeStorageCapacityFn: (): ResourceCapacity => {
+      return {
+        crystal: 0,
+        metal: 0,
+        energy: 0,
+        deuterium: 0,
+      };
+    },
   },
 ];
 
@@ -114,6 +129,13 @@ export const metalMineConfiguration: [
     upgradeEnergyConsumeValueFn: (lvl: number): number =>
       Math.ceil(10 * lvl * Math.pow(1.1, lvl)),
     upgradeDeuteriumConsumeValueFn: (): number => 0,
-    upgradeStorageCapacityFn: (): number => 0,
+    upgradeStorageCapacityFn: (): ResourceCapacity => {
+      return {
+        crystal: 0,
+        metal: 0,
+        energy: 0,
+        deuterium: 0,
+      };
+    },
   },
 ];

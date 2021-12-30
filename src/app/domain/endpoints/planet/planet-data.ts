@@ -1,4 +1,5 @@
-import { BuildingSocketData } from '../buildings/building';
+import { Building } from '@src/app/shared/models/building';
+import { Resource } from '@src/app/shared/models/resource';
 
 export interface CoordinatesSocketData {
   galacticIndex: number;
@@ -9,7 +10,8 @@ export interface CoordinatesSocketData {
 export interface PlanetSocketData {
   playerId: string;
   name: string;
-  size:number;
+  size: number;
+  resources: Resource;
   coordinates: CoordinatesSocketData;
   satStrength: number;
   requireSat: number;
@@ -19,5 +21,5 @@ export interface PlanetSocketData {
   averageTemperature: number;
   maxTemperature: number;
   minTemperature: number;
-  buildings: BuildingSocketData[];
+  buildings: Building[];
 }

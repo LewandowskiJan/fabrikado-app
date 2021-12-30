@@ -7,17 +7,31 @@ import { PlanetSocketService } from '@src/app/game/cosmos/planet/services/planet
 import { BuildingType } from '@src/app/shared/models/buildingType';
 
 import { Mine } from '../model/mine';
+import { PlanetSocketData } from './../../../../../../domain/endpoints/planet/planet-data';
+
+const buildingImageByTypeMap: Map<BuildingType, string> = new Map([
+  [BuildingType.CRYSTAL_MINE, 'structure'],
+  [BuildingType.DEUTERIUM_SYNTHESIZER, 'structure2'],
+  [BuildingType.METAL_MINE, 'structure4'],
+]);
 
 @Injectable()
 export class MineService {
   public mines$: Observable<Mine[]>;
-  public upgradeRestTime$: Observable<Mine[]> =
-    this.socketPlanetService.onUpgradeTimeListener();
 
   public currentMine$: Observable<Mine | undefined> = of(undefined);
 
   constructor(private socketPlanetService: PlanetSocketService) {
-    this.mines$ = this.socketPlanetService.onFetchBuildings();
+    this.mines$ = this.socketPlanetService.onPlanetListening().pipe(
+      map((planet: PlanetSocketData) => {
+        return planet.buildings.map((building: Mine) => {
+          return {
+            ...building,
+            image: buildingImageByTypeMap.get(building.type) || 'structure',
+          };
+        });
+      })
+    );
   }
 
   public selectDetails(type: BuildingType | undefined): void {

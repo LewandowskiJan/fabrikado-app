@@ -15,6 +15,7 @@ export class Planet extends PlanetAbstract {
   public size: number;
 
   public resources: Resource;
+  public resourcesCapacity: Resource;
   public miningForce: Resource;
 
   public averageTemperature: number;
@@ -48,6 +49,13 @@ export class Planet extends PlanetAbstract {
     this.buildings = planetInitialData.buildings;
     this.size = planetInitialData.size;
 
+    this.resourcesCapacity = {
+      metal: 1000,
+      crystal: 1000,
+      deuterium: 1000,
+      energy: 1000,
+    };
+
     this.resources = {
       metal: 50,
       crystal: 50,
@@ -64,10 +72,21 @@ export class Planet extends PlanetAbstract {
   }
 
   public upgradeResources(): void {
-    this.resources.crystal += Math.ceil(this.miningForce.crystal);
-    this.resources.metal += Math.ceil(this.miningForce.metal);
-    this.resources.deuterium += Math.ceil(this.miningForce.deuterium);
-    this.resources.energy += Math.ceil(this.miningForce.energy);
+    this.resources.crystal = this.checkResourceCapacity('crystal');
+    this.resources.metal = this.checkResourceCapacity('metal');
+    this.resources.deuterium = this.checkResourceCapacity('deuterium');
+    this.resources.energy = this.checkResourceCapacity('energy');
+  }
+
+  private checkResourceCapacity(key: string): number {
+    if (
+      this.resources[key] + Math.ceil(this.miningForce[key]) >=
+      this.resourcesCapacity[key]
+    ) {
+      return this.resourcesCapacity[key];
+    } else {
+      return this.resources[key] + Math.ceil(this.miningForce[key]);
+    }
   }
 
   public upgradeBuilding(buildingType: BuildingType): void {
@@ -99,6 +118,7 @@ export class Planet extends PlanetAbstract {
       if (building.decrementUpgradeTime()) {
         shouldEmitAfterFinish = building.finishUpdate();
         this.upgradeMiningForce(building);
+        this.upgradeResourceCapacity(building);
 
         this.onUpgradeBuilding = this.onUpgradeBuilding.filter(
           (currentBuilding: Building) => currentBuilding.type !== building.type
@@ -117,6 +137,17 @@ export class Planet extends PlanetAbstract {
     if (miningResource.energy === 0) delete miningResource.energy;
 
     this.miningForce = { ...this.miningForce, ...miningResource };
+  }
+
+  private upgradeResourceCapacity(building: Building): void {
+    const capacityResource: Partial<Resource> = building.capacity;
+
+    if (capacityResource.metal === 0) delete capacityResource.metal;
+    if (capacityResource.crystal === 0) delete capacityResource.crystal;
+    if (capacityResource.deuterium === 0) delete capacityResource.deuterium;
+    if (capacityResource.energy === 0) delete capacityResource.energy;
+
+    this.resourcesCapacity = { ...this.resourcesCapacity, ...capacityResource };
   }
 
   public getData(): PlanetData {

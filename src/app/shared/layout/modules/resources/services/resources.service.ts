@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { shareReplay } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
-import { ResourceEvents } from '@src/app/domain/endpoints/resource/resource-events.map';
-import { SocketService } from '@src/app/domain/services/socket.service';
+import { PlanetSocketData } from '@src/app/domain/endpoints/planet/planet-data';
+import { PlanetSocketService } from '@src/app/game/cosmos/planet/services/planet-socket.service';
 import { Resource } from '@src/app/shared/models/resource';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ResourcesService {
-  constructor(private socketService: SocketService) {}
+  constructor(private planetSocketService: PlanetSocketService) {}
 
   public resourceListener(): Observable<Resource> {
-    return this.socketService
-      .listeningOnEvent<Resource>(ResourceEvents.RESOURCE_READ)
-      .pipe(shareReplay(1));
+    return this.planetSocketService
+      .onPlanetListening()
+      .pipe(map((planet: PlanetSocketData) => planet.resources));
   }
 }

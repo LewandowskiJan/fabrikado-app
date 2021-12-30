@@ -11,6 +11,7 @@ export interface Cost {
 
 export type BaseCost = Cost;
 export type ResourceProduction = Cost;
+export type ResourceCapacity = Cost;
 
 export interface GameConfig {
   galaxyNumber: number;
@@ -45,7 +46,7 @@ export interface BuildingRuleConfiguration {
   upgradeCostFn: (currentLevel: number) => BaseCost;
   upgradeEnergyConsumeValueFn: (currentLevel: number) => number;
   upgradeDeuteriumConsumeValueFn: (currentLevel: number) => number;
-  upgradeStorageCapacityFn: (currentLevel: number) => number;
+  upgradeStorageCapacityFn: (currentLevel: number) => ResourceCapacity;
 }
 
 export interface ResourceBuildingConfiguration

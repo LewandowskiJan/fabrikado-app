@@ -2,10 +2,13 @@
   <div class="details">
     <p>name: {{ mine.name }}</p>
     <p>cost: {{ mine.nextLevelCosts | json }}</p>
-    <p>upgradingTime: {{ mine.upgradingTimeLeft }}</p>
+    <p>
+      upgradingTime: {{ mine.upgradingTimeLeft || mine.nextLevelBuildingTime }}
+    </p>
     <p>level: {{ mine.level }}</p>
   </div>
   <div class="description">
     <p>mining: {{ mine.miningResource | json }}</p>
+    <p>capacity: {{ mine.capacity | json }}</p>
   </div>
 </div>

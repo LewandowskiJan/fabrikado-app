@@ -1,4 +1,4 @@
-<ng-container *ngIf="resourceName && resourceValue">
+<ng-container *ngIf="resourceName && (resourceValue || resourceValue === 0)">
   {{ resourceShortCode.get(resourceName) }}:
   <span [innerHTML]="resourceValue"></span>
 </ng-container>

@@ -6,6 +6,7 @@ import { BuildingType } from '../configuration/buildingType';
 import {
   Cost,
   ResourceBuildingConfiguration,
+  ResourceCapacity,
   ResourceProduction,
 } from './../../game-configuration.map';
 import { ResourcesUtil } from './../../planet/resources/resources-util';
@@ -36,6 +37,9 @@ export abstract class BuildingAbstract {
   public onNextLevelUpgrade: boolean;
   public upgradingTimeLeft: number;
 
+  public deuteriumConsumption: number;
+  public capacity: ResourceCapacity;
+
   public baseCost: Resource;
   public upgradeCostFn: (level: number) => Cost;
   public upgradeMiningValueFn: (
@@ -43,6 +47,8 @@ export abstract class BuildingAbstract {
     averageTemperature
   ) => ResourceProduction;
   public upgradeEnergyConsumeValueFn: (level: number) => number;
+  public upgradeDeuteriumConsumeValueFn: (level: number) => number;
+  public upgradeStorageCapacityFn: (level: number) => ResourceCapacity;
 
   constructor(
     buildingOption: BuildingOptions,
@@ -59,6 +65,10 @@ export abstract class BuildingAbstract {
       resourceBuildingConfiguration.upgradeMiningValueFn;
     this.upgradeEnergyConsumeValueFn =
       resourceBuildingConfiguration.upgradeEnergyConsumeValueFn;
+    this.upgradeDeuteriumConsumeValueFn =
+      resourceBuildingConfiguration.upgradeDeuteriumConsumeValueFn;
+    this.upgradeStorageCapacityFn =
+      resourceBuildingConfiguration.upgradeStorageCapacityFn;
 
     this.setupUpdateRequirement();
   }
@@ -108,6 +118,8 @@ export abstract class BuildingAbstract {
       this.averageTemperature
     );
     this.energyConsume = this.upgradeEnergyConsumeValueFn(this.level);
+    this.deuteriumConsumption = this.upgradeDeuteriumConsumeValueFn(this.level);
+    this.capacity = this.upgradeStorageCapacityFn(this.level);
   }
 
   public canUpdate(
