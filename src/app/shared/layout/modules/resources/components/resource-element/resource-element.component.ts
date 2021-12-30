@@ -4,6 +4,7 @@ import {
   ResourceShortCode,
   resourceShortCodeMap,
 } from '../../model/resource-short-code-map';
+import { ResourceElement } from '../../services/resources.service';
 
 @Component({
   selector: 'app-resource-element',
@@ -11,7 +12,7 @@ import {
   styleUrls: ['./resource-element.component.scss'],
 })
 export class ResourceElementComponent {
-  @Input() public resourceValue: number | string | undefined;
+  @Input() public resourceValue: ResourceElement | undefined;
   @Input() public resourceName: string | undefined;
   public resourceShortCode: Map<string, ResourceShortCode> =
     resourceShortCodeMap;

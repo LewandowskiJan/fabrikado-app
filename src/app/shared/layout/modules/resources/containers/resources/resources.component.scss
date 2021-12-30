@@ -15,7 +15,13 @@ $shadow-color-blue-green: #009971;
     border-radius: 4px;
     box-shadow: inset 0px 0px 10px 5px black;
     background-color: #353535;
-    border: 2 px solid $shadow-color-blue-green;
+    border: 2px solid $shadow-color-blue-green;
     min-width: 360px;
+
+    .stats {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
   }
 }

@@ -12,6 +12,7 @@ export interface PlanetSocketData {
   name: string;
   size: number;
   resources: Resource;
+  resourcesCapacity: Resource;
   coordinates: CoordinatesSocketData;
   satStrength: number;
   requireSat: number;

@@ -1,10 +1,10 @@
 <div class="container">
   <div class="panel">
-    <div class="stats" *ngIf="resource$ | async as resources; else loading">
+    <div class="stats" *ngIf="resourceWithCapacity$ | async as resourcesWithCapacity; else loading">
       <app-resource-element
-        *ngFor="let resource of resources | keyvalue"
-        [resourceValue]="resource.value"
-        [resourceName]="resource.key"
+        *ngFor="let resourceWithCapacity of resourcesWithCapacity | keyvalue"
+        [resourceValue]="resourceWithCapacity.value"
+        [resourceName]="resourceWithCapacity.key"
       ></app-resource-element>
     </div>
   </div>
