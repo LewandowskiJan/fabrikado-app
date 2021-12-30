@@ -5,8 +5,14 @@ import { BuildingType } from './configuration/buildingType';
 
 export const buildingNameMap: Map<BuildingType, string> = new Map([
   [BuildingType.CRYSTAL_MINE, 'Crystal mine'],
-  [BuildingType.DEUTERIUM_SYNTHESIZER, 'Deuterium synthesizer'],
+  [BuildingType.CRYSTAL_STORAGE, 'Crystal storage'],
   [BuildingType.METAL_MINE, 'Metal mine'],
+  [BuildingType.METAL_STORAGE, 'Metal storage'],
+  [BuildingType.DEUTERIUM_SYNTHESIZER, 'Deuterium synthesizer'],
+  [BuildingType.DEUTERIUM_TANK, 'Deuterium tank'],
+  [BuildingType.FUSION_REACTOR, 'Fusion reactor'],
+  [BuildingType.SOLAR_PLANT, 'Solar plant'],
+  [BuildingType.SOLAR_SATELLITE, 'Solar satellite'],
 ]);
 
 export interface BuildingOptions {

@@ -44,6 +44,8 @@ export interface BuildingRuleConfiguration {
   baseCost: BaseCost;
   upgradeCostFn: (currentLevel: number) => BaseCost;
   upgradeEnergyConsumeValueFn: (currentLevel: number) => number;
+  upgradeDeuteriumConsumeValueFn: (currentLevel: number) => number;
+  upgradeStorageCapacityFn: (currentLevel: number) => number;
 }
 
 export interface ResourceBuildingConfiguration
