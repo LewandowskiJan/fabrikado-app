@@ -31,7 +31,7 @@ export class LoginService {
     return this.restService.requestPost<UserData[]>(options).pipe(
       map((userArray: UserData[]) => userArray[0]),
       tap((user: UserData) => this.restService.setUserData(user)),
-      tap((user: UserData) =>
+      tap(() =>
         this.socketService.reconnect({
           options: {
             query: {

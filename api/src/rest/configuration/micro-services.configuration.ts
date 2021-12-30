@@ -5,8 +5,6 @@ import { defaultErrorHandler } from './../../handlers/default-error-handler';
 import { logErrors } from './../../handlers/log-error';
 import { UserRoute } from './../user/user.route';
 
-const microServices: string[] = [];
-
 export class MicroServiceConfiguration {
   private static app: Express;
   public static setupMicroServices(app: Express): Express {

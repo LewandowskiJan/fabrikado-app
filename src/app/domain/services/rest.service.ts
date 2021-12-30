@@ -9,8 +9,6 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { SocketService } from '@src/app/domain/services/socket.service';
-
 import { UserData } from './user/user-data';
 
 export interface RequestOptions {
