@@ -106,7 +106,7 @@ export class PlanetSocketService {
           return buildings.map((building: Building) => {
             return {
               ...building,
-              image: buildingImageByTypeMap.get(building.type),
+              image: buildingImageByTypeMap.get(building.type) || 'structure',
             };
           });
         }),

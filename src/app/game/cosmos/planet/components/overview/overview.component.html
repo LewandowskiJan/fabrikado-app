@@ -21,9 +21,9 @@
     <div class="details details-1">
       <p>Name: {{ planet.name }}</p>
       <p>
-        Coordinates [{{ planet.coordinates.galacticIndex }}:{{
-          planet.coordinates.solarSystemIndex
-        }}:{{ planet.coordinates.planetIndex }}]
+        Coordinates [{{ planet.coordinates?.galacticIndex }}:{{
+          planet.coordinates?.solarSystemIndex
+        }}:{{ planet.coordinates?.planetIndex }}]
       </p>
       <p></p>
     </div>
