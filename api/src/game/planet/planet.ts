@@ -50,24 +50,24 @@ export class Planet extends PlanetAbstract {
     this.size = planetInitialData.size;
 
     this.resourcesCapacity = {
-      metal: 1000,
-      crystal: 1000,
-      deuterium: 1000,
-      energy: 1000,
+      metal: 10_000,
+      crystal: 10_000,
+      deuterium: 10_000,
+      energy: 1_000_000_000,
     };
 
     this.resources = {
-      metal: 50,
-      crystal: 50,
-      deuterium: 50,
-      energy: 100,
+      metal: 500,
+      crystal: 500,
+      deuterium: 500,
+      energy: 1000,
     };
 
     this.miningForce = {
-      metal: 1,
-      crystal: 1,
-      deuterium: 1,
-      energy: 1,
+      metal: 10,
+      crystal: 10,
+      deuterium: 10,
+      energy: 10,
     };
   }
 
@@ -129,6 +129,9 @@ export class Planet extends PlanetAbstract {
   }
 
   private upgradeMiningForce(building: Building): void {
+    if (!building.miningResource) {
+      return;
+    }
     const miningResource: Partial<Resource> = building.miningResource;
 
     if (miningResource.metal === 0) delete miningResource.metal;
@@ -140,6 +143,9 @@ export class Planet extends PlanetAbstract {
   }
 
   private upgradeResourceCapacity(building: Building): void {
+    if (!building.capacity) {
+      return;
+    }
     const capacityResource: Partial<Resource> = building.capacity;
 
     if (capacityResource.metal === 0) delete capacityResource.metal;

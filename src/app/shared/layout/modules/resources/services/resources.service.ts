@@ -37,8 +37,7 @@ export class ResourcesService {
       ),
       distinctUntilChanged((prev: MappedResource, curr: MappedResource) =>
         this.isResourceOrCapacityChanged(prev, curr)
-      ),
-      tap(console.log)
+      )
     );
   }
 

@@ -13,6 +13,13 @@ export const buildingNameMap: Map<BuildingType, string> = new Map([
   [BuildingType.FUSION_REACTOR, 'Fusion reactor'],
   [BuildingType.SOLAR_PLANT, 'Solar plant'],
   [BuildingType.SOLAR_SATELLITE, 'Solar satellite'],
+  [BuildingType.ROBOTICS_FACTORY, 'Robotics factory'],
+  [BuildingType.SHIPYARD, 'Shipyard'],
+  [BuildingType.RESEARCH_LAB, 'Research lab'],
+  [BuildingType.ALLIANCE_DEPOT, 'Alliance depot'],
+  [BuildingType.MISSILE_SILO, 'Missile silo'],
+  [BuildingType.NANITE_FACTORY, 'Nanite factory'],
+  [BuildingType.TERRAFORMER, 'Terraformer'],
 ]);
 
 export interface BuildingOptions {
@@ -36,6 +43,7 @@ export class BuildingFactory {
 
     const resourceBuildingConfiguration: ResourceBuildingConfiguration =
       buildingConfigurationMap.get(buildingOptions.type);
+
     return new Building(buildingOptions, resourceBuildingConfiguration);
   }
 }

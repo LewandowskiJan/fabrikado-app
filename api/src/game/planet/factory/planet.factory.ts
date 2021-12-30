@@ -147,6 +147,13 @@ export class PlanetFactory {
       PlanetFactory.buildingType.FUSION_REACTOR,
       PlanetFactory.buildingType.SOLAR_PLANT,
       PlanetFactory.buildingType.SOLAR_SATELLITE,
+      PlanetFactory.buildingType.ROBOTICS_FACTORY,
+      PlanetFactory.buildingType.SHIPYARD,
+      PlanetFactory.buildingType.RESEARCH_LAB,
+      PlanetFactory.buildingType.ALLIANCE_DEPOT,
+      PlanetFactory.buildingType.MISSILE_SILO,
+      PlanetFactory.buildingType.NANITE_FACTORY,
+      PlanetFactory.buildingType.TERRAFORMER,
     ].forEach((type: BuildingType) =>
       buildings.push(BuildingFactory.generateBuilding(type, averageTemperature))
     );

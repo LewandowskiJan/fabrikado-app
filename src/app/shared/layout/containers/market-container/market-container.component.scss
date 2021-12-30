@@ -40,20 +40,13 @@ $breakpoint-tablet: 1080px;
     flex-wrap: wrap;
     align-items: flex-start;
 
-    ::ng-deep .image {
+    ::ng-deep app-image .data {
       flex-wrap: wrap;
       height: 100px;
       width: 100px;
 
       &:hover {
         cursor: pointer;
-        transform: scale(0.95);
-        transition: .5s ease-out;
-      }
-
-      &:not(:hover) {
-        transform: scale(1);
-        transition: .5s ease-out;
       }
     }
   }

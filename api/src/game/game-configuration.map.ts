@@ -44,14 +44,23 @@ export interface PlanetRuleConfiguration {
 export interface BuildingRuleConfiguration {
   baseCost: BaseCost;
   upgradeCostFn: (currentLevel: number) => BaseCost;
-  upgradeEnergyConsumeValueFn: (currentLevel: number) => number;
-  upgradeDeuteriumConsumeValueFn: (currentLevel: number) => number;
-  upgradeStorageCapacityFn: (currentLevel: number) => ResourceCapacity;
+  upgradeEnergyConsumeValueFn?: (currentLevel: number) => number;
+  upgradeDeuteriumConsumeValueFn?: (currentLevel: number) => number;
+  upgradeStorageCapacityFn?: (currentLevel: number) => ResourceCapacity;
+  upgradeRoboticTimeReduceFn?: (currentLevel: number) => number;
+  upgradeMissileSlots?: (currentLevel: number) => number;
+  updateExtraFields?: (currentLevel: number) => number;
+  upgradeShipAndDefenceTimeReduceFn?: (
+    metalCost: number,
+    crystalCost: number,
+    lvl: number,
+    naniteFactoryLevel: number
+  ) => number;
 }
 
 export interface ResourceBuildingConfiguration
   extends BuildingRuleConfiguration {
-  upgradeMiningValueFn: (
+  upgradeMiningValueFn?: (
     currentLevel: number,
     averagePlanetTemperature?: number
   ) => ResourceProduction;

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { map, shareReplay, tap } from 'rxjs/operators';
+import { distinctUntilChanged, map, shareReplay, tap } from 'rxjs/operators';
 
 import { Coordinates } from 'api/src/game/coordinates/coordinates';
 
@@ -9,7 +9,6 @@ import { PlanetSocketData } from '@src/app/domain/endpoints/planet/planet-data';
 import { PlayerEvents } from '@src/app/domain/endpoints/player/player-events.map';
 import { ResourceEvents } from '@src/app/domain/endpoints/resource/resource-events.map';
 import { SocketService } from '@src/app/domain/services/socket.service';
-import { Building } from '@src/app/shared/models/building';
 import { BuildingType } from '@src/app/shared/models/buildingType';
 
 import { BuildingEvents } from '@domain/endpoints/buildings/building-events.map';

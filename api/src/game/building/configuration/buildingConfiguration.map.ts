@@ -6,6 +6,15 @@ import {
   solarSatelliteConfiguration,
 } from './energy-building.configuration';
 import {
+  allianceDepotConfiguration,
+  missileSiloConfiguration,
+  naniteFactoryConfiguration,
+  researchLabConfiguration,
+  roboticsFactoryConfiguration,
+  shipyardConfiguration,
+  terraFormerConfiguration,
+} from './facilities.configuration';
+import {
   crystalMineConfiguration,
   deuteriumSynthesizerConfiguration,
   metalMineConfiguration,
@@ -29,4 +38,11 @@ export const buildingConfigurationMap: Map<
   fusionReactorConfiguration,
   solarPlantConfiguration,
   solarSatelliteConfiguration,
+  roboticsFactoryConfiguration,
+  shipyardConfiguration,
+  researchLabConfiguration,
+  allianceDepotConfiguration,
+  missileSiloConfiguration,
+  naniteFactoryConfiguration,
+  terraFormerConfiguration,
 ]);

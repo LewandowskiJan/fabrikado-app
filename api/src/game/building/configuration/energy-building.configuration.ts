@@ -35,7 +35,6 @@ export const fusionReactorConfiguration: [
         deuterium: 0,
       };
     },
-    upgradeEnergyConsumeValueFn: (): number => 0,
     upgradeDeuteriumConsumeValueFn: (lvl: number): number =>
       Math.ceil(ACCELERATION * 10 * lvl * Math.pow(1.1, lvl)),
     upgradeStorageCapacityFn: (): ResourceCapacity => {
@@ -77,8 +76,6 @@ export const solarPlantConfiguration: [
         deuterium: 0,
       };
     },
-    upgradeEnergyConsumeValueFn: (): number => 0,
-    upgradeDeuteriumConsumeValueFn: (): number => 0,
     upgradeStorageCapacityFn: (): ResourceCapacity => {
       return {
         crystal: 0,
@@ -111,17 +108,16 @@ export const solarSatelliteConfiguration: [
       };
     },
     upgradeMiningValueFn: (
+      lvl: number,
       averagePlanetTemperature?: number
     ): ResourceProduction => {
       return {
         crystal: 0,
         metal: 0,
-        energy: Math.ceil((averagePlanetTemperature + 160) / 6),
+        energy: Math.ceil((lvl * (averagePlanetTemperature + 160)) / 6),
         deuterium: 0,
       };
     },
-    upgradeEnergyConsumeValueFn: (): number => 0,
-    upgradeDeuteriumConsumeValueFn: (): number => 0,
     upgradeStorageCapacityFn: (): ResourceCapacity => {
       return {
         crystal: 0,

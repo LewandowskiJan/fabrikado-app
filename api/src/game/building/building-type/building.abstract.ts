@@ -113,13 +113,18 @@ export abstract class BuildingAbstract {
 
   public setupUpdateRequirement(): void {
     this.nextLevelCosts = this.upgradeCostFn(this.level);
-    this.miningResource = this.upgradeMiningValueFn(
-      this.level,
-      this.averageTemperature
-    );
-    this.energyConsume = this.upgradeEnergyConsumeValueFn(this.level);
-    this.deuteriumConsumption = this.upgradeDeuteriumConsumeValueFn(this.level);
-    this.capacity = this.upgradeStorageCapacityFn(this.level);
+    this.miningResource =
+      this.upgradeMiningValueFn &&
+      this.upgradeMiningValueFn(this.level, this.averageTemperature);
+    this.energyConsume =
+      this.upgradeEnergyConsumeValueFn &&
+      this.upgradeEnergyConsumeValueFn(this.level);
+    this.deuteriumConsumption =
+      this.upgradeDeuteriumConsumeValueFn &&
+      this.upgradeDeuteriumConsumeValueFn(this.level);
+    this.capacity =
+      this.upgradeStorageCapacityFn &&
+      this.upgradeStorageCapacityFn(this.level);
   }
 
   public canUpdate(
