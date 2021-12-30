@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { map, shareReplay, tap } from 'rxjs/operators';
+
+import { Coordinates } from 'api/src/game/coordinates/coordinates';
 
 import { PlanetSocketData } from '@src/app/domain/endpoints/planet/planet-data';
 import { PlayerEvents } from '@src/app/domain/endpoints/player/player-events.map';
@@ -13,6 +15,8 @@ import { BuildingType } from '@src/app/shared/models/buildingType';
 import { BuildingEvents } from '@domain/endpoints/buildings/building-events.map';
 import { PlanetEvents } from '@domain/endpoints/planet/planet-events.map';
 
+import { PlanetService } from './planet.service';
+
 const buildingImageByTypeMap: Map<BuildingType, string> = new Map([
   [BuildingType.CRYSTAL_MINE, 'structure'],
   [BuildingType.DEUTERIUM_SYNTHESIZER, 'structure2'],
@@ -23,7 +27,12 @@ const buildingImageByTypeMap: Map<BuildingType, string> = new Map([
   providedIn: 'root',
 })
 export class PlanetSocketService {
-  constructor(private socketService: SocketService) {}
+  private currentPlanetCoordinates: Coordinates | undefined;
+
+  constructor(
+    private socketService: SocketService,
+    private planetService: PlanetService
+  ) {}
 
   public fetchSources(): void {
     this.socketService.sendToEvent(ResourceEvents.RESOURCE_READ);
@@ -43,10 +52,18 @@ export class PlanetSocketService {
     );
   }
 
-  public onFetchPlanet(): Observable<PlanetSocketData> {
-    return this.socketService.listeningOnEvent<PlanetSocketData>(
-      PlanetEvents.PLANET_PREPARE
-    );
+  public onFetchPlanet(): void {
+    this.socketService
+      .listeningOnEvent<PlanetSocketData>(PlanetEvents.PLANET_PREPARE)
+      .pipe(
+        tap(
+          (planetData: PlanetSocketData) =>
+            (this.currentPlanetCoordinates = planetData.coordinates)
+        )
+      )
+      .subscribe((planetData: PlanetSocketData) =>
+        this.planetService.setupPlanetData(planetData)
+      );
   }
 
   public planetErrorListener(): Observable<string> {
@@ -72,7 +89,11 @@ export class PlanetSocketService {
   }
 
   public onBuild(buildingType: BuildingType): void {
-    this.socketService.sendToEvent(BuildingEvents.BUILDING_ADD, buildingType);
+    this.currentPlanetCoordinates &&
+      this.socketService.sendToEvent(BuildingEvents.BUILDING_ADD, {
+        buildingType,
+        coordinates: this.currentPlanetCoordinates,
+      });
     this.onFetchBuildings();
   }
 

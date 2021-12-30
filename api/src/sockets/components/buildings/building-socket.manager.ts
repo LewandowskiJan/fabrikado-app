@@ -3,11 +3,12 @@ import { DefaultEventsMap } from 'socket.io/dist/typed-events';
 
 import { AllEvents } from '@src/sockets/configuration/socket-event.map';
 
+import { Coordinates } from '@game/coordinates/coordinates';
+
 import { BuildingEvents } from './../../../../../src/app/domain/endpoints/buildings/building-events.map';
 import { BuildingType } from './../../../game/building/configuration/buildingType';
 import { Game } from './../../../game/game';
 import { Player } from './../../../game/player/player';
-import { fetchBuildings } from './buildings.socket';
 
 export class BuildingManager {
   public static io: Server;
@@ -32,11 +33,15 @@ export class BuildingManager {
   }
 
   public static setupEvents(): void {
-    this.socket.on(BuildingEvents.BUILDING_ADD, (buildingType: BuildingType) =>
-      Game.updateBuilding(
-        { planetIndex: 1, galacticIndex: 1, solarSystemIndex: 1 },
-        buildingType
-      )
+    this.socket.on(
+      BuildingEvents.BUILDING_ADD,
+      ({
+        buildingType,
+        coordinates,
+      }: {
+        buildingType: BuildingType;
+        coordinates: Coordinates;
+      }) => Game.updateBuilding(coordinates, buildingType)
     );
 
     this.socket.on(BuildingEvents.BUILDING_READ, () => {

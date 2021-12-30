@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { PlanetSocketData } from '@src/app/domain/endpoints/planet/planet-data';
 
+import { PlanetService } from '../../services/planet.service';
 import { PlanetSocketService } from '../../services/planet-socket.service';
 import { CosmosService } from './../../../services/cosmos.service';
 
@@ -16,15 +17,16 @@ export class OverviewComponent {
   public error$: Observable<string> =
     this.socketPlanetService.planetErrorListener();
   public planet$: Observable<PlanetSocketData | null> =
-    this.socketPlanetService.onFetchPlanet();
+    this.planetService.getCurrentPlanetData();
 
   constructor(
     private socketPlanetService: PlanetSocketService,
-    private cosmosService: CosmosService
+    private cosmosService: CosmosService,
+    private planetService: PlanetService
   ) {
     this.socketPlanetService.preparePlanet(
       this.cosmosService.currentPlanetName
     );
-    this.planet$ = this.socketPlanetService.onFetchPlanet();
+    this.socketPlanetService.onFetchPlanet();
   }
 }

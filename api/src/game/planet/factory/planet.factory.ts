@@ -61,6 +61,22 @@ export class PlanetFactory {
     ) {
       playerId = '61c3871db04d1e63f2ddbf2f';
     }
+
+    if (
+      coordinates.galacticIndex === 1 &&
+      coordinates.solarSystemIndex === 1 &&
+      coordinates.planetIndex === 3
+    ) {
+      playerId = '61c9fb4ac2fbb2a228441a99';
+    }
+
+    if (
+      coordinates.galacticIndex === 1 &&
+      coordinates.solarSystemIndex === 1 &&
+      coordinates.planetIndex === 4
+    ) {
+      playerId = '61c9fb4ac2fbb2a228441a99';
+    }
     // remove under
 
     const planetInitialData: PlanetData = {

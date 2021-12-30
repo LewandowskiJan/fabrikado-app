@@ -6,7 +6,7 @@ import { UserData } from './../user/user-schema.model';
 export async function addTestUserToDatabase(): Promise<void> {
   dbConnect('test').dropDatabase();
 
-  const user: UserData = {
+  const user1: UserData = {
     _id: '61c3871db04d1e63f2ddbf2f',
     password: '123',
     login: 'abc',
@@ -14,5 +14,14 @@ export async function addTestUserToDatabase(): Promise<void> {
     planets: [GameState.planets[0].name, GameState.planets[1].name],
   };
 
-  await UserDao.addUser({ body: user });
+  const user2: UserData = {
+    _id: '61c9fb4ac2fbb2a228441a99',
+    password: '123',
+    login: 'cba',
+    isActive: true,
+    planets: [GameState.planets[2].name, GameState.planets[3].name],
+  };
+
+  await UserDao.addUser({ body: user1 });
+  await UserDao.addUser({ body: user2 });
 }

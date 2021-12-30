@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 
 import { Socket, SocketIoConfig } from 'ngx-socket-io';
 
@@ -29,6 +29,10 @@ export class SocketService {
 
   public listeningOnEvent<T>(event: SocketEvent): Observable<T> {
     return this.socket.fromEvent<T>(event);
+  }
+
+  public listenOnce<T>(event: SocketEvent): Observable<T> {
+    return from(this.socket.fromOneTimeEvent<T>(event));
   }
 
   public sendToEvent(event: SocketEvent, data: any = {}): void {

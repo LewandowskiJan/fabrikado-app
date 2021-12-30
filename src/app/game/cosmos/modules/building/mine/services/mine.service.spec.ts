@@ -4,7 +4,7 @@ import { EMPTY } from 'rxjs';
 
 import { MockProvider } from 'ng-mocks';
 
-import { SocketPlanetService } from '@src/app/services/socket.service';
+import { PlanetSocketService } from '@src/app/game/cosmos/planet/services/planet-socket.service';
 
 import { MineService } from './mine.service';
 
@@ -15,15 +15,12 @@ describe('MineService', () => {
     TestBed.configureTestingModule({
       providers: [
         MineService,
-        MockProvider(SocketPlanetService, {
+        MockProvider(PlanetSocketService, {
           fetchSources: () => EMPTY,
+          getPlayerData: () => EMPTY,
           preparePlanet: () => EMPTY,
+          getPlanetsName: () => EMPTY,
           onFetchPlanet: () => EMPTY,
-          planetErrorListener: () => EMPTY,
-          onFetchSources: () => EMPTY,
-          onUpgradeTimeListener: () => EMPTY,
-          onBuild: () => EMPTY,
-          onFetchBuildings: () => EMPTY,
         }),
       ],
     });
