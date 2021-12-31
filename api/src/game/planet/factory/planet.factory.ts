@@ -5,6 +5,9 @@ import { PlanetSizeGenerator } from '../util/planet-size.generator';
 import { BuildingFactory } from './../../building/building.factory';
 import { BuildingType } from './../../building/configuration/buildingType';
 import { Coordinates } from './../../coordinates/coordinates';
+import { UnitType } from './../../unit/factory/unit.abstract';
+import { UnitFactory } from './../../unit/factory/unit.factory';
+import { Unit } from './../../unit/unit';
 import {
   PlanetConfiguration,
   planetConfigurationByPlanetIndexMap,
@@ -30,6 +33,7 @@ export interface PlanetData {
   maxTemperature: number;
   minTemperature: number;
   buildings: Building[];
+  units: Unit[];
 }
 
 export class PlanetFactory {
@@ -99,6 +103,7 @@ export class PlanetFactory {
       ).deuteriumEfficiency,
       ...temperatures,
       buildings: PlanetFactory.setupBuildings(temperatures.averageTemperature),
+      units: PlanetFactory.setupUnits(),
       size: PlanetSizeGenerator.generatePlanetSizeByPlanetIndex(
         coordinates.planetIndex
       ),
@@ -159,5 +164,33 @@ export class PlanetFactory {
     );
 
     return buildings;
+  }
+
+  private static setupUnits(): Unit[] {
+    const units: Unit[] = [];
+
+    [
+      UnitType.SMALL_CARGO_SHIP,
+      UnitType.LARGE_CARGO_SHIP,
+      UnitType.LIGHT_FIGHTER,
+      UnitType.HEAVY_FIGHTER,
+      UnitType.CRUISER,
+      UnitType.BATTLESHIP,
+      UnitType.BATTLE_CRUISER,
+      UnitType.BOMBER,
+      UnitType.DESTROYER,
+      UnitType.DEATH_STAR,
+      UnitType.REAPER,
+      UnitType.PATHFINDER,
+      UnitType.RECYCLER,
+      UnitType.ESPIONAGE_PROBE,
+      UnitType.SOLAR_SATELLITE,
+      UnitType.COLONY_SHIP,
+      UnitType.CRAWLER,
+    ].forEach((unitType: UnitType) =>
+      units.push(UnitFactory.generateUnit(unitType))
+    );
+
+    return units;
   }
 }

@@ -1,5 +1,6 @@
 import { OnUpdateCost } from '@game/building/building-type/building.abstract';
 import { Coordinates } from '@game/coordinates/coordinates';
+import { Unit } from '@game/unit/unit';
 
 import { BuildingType } from '../building/configuration/buildingType';
 import { Building } from './../building/building';
@@ -29,6 +30,7 @@ export class Planet extends PlanetAbstract {
   public deuteriumEfficiency: number;
 
   public buildings: Building[] = [];
+  public units: Unit[] = [];
 
   public onUpgradeBuilding: Building[] = [];
 
@@ -47,6 +49,7 @@ export class Planet extends PlanetAbstract {
     this.maxTemperature = planetInitialData.maxTemperature;
     this.minTemperature = planetInitialData.minTemperature;
     this.buildings = planetInitialData.buildings;
+    this.units = planetInitialData.units;
     this.size = planetInitialData.size;
 
     this.resourcesCapacity = {
@@ -171,6 +174,7 @@ export class Planet extends PlanetAbstract {
       maxTemperature: this.maxTemperature,
       minTemperature: this.minTemperature,
       buildings: this.buildings,
+      units: this.units,
     };
   }
 }

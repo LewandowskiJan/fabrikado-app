@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { combineLatest, Observable } from 'rxjs';
-import { distinctUntilChanged, map, tap } from 'rxjs/operators';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 
 import { PlanetSocketData } from '@src/app/domain/endpoints/planet/planet-data';
 import { PlanetSocketService } from '@src/app/game/cosmos/planet/services/planet-socket.service';
