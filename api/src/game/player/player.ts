@@ -5,6 +5,7 @@ import { PlanetEvents } from './../../../../src/app/domain/endpoints/planet/plan
 import { BuildingManager } from './../../sockets/components/buildings/building-socket.manager';
 import { PlanetManager } from './../../sockets/components/planet/planet-socket.manager';
 import { ResourceManager } from './../../sockets/components/resources/resource-socket.manager';
+import { UnitManager } from './../../sockets/components/unit/unit-socket.manager';
 import { AllEvents } from './../../sockets/configuration/socket-event.map';
 import { Planet } from './../planet/planet';
 
@@ -30,6 +31,7 @@ export class Player {
     PlanetManager.setupSockets(io, socket, this.playerRoomName, this);
     ResourceManager.setupSockets(io, socket, this.playerRoomName, this);
     BuildingManager.setupSockets(io, socket, this.playerRoomName, this);
+    UnitManager.setupSockets(io, socket, this.playerRoomName, this);
 
     const arr: string[] = Array.from(
       this.planets,

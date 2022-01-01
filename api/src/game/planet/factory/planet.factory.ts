@@ -4,7 +4,7 @@ import { PlanetNameGenerator } from '../util/planet-name.generator';
 import { PlanetSizeGenerator } from '../util/planet-size.generator';
 import { BuildingFactory } from './../../building/building.factory';
 import { BuildingType } from './../../building/configuration/buildingType';
-import { Coordinates } from './../../coordinates/coordinates';
+import { Coordinates } from '../../model/coordinates/coordinates';
 import { UnitType } from './../../unit/factory/unit.abstract';
 import { UnitFactory } from './../../unit/factory/unit.factory';
 import { Unit } from './../../unit/unit';

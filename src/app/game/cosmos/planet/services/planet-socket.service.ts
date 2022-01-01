@@ -3,18 +3,25 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { shareReplay, tap } from 'rxjs/operators';
 
-import { Coordinates } from 'api/src/game/coordinates/coordinates';
-
-import { PlanetSocketData } from '@src/app/domain/endpoints/planet/planet-data';
-import { PlayerEvents } from '@src/app/domain/endpoints/player/player-events.map';
-import { ResourceEvents } from '@src/app/domain/endpoints/resource/resource-events.map';
-import { SocketService } from '@src/app/domain/services/socket.service';
 import { BuildingType } from '@src/app/shared/models/buildingType';
 
 import { BuildingEvents } from '@domain/endpoints/buildings/building-events.map';
+import { PlanetSocketData } from '@domain/endpoints/planet/planet-data';
 import { PlanetEvents } from '@domain/endpoints/planet/planet-events.map';
+import { PlayerEvents } from '@domain/endpoints/player/player-events.map';
+import { ResourceEvents } from '@domain/endpoints/resource/resource-events.map';
+import { UnitEvents } from '@domain/endpoints/unit/unit-events.map';
+import { SocketService } from '@domain/services/socket.service';
 
+import { UnitType } from '../../modules/shipyard/model/unit';
 import { PlanetService } from './planet.service';
+
+export interface Coordinates {
+  galacticIndex: number;
+  solarSystemIndex: number;
+  planetIndex: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -70,10 +77,18 @@ export class PlanetSocketService {
     );
   }
 
-  public onBuild(buildingType: BuildingType): void {
+  public onBuild(buildingType: BuildingType | UnitType): void {
     this.currentPlanetCoordinates &&
       this.socketService.sendToEvent(BuildingEvents.BUILDING_ADD, {
         buildingType,
+        coordinates: this.currentPlanetCoordinates,
+      });
+  }
+
+  public onCreateUnit(unitType: UnitType | BuildingType): void {
+    this.currentPlanetCoordinates &&
+      this.socketService.sendToEvent(UnitEvents.UNIT_ADD, {
+        unitType,
         coordinates: this.currentPlanetCoordinates,
       });
   }

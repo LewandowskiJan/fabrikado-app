@@ -9,15 +9,16 @@ import { BuildingEvents } from './../../../src/app/domain/endpoints/buildings/bu
 import { PlayerEvents } from './../../../src/app/domain/endpoints/player/player-events.map';
 import { addTestUserToDatabase } from './../db/test/user.mock';
 import { BuildingType } from './building/configuration/buildingType';
-import { Coordinates } from './coordinates/coordinates';
 import { Galaxy } from './galaxy/galaxy';
 import { GameState } from './game.state';
 import { GameConfiguration } from './game-configuration';
+import { Coordinates } from './model/coordinates/coordinates';
 import { PlanetFactory } from './planet/factory/planet.factory';
 import { Planet } from './planet/planet';
 import { PlanetSearch } from './planet/util/planet-search.util';
 import { Player } from './player/player';
 import { SolarSystem } from './solar-system/solar-system';
+import { UnitType } from './unit/factory/unit.abstract';
 
 export class Game {
   public static gameConfiguration: GameConfiguration;
@@ -50,6 +51,13 @@ export class Game {
     buildingType: BuildingType
   ): void {
     Game.getPlanetByCoordinates(planetCoordinate).upgradeBuilding(buildingType);
+  }
+
+  public static createUnit(
+    planetCoordinate: Coordinates,
+    unitType: UnitType
+  ): void {
+    Game.getPlanetByCoordinates(planetCoordinate).createUnit(unitType);
   }
 
   private static setupConfiguration(): void {
@@ -138,6 +146,9 @@ export class Game {
         GameState.planetsDiscovered.forEach((planet: Planet) => {
           if (planet.onUpgradeBuilding.length !== 0) {
             planet.decrementBuildingUpdateTime();
+          }
+          if (planet.onCreatingUnit.length !== 0) {
+            planet.decrementUnitCreateTime();
           }
           planet.upgradeResources();
         });

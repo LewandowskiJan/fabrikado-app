@@ -3,7 +3,7 @@ import { DefaultEventsMap } from 'socket.io/dist/typed-events';
 
 import { AllEvents } from '@src/sockets/configuration/socket-event.map';
 
-import { Coordinates } from '@game/coordinates/coordinates';
+import { Coordinates } from '@game/model/coordinates/coordinates';
 
 import { BuildingEvents } from './../../../../../src/app/domain/endpoints/buildings/building-events.map';
 import { BuildingType } from './../../../game/building/configuration/buildingType';

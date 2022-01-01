@@ -1,0 +1,11 @@
+<div class="info" *ngIf="unit">
+  <div class="details">
+    <p>name: {{ unit.name }}</p>
+    <p>cost: {{ unit.cost | json }}</p>
+    <p>cost: {{ unit.creatingTimeLeft }}</p>
+  </div>
+  <div class="description">
+    <p>stats: {{ unit.stats | json }}</p>
+    <p>requirements: {{ unit.requirements | json }}</p>
+  </div>
+</div>

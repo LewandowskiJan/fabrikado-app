@@ -2,6 +2,7 @@ import { BuildingEvents } from './../../../../src/app/domain/endpoints/buildings
 import { PlanetEvents } from './../../../../src/app/domain/endpoints/planet/planet-events.map';
 import { PlayerEvents } from './../../../../src/app/domain/endpoints/player/player-events.map';
 import { ResourceEvents } from './../../../../src/app/domain/endpoints/resource/resource-events.map';
+import { UnitEvents } from './../../../../src/app/domain/endpoints/unit/unit-events.map';
 
 export enum ClientEvents {
   SOCKET_CONNECTION = 'connection',
@@ -47,8 +48,17 @@ export class PlayerEventsMap {
   [PlayerEvents.PLAYER_PREPARE]: any;
 }
 
+export class UnitEventsMap {
+  [UnitEvents.UNIT_READ]: any;
+  [UnitEvents.UNIT_UPDATE]: any;
+  [UnitEvents.UNIT_DELETE]: any;
+  [UnitEvents.UNIT_ADD]: any;
+  [UnitEvents.UNIT_PREPARE]: any;
+}
+
 export type AllEvents = ClientEventsMap &
   BuildingEventsMap &
   PlanetEventsMap &
   ResourceEventsMap &
+  UnitEventsMap &
   PlayerEventsMap;

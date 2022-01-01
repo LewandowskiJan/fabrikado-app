@@ -1,5 +1,10 @@
+import { Building } from './../../building/building';
 import { BuildingType } from './../../building/configuration/buildingType';
+import { Requirements } from './../../model/requirements/requirements';
 import { Resource } from './../../planet/resources/resource';
+import { RequirementUtilService } from './../../utils/requirement-util.service';
+import { Ship } from './../ship';
+import { Unit } from './../unit';
 import { UnitConfiguration } from './unit.configuration';
 
 export enum UnitType {
@@ -43,30 +48,124 @@ export interface UnitStats {
   fuelUsage: number;
 }
 
-export interface UnitRequirements {
-  technology: Map<BuildingType, number>;
-}
-
 export interface RapidFireConfiguration {
   from: Map<UnitType, number>;
   against: Map<UnitType, number>;
 }
 
+export interface OnUnitCreateCost {
+  unitCreationCost: Resource;
+  unitCreationTime: number;
+}
+
 export abstract class UnitAbstract {
-  cost: Resource;
-  type: UnitType;
-  usage: UnitUsageType;
+  public name: string;
+  public cost: Resource;
+  public type: UnitType;
+  public usage: UnitUsageType;
 
-  stats: UnitStats;
-  rapidFire: RapidFireConfiguration;
-  requirements: UnitRequirements;
+  public stats: UnitStats;
+  public rapidFire: RapidFireConfiguration;
+  public requirements: Requirements;
+  public rapidFireArray: { against: any[]; from: any[] };
+  public requirementsArray: any[];
+  public creatingTime: number = 3;
+  public creatingTimeLeft: number = 0;
+  public onCreation: boolean = false;
 
-  constructor(unitType: UnitType, unitConfiguration: UnitConfiguration) {
+  constructor(
+    name: string,
+    unitType: UnitType,
+    unitConfiguration: UnitConfiguration
+  ) {
+    this.name = name;
     this.type = unitType;
     this.cost = unitConfiguration.cost;
     this.usage = unitConfiguration.usage;
     this.stats = unitConfiguration.stats;
     this.rapidFire = unitConfiguration.rapidFire;
     this.requirements = unitConfiguration.requirements;
+    this.setupRapidFireArray();
+    this.setupRequirementArray();
+  }
+
+  public create(
+    currentResources: Resource,
+    currentUnit: Unit,
+    currentPlanetBuildings: Building[]
+  ): OnUnitCreateCost {
+    if (this.onCreation) {
+      return undefined;
+    } else if (
+      this.canCreate(currentUnit, currentResources, currentPlanetBuildings)
+    ) {
+      this.creatingTimeLeft = this.creatingTime;
+      this.onCreation = true;
+
+      return {
+        unitCreationCost: currentUnit.cost,
+        unitCreationTime: this.creatingTime,
+      };
+    } else {
+      return undefined;
+    }
+  }
+
+  public decrementCreateTime(): boolean {
+    if (this.onCreation && this.creatingTimeLeft === 0) {
+      return true;
+    } else if (this.creatingTimeLeft > 0) {
+      this.creatingTimeLeft--;
+      return false;
+    } else {
+      return false;
+    }
+  }
+
+  public finishCreation(): Ship {
+    this.creatingTimeLeft = 3;
+    this.onCreation = false;
+    return new Ship(this.name, this.type, this.stats, this.rapidFireArray);
+  }
+
+  private canCreate(
+    currentUnit: Unit,
+    currentResources: Resource,
+    currentPlanetBuildings: Building[]
+  ): boolean {
+    return (
+      RequirementUtilService.areRequirementsFulfilled(
+        currentUnit.requirements,
+        currentPlanetBuildings
+      ) &&
+      RequirementUtilService.haveEnoughResources(
+        currentUnit.cost,
+        currentResources
+      )
+    );
+  }
+
+  private setupRequirementArray(): void {
+    const array: any[] = [];
+    this.requirements.forEach((value: number, key: BuildingType) => {
+      array.push({ [key]: value });
+    });
+
+    this.requirementsArray = array;
+  }
+
+  private setupRapidFireArray(): void {
+    const against: any[] = [];
+    const from: any[] = [];
+    this.rapidFire.against.forEach((value: number, key: UnitType) => {
+      against.push({ [key]: value });
+    });
+    this.rapidFire.from.forEach((value: number, key: UnitType) => {
+      from.push({ [key]: value });
+    });
+    this.rapidFireArray = {
+      from: from,
+      against: against,
+    };
   }
 }

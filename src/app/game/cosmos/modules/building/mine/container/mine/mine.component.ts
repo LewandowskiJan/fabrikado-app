@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { BuildingType } from '@src/app/shared/models/buildingType';
 
+import { UnitType } from '../../../../shipyard/model/unit';
 import { Mine } from '../../model/mine';
 import { MineService } from '../../services/mine.service';
 
@@ -20,12 +21,12 @@ export class MineComponent {
 
   constructor(private mineService: MineService) {}
 
-  public selectDetails(type: BuildingType | undefined): void {
+  public selectDetails(type: BuildingType | UnitType | undefined): void {
     this.mineService.selectDetails(type);
     this.currentMine$ = this.mineService.currentMine$;
   }
 
-  public onBuild(buildingType: BuildingType | undefined): void {
+  public onBuild(buildingType: BuildingType | UnitType | undefined): void {
     buildingType && this.mineService.onBuild(buildingType);
   }
 }

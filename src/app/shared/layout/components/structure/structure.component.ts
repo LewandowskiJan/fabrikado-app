@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
+import { Unit, UnitType } from '@src/app/game/cosmos/modules/shipyard/model/unit';
 import { BuildingType } from '@src/app/shared/models/buildingType';
 
 import { Building } from './../../../models/building';
@@ -10,9 +11,10 @@ import { Building } from './../../../models/building';
   styleUrls: ['./structure.component.scss'],
 })
 export class StructureComponent {
-  @Input() public building: Building | undefined;
-  @Output() public selectEmitter: EventEmitter<BuildingType | undefined> =
-    new EventEmitter();
+  @Input() public building: Building | Unit | undefined;
+  @Output() public selectEmitter: EventEmitter<
+    BuildingType | UnitType | undefined
+  > = new EventEmitter();
 
   public selectStructure(): void {
     this.selectEmitter.emit(this.building?.type);

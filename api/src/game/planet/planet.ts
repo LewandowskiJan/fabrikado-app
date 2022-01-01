@@ -1,13 +1,15 @@
-import { OnUpdateCost } from '@game/building/building-type/building.abstract';
-import { Coordinates } from '@game/coordinates/coordinates';
-import { Unit } from '@game/unit/unit';
-
 import { BuildingType } from '../building/configuration/buildingType';
+import { ResourcesUtilService } from '../utils/resources-util.service';
 import { Building } from './../building/building';
+import { OnUpdateCost } from './../building/building-type/building.abstract';
+import { Coordinates } from './../model/coordinates/coordinates';
+import { UnitType } from './../unit/factory/unit.abstract';
+import { OnUnitCreateCost } from './../unit/factory/unit.abstract';
+import { Ship } from './../unit/ship';
+import { Unit } from './../unit/unit';
 import { PlanetData } from './factory/planet.factory';
 import { PlanetAbstract } from './planet.abstract';
 import { Resource } from './resources/resource';
-import { ResourcesUtil } from './resources/resources-util';
 
 export class Planet extends PlanetAbstract {
   public playerId: string | undefined;
@@ -33,6 +35,8 @@ export class Planet extends PlanetAbstract {
   public units: Unit[] = [];
 
   public onUpgradeBuilding: Building[] = [];
+  public onCreatingUnit: Unit[] = [];
+  public fleet: Ship[] = [];
 
   constructor(planetInitialData: PlanetData) {
     super();
@@ -60,17 +64,17 @@ export class Planet extends PlanetAbstract {
     };
 
     this.resources = {
-      metal: 500,
-      crystal: 500,
-      deuterium: 500,
-      energy: 1000,
+      metal: 7_500,
+      crystal: 7_500,
+      deuterium: 7_500,
+      energy: 10_000,
     };
 
     this.miningForce = {
-      metal: 10,
-      crystal: 10,
-      deuterium: 10,
-      energy: 10,
+      metal: 100,
+      crystal: 100,
+      deuterium: 100,
+      energy: 100,
     };
   }
 
@@ -81,14 +85,28 @@ export class Planet extends PlanetAbstract {
     this.resources.energy = this.checkResourceCapacity('energy');
   }
 
-  private checkResourceCapacity(key: string): number {
-    if (
-      this.resources[key] + Math.ceil(this.miningForce[key]) >=
-      this.resourcesCapacity[key]
-    ) {
-      return this.resourcesCapacity[key];
-    } else {
-      return this.resources[key] + Math.ceil(this.miningForce[key]);
+  public createUnit(unitType: UnitType): void {
+    const unit: Unit = this.units.find((currentUnit: Unit) => {
+      return currentUnit.type === unitType && !currentUnit.creatingTimeLeft;
+    });
+
+    if (!unit) {
+      return;
+    }
+
+    const onUnitCreateCost: OnUnitCreateCost | undefined = unit.create(
+      this.resources,
+      unit,
+      this.buildings
+    );
+    console.log(onUnitCreateCost);
+    if (onUnitCreateCost) {
+      this.resources = ResourcesUtilService.decreaseResourceByResource(
+        this.resources,
+        onUnitCreateCost.unitCreationCost
+      );
+
+      this.onCreatingUnit.push(unit);
     }
   }
 
@@ -107,7 +125,7 @@ export class Planet extends PlanetAbstract {
     );
 
     if (onUpdateCost) {
-      this.resources = ResourcesUtil.decreaseResourceByResource(
+      this.resources = ResourcesUtilService.decreaseResourceByResource(
         this.resources,
         onUpdateCost.buildingCost
       );
@@ -129,6 +147,40 @@ export class Planet extends PlanetAbstract {
       }
     });
     return shouldEmitAfterFinish;
+  }
+
+  public decrementUnitCreateTime(): boolean {
+    let shouldEmitAfterFinish: boolean;
+    this.onCreatingUnit.forEach((unit: Unit) => {
+      if (unit.decrementCreateTime()) {
+        this.fleet.push(unit.finishCreation());
+
+        this.onCreatingUnit = this.onCreatingUnit.filter(
+          (currentUnit: Unit) => currentUnit.type !== unit.type
+        );
+        shouldEmitAfterFinish = true;
+      }
+    });
+    return shouldEmitAfterFinish;
+  }
+
+  public getData(): PlanetData {
+    return {
+      playerId: this.playerId,
+      name: this.name,
+      coordinates: this.coordinates,
+      satStrength: this.satStrength,
+      requireSat: this.requireSat,
+      crystal: this.crystal,
+      size: this.size,
+      deuterium: this.deuterium,
+      deuteriumEfficiency: this.deuteriumEfficiency,
+      averageTemperature: this.averageTemperature,
+      maxTemperature: this.maxTemperature,
+      minTemperature: this.minTemperature,
+      buildings: this.buildings,
+      units: this.units,
+    };
   }
 
   private upgradeMiningForce(building: Building): void {
@@ -159,22 +211,14 @@ export class Planet extends PlanetAbstract {
     this.resourcesCapacity = { ...this.resourcesCapacity, ...capacityResource };
   }
 
-  public getData(): PlanetData {
-    return {
-      playerId: this.playerId,
-      name: this.name,
-      coordinates: this.coordinates,
-      satStrength: this.satStrength,
-      requireSat: this.requireSat,
-      crystal: this.crystal,
-      size: this.size,
-      deuterium: this.deuterium,
-      deuteriumEfficiency: this.deuteriumEfficiency,
-      averageTemperature: this.averageTemperature,
-      maxTemperature: this.maxTemperature,
-      minTemperature: this.minTemperature,
-      buildings: this.buildings,
-      units: this.units,
-    };
+  private checkResourceCapacity(key: string): number {
+    if (
+      this.resources[key] + Math.ceil(this.miningForce[key]) >=
+      this.resourcesCapacity[key]
+    ) {
+      return this.resourcesCapacity[key];
+    } else {
+      return this.resources[key] + Math.ceil(this.miningForce[key]);
+    }
   }
 }

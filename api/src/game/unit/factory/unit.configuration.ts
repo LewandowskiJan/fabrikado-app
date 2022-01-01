@@ -1,8 +1,8 @@
 import { BuildingType } from './../../building/configuration/buildingType';
+import { Requirements } from './../../model/requirements/requirements';
 import { Resource } from './../../planet/resources/resource';
 import {
   RapidFireConfiguration,
-  UnitRequirements,
   UnitStats,
   UnitType,
   UnitUsageType,
@@ -13,7 +13,7 @@ export interface UnitConfiguration {
   usage: UnitUsageType;
   stats: UnitStats;
   rapidFire: RapidFireConfiguration;
-  requirements: UnitRequirements;
+  requirements: Requirements;
 }
 
 export const unitConfigurationMap: Map<UnitType, UnitConfiguration> = new Map([
@@ -42,12 +42,10 @@ export const unitConfigurationMap: Map<UnitType, UnitConfiguration> = new Map([
           [UnitType.CRAWLER, 5],
         ]),
       },
-      requirements: {
-        technology: new Map<BuildingType, number>([
-          [BuildingType.SHIPYARD, 2],
-          [BuildingType.COMBUSTION_DRIVE, 2],
-        ]),
-      },
+      requirements: new Map<BuildingType, number>([
+        [BuildingType.SHIPYARD, 2],
+        [BuildingType.COMBUSTION_DRIVE, 2],
+      ]),
     },
   ],
   [
@@ -74,12 +72,10 @@ export const unitConfigurationMap: Map<UnitType, UnitConfiguration> = new Map([
           [UnitType.CRAWLER, 5],
         ]),
       },
-      requirements: {
-        technology: new Map<BuildingType, number>([
-          [BuildingType.SHIPYARD, 4],
-          [BuildingType.COMBUSTION_DRIVE, 6],
-        ]),
-      },
+      requirements: new Map<BuildingType, number>([
+        [BuildingType.SHIPYARD, 4],
+        [BuildingType.COMBUSTION_DRIVE, 6],
+      ]),
     },
   ],
   [
@@ -107,12 +103,10 @@ export const unitConfigurationMap: Map<UnitType, UnitConfiguration> = new Map([
           [UnitType.CRAWLER, 5],
         ]),
       },
-      requirements: {
-        technology: new Map<BuildingType, number>([
-          [BuildingType.SHIPYARD, 1],
-          [BuildingType.COMBUSTION_DRIVE, 1],
-        ]),
-      },
+      requirements: new Map<BuildingType, number>([
+        [BuildingType.SHIPYARD, 1],
+        [BuildingType.COMBUSTION_DRIVE, 1],
+      ]),
     },
   ],
   [
@@ -141,13 +135,11 @@ export const unitConfigurationMap: Map<UnitType, UnitConfiguration> = new Map([
           [UnitType.CRAWLER, 5],
         ]),
       },
-      requirements: {
-        technology: new Map<BuildingType, number>([
-          [BuildingType.SHIPYARD, 3],
-          [BuildingType.ARMOUR_TECHNOLOGY, 2],
-          [BuildingType.IMPULSE_DRIVE, 2],
-        ]),
-      },
+      requirements: new Map<BuildingType, number>([
+        [BuildingType.SHIPYARD, 3],
+        [BuildingType.ARMOUR_TECHNOLOGY, 2],
+        [BuildingType.IMPULSE_DRIVE, 2],
+      ]),
     },
   ],
   [
@@ -177,13 +169,11 @@ export const unitConfigurationMap: Map<UnitType, UnitConfiguration> = new Map([
           [UnitType.ROCKET_LAUNCHER, 10],
         ]),
       },
-      requirements: {
-        technology: new Map<BuildingType, number>([
-          [BuildingType.ION_TECHNOLOGY, 2],
-          [BuildingType.IMPULSE_DRIVE, 4],
-          [BuildingType.SHIPYARD, 5],
-        ]),
-      },
+      requirements: new Map<BuildingType, number>([
+        [BuildingType.ION_TECHNOLOGY, 2],
+        [BuildingType.IMPULSE_DRIVE, 4],
+        [BuildingType.SHIPYARD, 5],
+      ]),
     },
   ],
   [
@@ -212,12 +202,10 @@ export const unitConfigurationMap: Map<UnitType, UnitConfiguration> = new Map([
           [UnitType.PATHFINDER, 5],
         ]),
       },
-      requirements: {
-        technology: new Map<BuildingType, number>([
-          [BuildingType.HYPERSPACE_TECHNOLOGY, 4],
-          [BuildingType.SHIPYARD, 7],
-        ]),
-      },
+      requirements: new Map<BuildingType, number>([
+        [BuildingType.HYPERSPACE_TECHNOLOGY, 4],
+        [BuildingType.SHIPYARD, 7],
+      ]),
     },
   ],
   [
@@ -249,14 +237,12 @@ export const unitConfigurationMap: Map<UnitType, UnitConfiguration> = new Map([
           [UnitType.CRAWLER, 5],
         ]),
       },
-      requirements: {
-        technology: new Map<BuildingType, number>([
-          [BuildingType.HYPERSPACE_TECHNOLOGY, 5],
-          [BuildingType.HYPERSPACE_DRIVE, 5],
-          [BuildingType.SHIPYARD, 8],
-          [BuildingType.LASER_TECHNOLOGY, 12],
-        ]),
-      },
+      requirements: new Map<BuildingType, number>([
+        [BuildingType.HYPERSPACE_TECHNOLOGY, 5],
+        [BuildingType.HYPERSPACE_DRIVE, 5],
+        [BuildingType.SHIPYARD, 8],
+        [BuildingType.LASER_TECHNOLOGY, 12],
+      ]),
     },
   ],
   [
@@ -289,13 +275,11 @@ export const unitConfigurationMap: Map<UnitType, UnitConfiguration> = new Map([
           [UnitType.PLASMA_CANNON, 5],
         ]),
       },
-      requirements: {
-        technology: new Map<BuildingType, number>([
-          [BuildingType.PLASMA_TECHNOLOGY, 5],
-          [BuildingType.IMPULSE_DRIVE, 6],
-          [BuildingType.SHIPYARD, 8],
-        ]),
-      },
+      requirements: new Map<BuildingType, number>([
+        [BuildingType.PLASMA_TECHNOLOGY, 5],
+        [BuildingType.IMPULSE_DRIVE, 6],
+        [BuildingType.SHIPYARD, 8],
+      ]),
     },
   ],
   [
@@ -324,13 +308,11 @@ export const unitConfigurationMap: Map<UnitType, UnitConfiguration> = new Map([
           [UnitType.LIGHT_LASER, 10],
         ]),
       },
-      requirements: {
-        technology: new Map<BuildingType, number>([
-          [BuildingType.SHIPYARD, 9],
-          [BuildingType.HYPERSPACE_DRIVE, 6],
-          [BuildingType.HYPERSPACE_TECHNOLOGY, 5],
-        ]),
-      },
+      requirements: new Map<BuildingType, number>([
+        [BuildingType.SHIPYARD, 9],
+        [BuildingType.HYPERSPACE_DRIVE, 6],
+        [BuildingType.HYPERSPACE_TECHNOLOGY, 5],
+      ]),
     },
   ],
   [
@@ -377,14 +359,12 @@ export const unitConfigurationMap: Map<UnitType, UnitConfiguration> = new Map([
           [UnitType.GAUSS_CANNON, 50],
         ]),
       },
-      requirements: {
-        technology: new Map<BuildingType, number>([
-          [BuildingType.GRAVITON_TECHNOLOGY, 1],
-          [BuildingType.HYPERSPACE_TECHNOLOGY, 6],
-          [BuildingType.HYPERSPACE_DRIVE, 7],
-          [BuildingType.SHIPYARD, 12],
-        ]),
-      },
+      requirements: new Map<BuildingType, number>([
+        [BuildingType.GRAVITON_TECHNOLOGY, 1],
+        [BuildingType.HYPERSPACE_TECHNOLOGY, 6],
+        [BuildingType.HYPERSPACE_DRIVE, 7],
+        [BuildingType.SHIPYARD, 12],
+      ]),
     },
   ],
   [
@@ -419,14 +399,12 @@ export const unitConfigurationMap: Map<UnitType, UnitConfiguration> = new Map([
           [UnitType.DESTROYER, 3],
         ]),
       },
-      requirements: {
-        technology: new Map<BuildingType, number>([
-          [BuildingType.SHIELDING_TECHNOLOGY, 6],
-          [BuildingType.HYPERSPACE_TECHNOLOGY, 6],
-          [BuildingType.HYPERSPACE_DRIVE, 7],
-          [BuildingType.SHIPYARD, 10],
-        ]),
-      },
+      requirements: new Map<BuildingType, number>([
+        [BuildingType.SHIELDING_TECHNOLOGY, 6],
+        [BuildingType.HYPERSPACE_TECHNOLOGY, 6],
+        [BuildingType.HYPERSPACE_DRIVE, 7],
+        [BuildingType.SHIPYARD, 10],
+      ]),
     },
   ],
   [
@@ -461,13 +439,11 @@ export const unitConfigurationMap: Map<UnitType, UnitConfiguration> = new Map([
           [UnitType.HEAVY_FIGHTER, 2],
         ]),
       },
-      requirements: {
-        technology: new Map<BuildingType, number>([
-          [BuildingType.SHIPYARD, 5],
-          [BuildingType.HYPERSPACE_DRIVE, 2],
-          [BuildingType.SHIELDING_TECHNOLOGY, 4],
-        ]),
-      },
+      requirements: new Map<BuildingType, number>([
+        [BuildingType.SHIPYARD, 5],
+        [BuildingType.HYPERSPACE_DRIVE, 2],
+        [BuildingType.SHIELDING_TECHNOLOGY, 4],
+      ]),
     },
   ],
   [
@@ -491,13 +467,11 @@ export const unitConfigurationMap: Map<UnitType, UnitConfiguration> = new Map([
           [UnitType.CRAWLER, 5],
         ]),
       },
-      requirements: {
-        technology: new Map<BuildingType, number>([
-          [BuildingType.SHIPYARD, 4],
-          [BuildingType.COMBUSTION_DRIVE, 6],
-          [BuildingType.SHIELDING_TECHNOLOGY, 2],
-        ]),
-      },
+      requirements: new Map<BuildingType, number>([
+        [BuildingType.SHIPYARD, 4],
+        [BuildingType.COMBUSTION_DRIVE, 6],
+        [BuildingType.SHIELDING_TECHNOLOGY, 2],
+      ]),
     },
   ],
   [
@@ -532,13 +506,11 @@ export const unitConfigurationMap: Map<UnitType, UnitConfiguration> = new Map([
         ]),
         against: new Map<UnitType, number>(),
       },
-      requirements: {
-        technology: new Map<BuildingType, number>([
-          [BuildingType.SHIPYARD, 3],
-          [BuildingType.COMBUSTION_DRIVE, 3],
-          [BuildingType.ESPIONAGE_TECHNOLOGY, 2],
-        ]),
-      },
+      requirements: new Map<BuildingType, number>([
+        [BuildingType.SHIPYARD, 3],
+        [BuildingType.COMBUSTION_DRIVE, 3],
+        [BuildingType.ESPIONAGE_TECHNOLOGY, 2],
+      ]),
     },
   ],
   [
@@ -573,9 +545,8 @@ export const unitConfigurationMap: Map<UnitType, UnitConfiguration> = new Map([
         ]),
         against: new Map<UnitType, number>(),
       },
-      requirements: {
-        technology: new Map<BuildingType, number>([[BuildingType.SHIPYARD, 1]]),
-      },
+
+      requirements: new Map<BuildingType, number>([[BuildingType.SHIPYARD, 1]]),
     },
   ],
   [
@@ -599,12 +570,10 @@ export const unitConfigurationMap: Map<UnitType, UnitConfiguration> = new Map([
           [UnitType.CRAWLER, 5],
         ]),
       },
-      requirements: {
-        technology: new Map<BuildingType, number>([
-          [BuildingType.SHIPYARD, 4],
-          [BuildingType.IMPULSE_DRIVE, 3],
-        ]),
-      },
+      requirements: new Map<BuildingType, number>([
+        [BuildingType.SHIPYARD, 4],
+        [BuildingType.IMPULSE_DRIVE, 3],
+      ]),
     },
   ],
   [
@@ -639,14 +608,12 @@ export const unitConfigurationMap: Map<UnitType, UnitConfiguration> = new Map([
         ]),
         against: new Map<UnitType, number>(),
       },
-      requirements: {
-        technology: new Map<BuildingType, number>([
-          [BuildingType.SHIPYARD, 5],
-          [BuildingType.COMBUSTION_DRIVE, 4],
-          [BuildingType.ARMOUR_TECHNOLOGY, 4],
-          [BuildingType.LASER_TECHNOLOGY, 4],
-        ]),
-      },
+      requirements: new Map<BuildingType, number>([
+        [BuildingType.SHIPYARD, 5],
+        [BuildingType.COMBUSTION_DRIVE, 4],
+        [BuildingType.ARMOUR_TECHNOLOGY, 4],
+        [BuildingType.LASER_TECHNOLOGY, 4],
+      ]),
     },
   ],
 ]);

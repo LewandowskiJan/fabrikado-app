@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { MineComponent } from '../modules/building/mine/container/mine/mine.component';
+import { ShipyardComponent } from '../modules/shipyard/containers/shipyard/shipyard.component';
 import { PlanetResolver } from '../services/resolvers/planet.resolver';
 import { AllianceComponent } from './components/alliance/alliance.component';
 import { DefenceComponent } from './components/defence/defence.component';
@@ -11,7 +12,6 @@ import { MarketComponent } from './components/market/market.component';
 import { OverviewComponent } from './components/overview/overview.component';
 import { PlanetRedirectComponent } from './components/planet-redirect/planet-redirect.component';
 import { ResearchComponent } from './components/research/research.component';
-import { ShipyardComponent } from './components/shipyard/shipyard.component';
 import { ShopComponent } from './components/shop/shop.component';
 import { StaffComponent } from './components/staff/staff.component';
 import { PlanetComponent } from './containers/planet/planet.component';

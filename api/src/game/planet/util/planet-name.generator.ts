@@ -1,4 +1,4 @@
-import { Coordinates } from '@game/coordinates/coordinates';
+import { Coordinates } from '@game/model/coordinates/coordinates';
 
 const galaxySymbol: string = 'G';
 const galaxyChars: string[] = ['C', 'S', 'W', 'E', 'N'];

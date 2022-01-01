@@ -1,4 +1,4 @@
-import { Coordinates } from '@game/coordinates/coordinates';
+import { Coordinates } from '@game/model/coordinates/coordinates';
 import { GameConfiguration } from '@game/game-configuration';
 
 export class PlanetSearch {

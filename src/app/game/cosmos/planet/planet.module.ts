@@ -5,6 +5,7 @@ import { LayoutModule } from '@src/app/shared/layout/layout.module';
 import { PlanetUiModule } from '@src/app/shared/layout/modules/planet/planet-ui.module';
 
 import { BuildingModule } from '../modules/building/building.module';
+import { ShipyardModule } from '../modules/shipyard/shipyard.module';
 import { AllianceComponent } from './components/alliance/alliance.component';
 import { DefenceComponent } from './components/defence/defence.component';
 import { FleetComponent } from './components/fleet/fleet.component';
@@ -43,6 +44,7 @@ import { PlanetRoutingModule } from './planet-routing.module';
     PlanetRoutingModule,
     LayoutModule,
     BuildingModule,
+    ShipyardModule,
     PlanetUiModule,
   ],
 })

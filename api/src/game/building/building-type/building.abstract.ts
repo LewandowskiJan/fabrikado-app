@@ -1,5 +1,4 @@
-import { Resource } from '@game/planet/resources/resource';
-
+import { ResourcesUtilService } from '../../utils/resources-util.service';
 import { Building } from '../building';
 import { BuildingOptions } from '../building.factory';
 import { BuildingType } from '../configuration/buildingType';
@@ -9,7 +8,7 @@ import {
   ResourceCapacity,
   ResourceProduction,
 } from './../../game-configuration.map';
-import { ResourcesUtil } from './../../planet/resources/resources-util';
+import { Resource } from './../../planet/resources/resource';
 
 export interface BuildingRequirement {
   type: BuildingType;
@@ -148,7 +147,7 @@ export abstract class BuildingAbstract {
       });
     }
     requirements.push(
-      ResourcesUtil.checkResourcesRequirements(
+      ResourcesUtilService.checkResourcesRequirements(
         currentResources,
         this.nextLevelCosts
       )

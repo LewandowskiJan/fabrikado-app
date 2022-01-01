@@ -1,6 +1,6 @@
-import { Coordinates } from './coordinates';
+import { Coordinates } from '../model/coordinates/coordinates';
 
-export class CoordinatesUtil {
+export class CoordinatesUtilService {
   public static compare(
     coordinates1: Coordinates,
     coordinates2: Coordinates

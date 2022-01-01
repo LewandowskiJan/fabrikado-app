@@ -1,3 +1,4 @@
+import { Unit } from '@src/app/game/cosmos/modules/shipyard/model/unit';
 import { Building } from '@src/app/shared/models/building';
 import { Resource } from '@src/app/shared/models/resource';
 
@@ -23,4 +24,5 @@ export interface PlanetSocketData {
   maxTemperature: number;
   minTemperature: number;
   buildings: Building[];
+  units: Unit[];
 }

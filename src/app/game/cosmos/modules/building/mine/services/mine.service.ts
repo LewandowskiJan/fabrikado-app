@@ -6,6 +6,7 @@ import { distinctUntilChanged, map, shareReplay } from 'rxjs/operators';
 import { PlanetSocketService } from '@src/app/game/cosmos/planet/services/planet-socket.service';
 import { BuildingType } from '@src/app/shared/models/buildingType';
 
+import { UnitType } from '../../../shipyard/model/unit';
 import { Mine } from '../model/mine';
 import { PlanetSocketData } from './../../../../../../domain/endpoints/planet/planet-data';
 
@@ -61,14 +62,14 @@ export class MineService {
     );
   }
 
-  public selectDetails(type: BuildingType | undefined): void {
+  public selectDetails(type: BuildingType | UnitType | undefined): void {
     this.currentMine$ = this.mines$.pipe(
       map((mines: Mine[]) => mines.find((mine: Mine) => mine.type === type)),
       shareReplay(1)
     );
   }
 
-  public onBuild(buildingType: BuildingType | undefined): void {
+  public onBuild(buildingType: BuildingType | UnitType | undefined): void {
     buildingType && this.socketPlanetService.onBuild(buildingType);
   }
 }

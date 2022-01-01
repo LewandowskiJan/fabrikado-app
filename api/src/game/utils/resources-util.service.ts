@@ -1,6 +1,6 @@
-import { Resource } from './resource';
+import { Resource } from '../planet/resources/resource';
 
-export class ResourcesUtil {
+export class ResourcesUtilService {
   public static decreaseResourceByResource(
     resource1: Resource,
     resource2: Resource
