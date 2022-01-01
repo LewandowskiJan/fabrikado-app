@@ -1,0 +1,25 @@
+<app-market-container>
+  <app-structure-details details-view [buildingDetails$]="currentTechnology$">
+    <app-market-element-details
+      *ngIf="currentTechnology$ | async as technology"
+    >
+      <app-technology-details
+        class="info"
+        [technology]="technology"
+      ></app-technology-details>
+      <app-button>
+        <button class="button" (click)="onBuild(technology.type)">buy</button>
+      </app-button>
+      <app-button>
+        <button class="button">recycle</button>
+      </app-button>
+    </app-market-element-details>
+  </app-structure-details>
+  <app-structure
+    market-grid
+    *ngFor="let technology of technologies$ | async"
+    (selectEmitter)="selectDetails($event)"
+    [building]="technology"
+  >
+  </app-structure>
+</app-market-container>

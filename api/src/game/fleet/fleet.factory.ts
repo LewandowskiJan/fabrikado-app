@@ -1,10 +1,11 @@
-import { UnitStats, UnitType } from '../unit/factory/unit.abstract';
+import { RapidFireConfiguration, UnitStats, UnitType } from '../unit/factory/unit.abstract';
 import { unitConfigurationMap } from './../unit/factory/unit.configuration';
 import { Fleet } from './fleet';
 
 export interface UnitData {
   numberOfUnit: number;
   stats: UnitStats | any;
+  rapidFire: RapidFireConfiguration;
 }
 
 export interface UnitNumbers {
@@ -19,6 +20,8 @@ export class FleetFactory {
       {
         numberOfUnit: 0,
         stats: unitConfigurationMap.get(UnitType.SMALL_CARGO_SHIP).stats,
+        rapidFire: unitConfigurationMap.get(UnitType.SMALL_CARGO_SHIP)
+          .rapidFire,
       },
     ],
     [
@@ -26,6 +29,8 @@ export class FleetFactory {
       {
         numberOfUnit: 0,
         stats: unitConfigurationMap.get(UnitType.LARGE_CARGO_SHIP).stats,
+        rapidFire: unitConfigurationMap.get(UnitType.LARGE_CARGO_SHIP)
+          .rapidFire,
       },
     ],
     [
@@ -33,6 +38,7 @@ export class FleetFactory {
       {
         numberOfUnit: 0,
         stats: unitConfigurationMap.get(UnitType.LIGHT_FIGHTER).stats,
+        rapidFire: unitConfigurationMap.get(UnitType.LIGHT_FIGHTER).rapidFire,
       },
     ],
     [
@@ -40,6 +46,7 @@ export class FleetFactory {
       {
         numberOfUnit: 0,
         stats: unitConfigurationMap.get(UnitType.HEAVY_FIGHTER).stats,
+        rapidFire: unitConfigurationMap.get(UnitType.HEAVY_FIGHTER).rapidFire,
       },
     ],
     [
@@ -47,6 +54,7 @@ export class FleetFactory {
       {
         numberOfUnit: 0,
         stats: unitConfigurationMap.get(UnitType.CRUISER).stats,
+        rapidFire: unitConfigurationMap.get(UnitType.CRUISER).rapidFire,
       },
     ],
     [
@@ -54,6 +62,7 @@ export class FleetFactory {
       {
         numberOfUnit: 0,
         stats: unitConfigurationMap.get(UnitType.BATTLESHIP).stats,
+        rapidFire: unitConfigurationMap.get(UnitType.BATTLESHIP).rapidFire,
       },
     ],
     [
@@ -61,6 +70,7 @@ export class FleetFactory {
       {
         numberOfUnit: 0,
         stats: unitConfigurationMap.get(UnitType.BATTLE_CRUISER).stats,
+        rapidFire: unitConfigurationMap.get(UnitType.BATTLE_CRUISER).rapidFire,
       },
     ],
     [
@@ -68,6 +78,7 @@ export class FleetFactory {
       {
         numberOfUnit: 0,
         stats: unitConfigurationMap.get(UnitType.BOMBER).stats,
+        rapidFire: unitConfigurationMap.get(UnitType.BOMBER).rapidFire,
       },
     ],
     [
@@ -75,6 +86,7 @@ export class FleetFactory {
       {
         numberOfUnit: 0,
         stats: unitConfigurationMap.get(UnitType.DESTROYER).stats,
+        rapidFire: unitConfigurationMap.get(UnitType.DESTROYER).rapidFire,
       },
     ],
     [
@@ -82,6 +94,7 @@ export class FleetFactory {
       {
         numberOfUnit: 0,
         stats: unitConfigurationMap.get(UnitType.DEATH_STAR).stats,
+        rapidFire: unitConfigurationMap.get(UnitType.DEATH_STAR).rapidFire,
       },
     ],
     [
@@ -89,6 +102,7 @@ export class FleetFactory {
       {
         numberOfUnit: 0,
         stats: unitConfigurationMap.get(UnitType.REAPER).stats,
+        rapidFire: unitConfigurationMap.get(UnitType.REAPER).rapidFire,
       },
     ],
     [
@@ -96,6 +110,7 @@ export class FleetFactory {
       {
         numberOfUnit: 0,
         stats: unitConfigurationMap.get(UnitType.PATHFINDER).stats,
+        rapidFire: unitConfigurationMap.get(UnitType.PATHFINDER).rapidFire,
       },
     ],
     [
@@ -103,6 +118,7 @@ export class FleetFactory {
       {
         numberOfUnit: 0,
         stats: unitConfigurationMap.get(UnitType.RECYCLER).stats,
+        rapidFire: unitConfigurationMap.get(UnitType.RECYCLER).rapidFire,
       },
     ],
     [
@@ -110,6 +126,7 @@ export class FleetFactory {
       {
         numberOfUnit: 0,
         stats: unitConfigurationMap.get(UnitType.ESPIONAGE_PROBE).stats,
+        rapidFire: unitConfigurationMap.get(UnitType.ESPIONAGE_PROBE).rapidFire,
       },
     ],
     [
@@ -117,6 +134,7 @@ export class FleetFactory {
       {
         numberOfUnit: 0,
         stats: unitConfigurationMap.get(UnitType.SOLAR_SATELLITE).stats,
+        rapidFire: unitConfigurationMap.get(UnitType.SOLAR_SATELLITE).rapidFire,
       },
     ],
     [
@@ -124,6 +142,7 @@ export class FleetFactory {
       {
         numberOfUnit: 0,
         stats: unitConfigurationMap.get(UnitType.COLONY_SHIP).stats,
+        rapidFire: unitConfigurationMap.get(UnitType.COLONY_SHIP).rapidFire,
       },
     ],
     [
@@ -131,6 +150,7 @@ export class FleetFactory {
       {
         numberOfUnit: 0,
         stats: unitConfigurationMap.get(UnitType.CRAWLER).stats,
+        rapidFire: unitConfigurationMap.get(UnitType.CRAWLER).rapidFire,
       },
     ],
   ]);

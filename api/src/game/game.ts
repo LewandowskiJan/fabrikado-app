@@ -145,10 +145,10 @@ export class Game {
 
         GameState.planetsDiscovered.forEach((planet: Planet) => {
           if (planet.onUpgradeBuilding.length !== 0) {
-            planet.decrementBuildingUpdateTime();
+            planet.decrementTimeOfBuildingUpdate();
           }
           if (planet.onCreatingUnit.length !== 0) {
-            planet.decrementUnitCreateTime();
+            planet.decrementTimeOfUnitCreation();
           }
           planet.upgradeResources();
         });

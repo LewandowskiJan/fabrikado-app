@@ -19,6 +19,7 @@ export const fusionReactorConfiguration: [
       energy: 0,
       deuterium: 180,
     },
+    requirements: new Map(),
     upgradeCostFn: (lvl: number): Cost => {
       return {
         metal: Math.ceil(900 * Math.pow(1.8, lvl - 1)),
@@ -60,6 +61,7 @@ export const solarPlantConfiguration: [
       energy: 0,
       deuterium: 0,
     },
+    requirements: new Map(),
     upgradeCostFn: (lvl: number): Cost => {
       return {
         metal: Math.ceil(75 * Math.pow(1.5, lvl - 1)),
@@ -99,6 +101,7 @@ export const solarSatelliteConfiguration: [
       energy: 0,
       deuterium: 500,
     },
+    requirements: new Map(),
     upgradeCostFn: (): Cost => {
       return {
         metal: 0,

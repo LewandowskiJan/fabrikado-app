@@ -1,10 +1,12 @@
+import { Fleet } from '@game/fleet/fleet';
+
 import { Building } from '../../building/building';
+import { Coordinates } from '../../model/coordinates/coordinates';
 import { Planet } from '../planet';
 import { PlanetNameGenerator } from '../util/planet-name.generator';
 import { PlanetSizeGenerator } from '../util/planet-size.generator';
 import { BuildingFactory } from './../../building/building.factory';
 import { BuildingType } from './../../building/configuration/buildingType';
-import { Coordinates } from '../../model/coordinates/coordinates';
 import { UnitType } from './../../unit/factory/unit.abstract';
 import { UnitFactory } from './../../unit/factory/unit.factory';
 import { Unit } from './../../unit/unit';
@@ -33,14 +35,14 @@ export interface PlanetData {
   maxTemperature: number;
   minTemperature: number;
   buildings: Building[];
+  technologies: Building[];
   units: Unit[];
+  fleet: Fleet;
 }
 
 export class PlanetFactory {
   public static planetConfiguration: Map<number, PlanetConfiguration> =
     planetConfigurationByPlanetIndexMap;
-
-  private static buildingType: typeof BuildingType = BuildingType;
 
   public static generatePlanet(coordinates: Coordinates): Planet {
     const temperatures: Temperatures =
@@ -103,10 +105,14 @@ export class PlanetFactory {
       ).deuteriumEfficiency,
       ...temperatures,
       buildings: PlanetFactory.setupBuildings(temperatures.averageTemperature),
+      technologies: PlanetFactory.setupTechnologies(
+        temperatures.averageTemperature
+      ),
       units: PlanetFactory.setupUnits(),
       size: PlanetSizeGenerator.generatePlanetSizeByPlanetIndex(
         coordinates.planetIndex
       ),
+      fleet: undefined,
     };
 
     return new Planet(planetInitialData);
@@ -139,26 +145,52 @@ export class PlanetFactory {
     return Math.floor((maxTemperature + minTemperature) / 2);
   }
 
+  private static setupTechnologies(averageTemperature: number): Building[] {
+    const buildings: Building[] = [];
+    [
+      BuildingType.COMBUSTION_DRIVE,
+      BuildingType.IMPULSE_DRIVE,
+      BuildingType.ARMOUR_TECHNOLOGY,
+      BuildingType.ION_TECHNOLOGY,
+      BuildingType.HYPERSPACE_TECHNOLOGY,
+      BuildingType.HYPERSPACE_DRIVE,
+      BuildingType.LASER_TECHNOLOGY,
+      BuildingType.PLASMA_TECHNOLOGY,
+      BuildingType.GRAVITON_TECHNOLOGY,
+      BuildingType.SHIELDING_TECHNOLOGY,
+      BuildingType.ESPIONAGE_TECHNOLOGY,
+      BuildingType.COMPUTER_TECHNOLOGY,
+      BuildingType.WEAPON_TECHNOLOGY,
+      BuildingType.ENERGY_TECHNOLOGY,
+      BuildingType.INTERGALACTIC_RESEARCH_NETWORK,
+      BuildingType.ASTROPHYSICS,
+    ].forEach((type: BuildingType) =>
+      buildings.push(BuildingFactory.generateBuilding(type, averageTemperature))
+    );
+
+    return buildings;
+  }
+
   private static setupBuildings(averageTemperature: number): Building[] {
     const buildings: Building[] = [];
 
     [
-      PlanetFactory.buildingType.CRYSTAL_MINE,
-      PlanetFactory.buildingType.CRYSTAL_STORAGE,
-      PlanetFactory.buildingType.DEUTERIUM_SYNTHESIZER,
-      PlanetFactory.buildingType.DEUTERIUM_TANK,
-      PlanetFactory.buildingType.METAL_MINE,
-      PlanetFactory.buildingType.METAL_STORAGE,
-      PlanetFactory.buildingType.FUSION_REACTOR,
-      PlanetFactory.buildingType.SOLAR_PLANT,
-      PlanetFactory.buildingType.SOLAR_SATELLITE,
-      PlanetFactory.buildingType.ROBOTICS_FACTORY,
-      PlanetFactory.buildingType.SHIPYARD,
-      PlanetFactory.buildingType.RESEARCH_LAB,
-      PlanetFactory.buildingType.ALLIANCE_DEPOT,
-      PlanetFactory.buildingType.MISSILE_SILO,
-      PlanetFactory.buildingType.NANITE_FACTORY,
-      PlanetFactory.buildingType.TERRAFORMER,
+      BuildingType.CRYSTAL_MINE,
+      BuildingType.CRYSTAL_STORAGE,
+      BuildingType.DEUTERIUM_SYNTHESIZER,
+      BuildingType.DEUTERIUM_TANK,
+      BuildingType.METAL_MINE,
+      BuildingType.METAL_STORAGE,
+      BuildingType.FUSION_REACTOR,
+      BuildingType.SOLAR_PLANT,
+      BuildingType.SOLAR_SATELLITE,
+      BuildingType.ROBOTICS_FACTORY,
+      BuildingType.SHIPYARD,
+      BuildingType.RESEARCH_LAB,
+      BuildingType.ALLIANCE_DEPOT,
+      BuildingType.MISSILE_SILO,
+      BuildingType.NANITE_FACTORY,
+      BuildingType.TERRAFORMER,
     ].forEach((type: BuildingType) =>
       buildings.push(BuildingFactory.generateBuilding(type, averageTemperature))
     );

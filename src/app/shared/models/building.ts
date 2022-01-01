@@ -1,3 +1,5 @@
+import { Requirements } from '@src/app/game/cosmos/modules/shipyard/model/unit';
+
 import { BuildingType } from './buildingType';
 import { Resource } from './resource';
 
@@ -13,7 +15,8 @@ export interface Building {
   miningResource: Resource;
   capacity: Resource;
   energyConsume: number;
-  nextLevelBuildingRequirements: BuildingRequirement[];
+  requirements: Requirements;
+  requirementsArray: any[];
   nextLevelCosts: Resource;
   nextLevelBuildingTime: number;
   onNextLevelUpgrade: boolean;

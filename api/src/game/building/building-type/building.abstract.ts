@@ -1,4 +1,3 @@
-import { ResourcesUtilService } from '../../utils/resources-util.service';
 import { Building } from '../building';
 import { BuildingOptions } from '../building.factory';
 import { BuildingType } from '../configuration/buildingType';
@@ -8,7 +7,9 @@ import {
   ResourceCapacity,
   ResourceProduction,
 } from './../../game-configuration.map';
+import { Requirements } from './../../model/requirements/requirements';
 import { Resource } from './../../planet/resources/resource';
+import { RequirementUtilService } from './../../utils/requirement-util.service';
 
 export interface BuildingRequirement {
   type: BuildingType;
@@ -29,7 +30,8 @@ export abstract class BuildingAbstract {
   public miningResource: Resource;
   public energyConsume: number;
 
-  public nextLevelBuildingRequirements: BuildingRequirement[];
+  public requirements: Requirements;
+  public requirementsArray: any[];
   public nextLevelCosts: Resource;
   public nextLevelBuildingTime: number = 5;
 
@@ -59,6 +61,7 @@ export abstract class BuildingAbstract {
     this.averageTemperature = buildingOption.averageTemperature;
 
     this.baseCost = resourceBuildingConfiguration.baseCost;
+    this.requirements = resourceBuildingConfiguration.requirements;
     this.upgradeCostFn = resourceBuildingConfiguration.upgradeCostFn;
     this.upgradeMiningValueFn =
       resourceBuildingConfiguration.upgradeMiningValueFn;
@@ -68,17 +71,20 @@ export abstract class BuildingAbstract {
       resourceBuildingConfiguration.upgradeDeuteriumConsumeValueFn;
     this.upgradeStorageCapacityFn =
       resourceBuildingConfiguration.upgradeStorageCapacityFn;
-
+    this.setupRequirementArray();
     this.setupUpdateRequirement();
   }
 
   public upgrade(
+    currentBuilding: Building,
     currentResources: Resource,
-    currentBuildings: Building[]
+    currentPlanetBuildings: Building[]
   ): OnUpdateCost {
     if (this.onNextLevelUpgrade) {
       return undefined;
-    } else if (this.canUpdate(currentResources, currentBuildings)) {
+    } else if (
+      this.canUpdate(currentBuilding, currentResources, currentPlanetBuildings)
+    ) {
       this.onNextLevelUpgrade = true;
       this.upgradingTimeLeft = this.nextLevelBuildingTime;
 
@@ -126,33 +132,29 @@ export abstract class BuildingAbstract {
       this.upgradeStorageCapacityFn(this.level);
   }
 
-  public canUpdate(
+  private canUpdate(
+    currentBuilding: Building,
     currentResources: Resource,
-    currentBuildings: Building[]
+    currentPlanetBuildings: Building[]
   ): boolean {
-    const requirements: boolean[] = [];
-    if (
-      this.nextLevelBuildingRequirements &&
-      this.nextLevelBuildingRequirements.length !== 0
-    ) {
-      currentBuildings.forEach((currentBuilding: Building) => {
-        const requireBuilding: BuildingRequirement | undefined =
-          this.nextLevelBuildingRequirements.find(
-            (building: Building) => currentBuilding.type === building.type
-          );
-
-        requireBuilding
-          ? requirements.push(requireBuilding.level < currentBuilding.level)
-          : requirements.push(false);
-      });
-    }
-    requirements.push(
-      ResourcesUtilService.checkResourcesRequirements(
-        currentResources,
-        this.nextLevelCosts
+    return (
+      RequirementUtilService.areRequirementsFulfilled(
+        currentBuilding.requirements,
+        currentPlanetBuildings
+      ) &&
+      RequirementUtilService.haveEnoughResources(
+        currentBuilding.nextLevelCosts,
+        currentResources
       )
     );
+  }
 
-    return requirements.every(Boolean);
+  private setupRequirementArray(): void {
+    const array: any[] = [];
+    this.requirements.forEach((value: number, key: BuildingType) => {
+      array.push({ [key]: value });
+    });
+
+    this.requirementsArray = array;
   }
 }

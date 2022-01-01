@@ -1,0 +1,15 @@
+<div class="info" *ngIf="technology">
+  <div class="details">
+    <p>name: {{ technology.name }}</p>
+    <p>cost: {{ technology.nextLevelCosts | json }}</p>
+    <p>
+      upgradingTime:
+      {{ technology.upgradingTimeLeft || technology.nextLevelBuildingTime }}
+    </p>
+    <p>level: {{ technology.level }}</p>
+  </div>
+  <div class="description">
+    <p>requirements: {{ technology.requirementsArray | json }}</p>
+    <p>add: {{ technology.capacity | json }}</p>
+  </div>
+</div>

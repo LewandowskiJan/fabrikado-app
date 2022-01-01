@@ -19,6 +19,7 @@ export const crystalMineConfiguration: [
       energy: 0,
       deuterium: 0,
     },
+    requirements: new Map(),
     upgradeCostFn: (lvl: number): Cost => {
       return {
         metal: Math.ceil(48 * Math.pow(1.6, lvl - 1)),
@@ -61,6 +62,7 @@ export const deuteriumSynthesizerConfiguration: [
       energy: 0,
       deuterium: 0,
     },
+    requirements: new Map(),
     upgradeCostFn: (lvl: number): Cost => {
       return {
         metal: Math.ceil(225 * Math.pow(1.5, lvl - 1)),
@@ -110,6 +112,7 @@ export const metalMineConfiguration: [
       energy: 0,
       deuterium: 0,
     },
+    requirements: new Map(),
     upgradeCostFn: (lvl: number): Cost => {
       return {
         metal: Math.ceil(60 * Math.pow(1.5, lvl - 1)),

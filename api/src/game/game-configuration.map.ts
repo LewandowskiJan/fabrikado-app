@@ -1,4 +1,5 @@
 import { BuildingType } from './building/configuration/buildingType';
+import { Requirements } from './model/requirements/requirements';
 
 export const gameConfigurationMap: Map<string, string> = new Map([['1', '1']]);
 
@@ -43,6 +44,7 @@ export interface PlanetRuleConfiguration {
 
 export interface BuildingRuleConfiguration {
   baseCost: BaseCost;
+  requirements: Requirements;
   upgradeCostFn: (currentLevel: number) => BaseCost;
   upgradeEnergyConsumeValueFn?: (currentLevel: number) => number;
   upgradeDeuteriumConsumeValueFn?: (currentLevel: number) => number;

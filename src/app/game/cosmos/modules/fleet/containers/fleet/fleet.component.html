@@ -1,0 +1,10 @@
+<div *ngIf="fleet$ | async as fleet" style="color: blue">
+  <p>Speed: {{ fleet.speed }}</p>
+  <p>Fuel usage: {{ fleet.fuelUsage }}</p>
+  <p *ngFor="let ship of fleet?.fleetArray">
+    <span>
+      {{ ship.unitType }}: {{ ship.numberOfUnit }}
+      {{ ship.image }}
+    </span>
+  </p>
+</div>

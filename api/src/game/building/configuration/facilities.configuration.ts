@@ -16,6 +16,7 @@ export const roboticsFactoryConfiguration: [
       energy: 0,
       deuterium: 200,
     },
+    requirements: new Map(),
     upgradeCostFn: (lvl: number): Cost => {
       return {
         metal: Math.ceil(400 * Math.pow(2, lvl)),
@@ -40,6 +41,9 @@ export const shipyardConfiguration: [
       energy: 0,
       deuterium: 100,
     },
+    requirements: new Map<BuildingType, number>([
+      [BuildingType.ROBOTICS_FACTORY, 2],
+    ]),
     upgradeCostFn: (lvl: number): Cost => {
       return {
         metal: Math.ceil(400 * Math.pow(2, lvl)),
@@ -74,6 +78,7 @@ export const researchLabConfiguration: [
       energy: 0,
       deuterium: 200,
     },
+    requirements: new Map(),
     upgradeCostFn: (lvl: number): Cost => {
       return {
         metal: Math.ceil(200 * Math.pow(2, lvl)),
@@ -97,6 +102,7 @@ export const allianceDepotConfiguration: [
       energy: 0,
       deuterium: 0,
     },
+    requirements: new Map(),
     upgradeCostFn: (lvl: number): Cost => {
       return {
         metal: Math.ceil(20_000 * Math.pow(2, lvl - 1)),
@@ -120,6 +126,7 @@ export const missileSiloConfiguration: [
       energy: 0,
       deuterium: 1_000,
     },
+    requirements: new Map<BuildingType, number>([[BuildingType.SHIPYARD, 1]]),
     upgradeCostFn: (lvl: number): Cost => {
       const multiplier: number =
         Math.pow(2, lvl - 1) * 2 - 1 === 0 ? 1 : Math.pow(2, lvl - 1) * 2 - 1;
@@ -146,6 +153,10 @@ export const naniteFactoryConfiguration: [
       energy: 0,
       deuterium: 100_000,
     },
+    requirements: new Map<BuildingType, number>([
+      [BuildingType.ROBOTICS_FACTORY, 10],
+      [BuildingType.COMPUTER_TECHNOLOGY, 10],
+    ]),
     upgradeCostFn: (lvl: number): Cost => {
       const multiplier: number =
         Math.pow(2, lvl) - 1 === 0 ? 1 : Math.pow(2, lvl) - 1;
@@ -172,6 +183,10 @@ export const terraFormerConfiguration: [
       energy: 1_000,
       deuterium: 100_000,
     },
+    requirements: new Map<BuildingType, number>([
+      [BuildingType.NANITE_FACTORY, 1],
+      [BuildingType.ENERGY_TECHNOLOGY, 12],
+    ]),
     upgradeCostFn: (lvl: number): Cost => {
       return {
         metal: Math.ceil(1_000_000 * Math.pow(2, lvl - 1)),

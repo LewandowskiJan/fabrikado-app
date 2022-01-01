@@ -20,6 +20,22 @@ export const buildingNameMap: Map<BuildingType, string> = new Map([
   [BuildingType.MISSILE_SILO, 'Missile silo'],
   [BuildingType.NANITE_FACTORY, 'Nanite factory'],
   [BuildingType.TERRAFORMER, 'Terraformer'],
+  [BuildingType.COMBUSTION_DRIVE, 'COMBUSTION_DRIVE'],
+  [BuildingType.IMPULSE_DRIVE, 'Impulse drive'],
+  [BuildingType.ARMOUR_TECHNOLOGY, 'Armour technology'],
+  [BuildingType.ION_TECHNOLOGY, 'Ion technology'],
+  [BuildingType.HYPERSPACE_TECHNOLOGY, 'Hyperspace technology'],
+  [BuildingType.HYPERSPACE_DRIVE, 'Hyperspace drive'],
+  [BuildingType.LASER_TECHNOLOGY, 'Laser technology'],
+  [BuildingType.PLASMA_TECHNOLOGY, 'Plasma technology'],
+  [BuildingType.GRAVITON_TECHNOLOGY, 'Graviton technology'],
+  [BuildingType.SHIELDING_TECHNOLOGY, 'Shielding technology'],
+  [BuildingType.ESPIONAGE_TECHNOLOGY, 'Espionage technology'],
+  [BuildingType.COMPUTER_TECHNOLOGY, 'Computer technology'],
+  [BuildingType.WEAPON_TECHNOLOGY, 'Weapon technology'],
+  [BuildingType.ENERGY_TECHNOLOGY, 'Energy technology'],
+  [BuildingType.INTERGALACTIC_RESEARCH_NETWORK, 'Intergalactic technology'],
+  [BuildingType.ASTROPHYSICS, 'Astrophysics'],
 ]);
 
 export interface BuildingOptions {

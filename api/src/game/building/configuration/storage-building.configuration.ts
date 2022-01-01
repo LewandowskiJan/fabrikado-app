@@ -18,6 +18,7 @@ export const crystalStorageConfiguration: [
       energy: 0,
       deuterium: 0,
     },
+    requirements: new Map(),
     upgradeCostFn: (lvl: number): Cost => {
       return {
         metal: Math.ceil(500 * Math.pow(2, lvl)),
@@ -59,6 +60,7 @@ export const metalStorageConfiguration: [
       energy: 0,
       deuterium: 0,
     },
+    requirements: new Map(),
     upgradeCostFn: (lvl: number): Cost => {
       return {
         metal: Math.ceil(1000 * Math.pow(2, lvl)),
@@ -100,6 +102,7 @@ export const deuteriumTankConfiguration: [
       energy: 0,
       deuterium: 0,
     },
+    requirements: new Map(),
     upgradeCostFn: (lvl: number): Cost => {
       return {
         metal: Math.ceil(1000 * Math.pow(2, lvl)),

@@ -2,10 +2,11 @@ import { BuildingType } from '../building/configuration/buildingType';
 import { ResourcesUtilService } from '../utils/resources-util.service';
 import { Building } from './../building/building';
 import { OnUpdateCost } from './../building/building-type/building.abstract';
+import { Fleet } from './../fleet/fleet';
+import { FleetFactory } from './../fleet/fleet.factory';
 import { Coordinates } from './../model/coordinates/coordinates';
 import { UnitType } from './../unit/factory/unit.abstract';
 import { OnUnitCreateCost } from './../unit/factory/unit.abstract';
-import { Ship } from './../unit/ship';
 import { Unit } from './../unit/unit';
 import { PlanetData } from './factory/planet.factory';
 import { PlanetAbstract } from './planet.abstract';
@@ -32,11 +33,12 @@ export class Planet extends PlanetAbstract {
   public deuteriumEfficiency: number;
 
   public buildings: Building[] = [];
+  public technologies: Building[] = [];
   public units: Unit[] = [];
 
   public onUpgradeBuilding: Building[] = [];
   public onCreatingUnit: Unit[] = [];
-  public fleet: Ship[] = [];
+  public fleet: Fleet;
 
   constructor(planetInitialData: PlanetData) {
     super();
@@ -53,6 +55,7 @@ export class Planet extends PlanetAbstract {
     this.maxTemperature = planetInitialData.maxTemperature;
     this.minTemperature = planetInitialData.minTemperature;
     this.buildings = planetInitialData.buildings;
+    this.technologies = planetInitialData.technologies;
     this.units = planetInitialData.units;
     this.size = planetInitialData.size;
 
@@ -87,7 +90,7 @@ export class Planet extends PlanetAbstract {
 
   public createUnit(unitType: UnitType): void {
     const unit: Unit = this.units.find((currentUnit: Unit) => {
-      return currentUnit.type === unitType && !currentUnit.creatingTimeLeft;
+      return currentUnit.type === unitType && !currentUnit.onCreation;
     });
 
     if (!unit) {
@@ -97,7 +100,7 @@ export class Planet extends PlanetAbstract {
     const onUnitCreateCost: OnUnitCreateCost | undefined = unit.create(
       this.resources,
       unit,
-      this.buildings
+      [...this.buildings, ...this.technologies]
     );
     console.log(onUnitCreateCost);
     if (onUnitCreateCost) {
@@ -111,17 +114,20 @@ export class Planet extends PlanetAbstract {
   }
 
   public upgradeBuilding(buildingType: BuildingType): void {
-    const building: Building = this.buildings.find((building: Building) => {
-      return building.type === buildingType && !building.onNextLevelUpgrade;
-    });
+    const building: Building = [...this.buildings, ...this.technologies].find(
+      (building: Building) => {
+        return building.type === buildingType && !building.onNextLevelUpgrade;
+      }
+    );
 
     if (!building) {
       return;
     }
 
     const onUpdateCost: OnUpdateCost | undefined = building.upgrade(
+      building,
       this.resources,
-      this.buildings
+      [...this.buildings, ...this.technologies]
     );
 
     if (onUpdateCost) {
@@ -133,7 +139,7 @@ export class Planet extends PlanetAbstract {
     }
   }
 
-  public decrementBuildingUpdateTime(): boolean {
+  public decrementTimeOfBuildingUpdate(): boolean {
     let shouldEmitAfterFinish: boolean;
     this.onUpgradeBuilding.forEach((building: Building) => {
       if (building.decrementUpgradeTime()) {
@@ -149,11 +155,21 @@ export class Planet extends PlanetAbstract {
     return shouldEmitAfterFinish;
   }
 
-  public decrementUnitCreateTime(): boolean {
+  public decrementTimeOfUnitCreation(): boolean {
     let shouldEmitAfterFinish: boolean;
     this.onCreatingUnit.forEach((unit: Unit) => {
       if (unit.decrementCreateTime()) {
-        this.fleet.push(unit.finishCreation());
+        unit.finishCreation();
+        if (this.fleet) {
+          this.fleet.addShip(unit.type, 1);
+        } else {
+          this.fleet = FleetFactory.createFleet([
+            {
+              numberOfUnit: 1,
+              unitType: unit.type,
+            },
+          ]);
+        }
 
         this.onCreatingUnit = this.onCreatingUnit.filter(
           (currentUnit: Unit) => currentUnit.type !== unit.type
@@ -179,7 +195,9 @@ export class Planet extends PlanetAbstract {
       maxTemperature: this.maxTemperature,
       minTemperature: this.minTemperature,
       buildings: this.buildings,
+      technologies: this.technologies,
       units: this.units,
+      fleet: this.fleet,
     };
   }
 

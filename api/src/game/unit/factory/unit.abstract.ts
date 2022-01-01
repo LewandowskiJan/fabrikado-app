@@ -3,7 +3,6 @@ import { BuildingType } from './../../building/configuration/buildingType';
 import { Requirements } from './../../model/requirements/requirements';
 import { Resource } from './../../planet/resources/resource';
 import { RequirementUtilService } from './../../utils/requirement-util.service';
-import { Ship } from './../ship';
 import { Unit } from './../unit';
 import { UnitConfiguration } from './unit.configuration';
 
@@ -94,6 +93,9 @@ export abstract class UnitAbstract {
     currentUnit: Unit,
     currentPlanetBuildings: Building[]
   ): OnUnitCreateCost {
+    console.log(
+      this.canCreate(currentUnit, currentResources, currentPlanetBuildings)
+    );
     if (this.onCreation) {
       return undefined;
     } else if (
@@ -122,10 +124,9 @@ export abstract class UnitAbstract {
     }
   }
 
-  public finishCreation(): Ship {
+  public finishCreation(): void {
     this.creatingTimeLeft = 3;
     this.onCreation = false;
-    return new Ship(this.name, this.type, this.stats, this.rapidFireArray);
   }
 
   private canCreate(
