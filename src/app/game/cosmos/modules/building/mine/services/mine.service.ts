@@ -14,9 +14,6 @@ const buildingImageByTypeMap: Map<BuildingType, string> = new Map([
   [BuildingType.CRYSTAL_MINE, 'structure3'],
   [BuildingType.DEUTERIUM_SYNTHESIZER, 'structure3'],
   [BuildingType.METAL_MINE, 'structure3'],
-  [BuildingType.CRYSTAL_MINE, 'structure3'],
-  [BuildingType.DEUTERIUM_SYNTHESIZER, 'structure3'],
-  [BuildingType.METAL_MINE, 'structure3'],
   [BuildingType.FUSION_REACTOR, 'structure5'],
   [BuildingType.SOLAR_PLANT, 'structure5'],
   [BuildingType.SOLAR_SATELLITE, 'structure5'],
@@ -32,7 +29,9 @@ const buildingImageByTypeMap: Map<BuildingType, string> = new Map([
   [BuildingType.TERRAFORMER, 'structure4'],
 ]);
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class MineService {
   public mines$: Observable<Mine[]>;
 

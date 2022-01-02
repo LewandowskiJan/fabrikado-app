@@ -1,5 +1,7 @@
-import { RapidFireConfiguration } from './../../../../src/app/game/cosmos/modules/shipyard/model/unit';
-import { UnitType } from './../unit/factory/unit.abstract';
+import {
+  RapidFireConfiguration,
+  UnitType,
+} from './../unit/factory/unit.abstract';
 import { UnitData, UnitNumbers } from './fleet.factory';
 
 export class Fleet {
@@ -26,6 +28,7 @@ export class Fleet {
   }
 
   public addShip(unitType: UnitType, numberOfUnits: number): void {
+    console.log(unitType);
     const {
       numberOfUnit,
       stats,

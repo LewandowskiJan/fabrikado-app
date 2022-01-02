@@ -1,4 +1,8 @@
-import { RapidFireConfiguration, UnitStats, UnitType } from '../unit/factory/unit.abstract';
+import {
+  RapidFireConfiguration,
+  UnitStats,
+  UnitType,
+} from '../unit/factory/unit.abstract';
 import { unitConfigurationMap } from './../unit/factory/unit.configuration';
 import { Fleet } from './fleet';
 
@@ -151,6 +155,81 @@ export class FleetFactory {
         numberOfUnit: 0,
         stats: unitConfigurationMap.get(UnitType.CRAWLER).stats,
         rapidFire: unitConfigurationMap.get(UnitType.CRAWLER).rapidFire,
+      },
+    ],
+    [
+      UnitType.ROCKET_LAUNCHER,
+      {
+        numberOfUnit: 0,
+        stats: unitConfigurationMap.get(UnitType.ROCKET_LAUNCHER).stats,
+        rapidFire: unitConfigurationMap.get(UnitType.ROCKET_LAUNCHER).rapidFire,
+      },
+    ],
+    [
+      UnitType.LIGHT_LASER,
+      {
+        numberOfUnit: 0,
+        stats: unitConfigurationMap.get(UnitType.LIGHT_LASER).stats,
+        rapidFire: unitConfigurationMap.get(UnitType.LIGHT_LASER).rapidFire,
+      },
+    ],
+    [
+      UnitType.HEAVY_LASER,
+      {
+        numberOfUnit: 0,
+        stats: unitConfigurationMap.get(UnitType.HEAVY_LASER).stats,
+        rapidFire: unitConfigurationMap.get(UnitType.HEAVY_LASER).rapidFire,
+      },
+    ],
+    [
+      UnitType.ION_CANNON,
+      {
+        numberOfUnit: 0,
+        stats: unitConfigurationMap.get(UnitType.ION_CANNON).stats,
+        rapidFire: unitConfigurationMap.get(UnitType.ION_CANNON).rapidFire,
+      },
+    ],
+    [
+      UnitType.GAUSS_CANNON,
+      {
+        numberOfUnit: 0,
+        stats: unitConfigurationMap.get(UnitType.GAUSS_CANNON).stats,
+        rapidFire: unitConfigurationMap.get(UnitType.GAUSS_CANNON).rapidFire,
+      },
+    ],
+    [
+      UnitType.PLASMA_CANNON,
+      {
+        numberOfUnit: 0,
+        stats: unitConfigurationMap.get(UnitType.PLASMA_CANNON).stats,
+        rapidFire: unitConfigurationMap.get(UnitType.PLASMA_CANNON).rapidFire,
+      },
+    ],
+    [
+      UnitType.SMALL_SHIELD_DOME,
+      {
+        numberOfUnit: 0,
+        stats: unitConfigurationMap.get(UnitType.SMALL_SHIELD_DOME).stats,
+        rapidFire: unitConfigurationMap.get(UnitType.SMALL_SHIELD_DOME)
+          .rapidFire,
+      },
+    ],
+    [
+      UnitType.LARGE_SHIELD_DOME,
+      {
+        numberOfUnit: 0,
+        stats: unitConfigurationMap.get(UnitType.LARGE_SHIELD_DOME).stats,
+        rapidFire: unitConfigurationMap.get(UnitType.LARGE_SHIELD_DOME)
+          .rapidFire,
+      },
+    ],
+    [
+      UnitType.ANTI_BALLISTIC_MISSILE,
+      {
+        numberOfUnit: 0,
+        stats: unitConfigurationMap.get(UnitType.ANTI_BALLISTIC_MISSILE).stats,
+        rapidFire: unitConfigurationMap.get(UnitType.ANTI_BALLISTIC_MISSILE)
+          .rapidFire,
       },
     ],
   ]);

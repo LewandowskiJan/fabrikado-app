@@ -7,6 +7,6 @@ import { MineModule } from './mine/mine.module';
 @NgModule({
   declarations: [],
   imports: [CommonModule, MineModule, DefenceModule],
-  exports: [MineModule],
+  exports: [MineModule, DefenceModule],
 })
 export class BuildingModule {}

@@ -1,5 +1,3 @@
-import { Fleet } from '@game/fleet/fleet';
-
 import { Building } from '../../building/building';
 import { Coordinates } from '../../model/coordinates/coordinates';
 import { Planet } from '../planet';
@@ -7,6 +5,7 @@ import { PlanetNameGenerator } from '../util/planet-name.generator';
 import { PlanetSizeGenerator } from '../util/planet-size.generator';
 import { BuildingFactory } from './../../building/building.factory';
 import { BuildingType } from './../../building/configuration/buildingType';
+import { Fleet } from './../../fleet/fleet';
 import { UnitType } from './../../unit/factory/unit.abstract';
 import { UnitFactory } from './../../unit/factory/unit.factory';
 import { Unit } from './../../unit/unit';
@@ -36,6 +35,7 @@ export interface PlanetData {
   minTemperature: number;
   buildings: Building[];
   technologies: Building[];
+  defence: Unit[];
   units: Unit[];
   fleet: Fleet;
 }
@@ -108,6 +108,7 @@ export class PlanetFactory {
       technologies: PlanetFactory.setupTechnologies(
         temperatures.averageTemperature
       ),
+      defence: PlanetFactory.setupDefence(),
       units: PlanetFactory.setupUnits(),
       size: PlanetSizeGenerator.generatePlanetSizeByPlanetIndex(
         coordinates.planetIndex
@@ -222,7 +223,25 @@ export class PlanetFactory {
     ].forEach((unitType: UnitType) =>
       units.push(UnitFactory.generateUnit(unitType))
     );
+    return units;
+  }
 
+  private static setupDefence(): Unit[] {
+    const units: Unit[] = [];
+
+    [
+      UnitType.ROCKET_LAUNCHER,
+      UnitType.LIGHT_LASER,
+      UnitType.HEAVY_LASER,
+      UnitType.ION_CANNON,
+      UnitType.GAUSS_CANNON,
+      UnitType.PLASMA_CANNON,
+      UnitType.SMALL_SHIELD_DOME,
+      UnitType.LARGE_SHIELD_DOME,
+      UnitType.ANTI_BALLISTIC_MISSILE,
+    ].forEach((unitType: UnitType) =>
+      units.push(UnitFactory.generateUnit(unitType))
+    );
     return units;
   }
 }

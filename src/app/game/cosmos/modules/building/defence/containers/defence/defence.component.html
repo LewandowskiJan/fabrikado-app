@@ -1,0 +1,20 @@
+<app-market-container>
+  <app-structure-details details-view [buildingDetails$]="currentDefenceUnit$">
+    <app-market-element-details *ngIf="currentDefenceUnit$ | async as currentDefenceUnit">
+      <app-defence-details class="info" [currentDefenceUnit]="currentDefenceUnit"></app-defence-details>
+      <app-button>
+        <button class="button" (click)="onCreate(currentDefenceUnit.type)">buy</button>
+      </app-button>
+      <app-button>
+        <button class="button">recycle</button>
+      </app-button>
+    </app-market-element-details>
+  </app-structure-details>
+  <app-structure
+    market-grid
+    *ngFor="let defenceUnit of defenceUnits$ | async"
+    (selectEmitter)="selectDetails($event)"
+    [building]="defenceUnit"
+  >
+  </app-structure>
+</app-market-container>

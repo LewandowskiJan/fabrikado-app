@@ -1,0 +1,11 @@
+<div class="info" *ngIf="currentDefenceUnit">
+  <div class="details">
+    <p>name: {{ currentDefenceUnit.name }}</p>
+    <p>cost: {{ currentDefenceUnit.cost | json }}</p>
+    <p>time left: {{ currentDefenceUnit.creatingTimeLeft }}</p>
+  </div>
+  <div class="description">
+    <p>stats: {{ currentDefenceUnit.stats | json }}</p>
+    <p>requirements: {{ currentDefenceUnit.requirementsArray | json }}</p>
+  </div>
+</div>

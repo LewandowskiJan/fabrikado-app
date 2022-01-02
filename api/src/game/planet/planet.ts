@@ -34,6 +34,7 @@ export class Planet extends PlanetAbstract {
 
   public buildings: Building[] = [];
   public technologies: Building[] = [];
+  public defence: Unit[] = [];
   public units: Unit[] = [];
 
   public onUpgradeBuilding: Building[] = [];
@@ -55,6 +56,7 @@ export class Planet extends PlanetAbstract {
     this.maxTemperature = planetInitialData.maxTemperature;
     this.minTemperature = planetInitialData.minTemperature;
     this.buildings = planetInitialData.buildings;
+    this.defence = planetInitialData.defence;
     this.technologies = planetInitialData.technologies;
     this.units = planetInitialData.units;
     this.size = planetInitialData.size;
@@ -89,9 +91,11 @@ export class Planet extends PlanetAbstract {
   }
 
   public createUnit(unitType: UnitType): void {
-    const unit: Unit = this.units.find((currentUnit: Unit) => {
-      return currentUnit.type === unitType && !currentUnit.onCreation;
-    });
+    const unit: Unit = [...this.units, ...this.defence].find(
+      (currentUnit: Unit) => {
+        return currentUnit.type === unitType && !currentUnit.onCreation;
+      }
+    );
 
     if (!unit) {
       return;
@@ -198,6 +202,7 @@ export class Planet extends PlanetAbstract {
       technologies: this.technologies,
       units: this.units,
       fleet: this.fleet,
+      defence: this.defence,
     };
   }
 

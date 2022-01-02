@@ -9,7 +9,6 @@ import { ShipyardModule } from '../modules/shipyard/shipyard.module';
 import { FleetModule } from './../modules/fleet/fleet.module';
 import { TechnologyModule } from './../modules/technology/technology.module';
 import { AllianceComponent } from './components/alliance/alliance.component';
-import { DefenceComponent } from './components/defence/defence.component';
 import { GalaxyComponent } from './components/galaxy/galaxy.component';
 import { GalaxyRowComponent } from './components/galaxy/galaxy-row/galaxy-row.component';
 import { GalaxyTableComponent } from './components/galaxy/galaxy-table/galaxy-table.component';
@@ -26,7 +25,6 @@ import { PlanetRoutingModule } from './planet-routing.module';
     PlanetComponent,
     OverviewComponent,
     MarketComponent,
-    DefenceComponent,
     GalaxyComponent,
     AllianceComponent,
     StaffComponent,

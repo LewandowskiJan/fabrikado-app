@@ -21,6 +21,15 @@ export const buildingNameMap: Map<UnitType, string> = new Map([
   [UnitType.SOLAR_SATELLITE, 'Solar satellite'],
   [UnitType.COLONY_SHIP, 'Colony ship'],
   [UnitType.CRAWLER, 'Crawler'],
+  [UnitType.ROCKET_LAUNCHER, 'Rocket launcher'],
+  [UnitType.LIGHT_LASER, 'Light laser'],
+  [UnitType.HEAVY_LASER, 'Heavy laser'],
+  [UnitType.ION_CANNON, 'Ion cannon'],
+  [UnitType.GAUSS_CANNON, 'Gauss cannon'],
+  [UnitType.PLASMA_CANNON, 'Plasma cannon'],
+  [UnitType.SMALL_SHIELD_DOME, 'Small shield dome'],
+  [UnitType.LARGE_SHIELD_DOME, 'Large shield dome'],
+  [UnitType.ANTI_BALLISTIC_MISSILE, 'Anti-ballistic missile'],
 ]);
 
 export class UnitFactory {

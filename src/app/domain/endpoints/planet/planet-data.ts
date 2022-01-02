@@ -28,5 +28,6 @@ export interface PlanetSocketData {
   buildings: Building[];
   technologies: Building[];
   units: Unit[];
+  defence: Unit[];
   fleet: FleetData;
 }

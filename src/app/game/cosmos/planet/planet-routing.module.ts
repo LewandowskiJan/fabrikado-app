@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { DefenceComponent } from '../modules/building/defence/containers/defence/defence.component';
 import { MineComponent } from '../modules/building/mine/container/mine/mine.component';
 import { FleetComponent } from '../modules/fleet/containers/fleet/fleet.component';
 import { ShipyardComponent } from '../modules/shipyard/containers/shipyard/shipyard.component';
 import { TechnologyComponent } from '../modules/technology/containers/technology/technology.component';
 import { PlanetResolver } from '../services/resolvers/planet.resolver';
 import { AllianceComponent } from './components/alliance/alliance.component';
-import { DefenceComponent } from './components/defence/defence.component';
 import { GalaxyComponent } from './components/galaxy/galaxy.component';
 import { MarketComponent } from './components/market/market.component';
 import { OverviewComponent } from './components/overview/overview.component';
