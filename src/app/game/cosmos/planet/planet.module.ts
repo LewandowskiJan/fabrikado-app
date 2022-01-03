@@ -5,6 +5,7 @@ import { LayoutModule } from '@src/app/shared/layout/layout.module';
 import { PlanetUiModule } from '@src/app/shared/layout/modules/planet/planet-ui.module';
 
 import { BuildingModule } from '../modules/building/building.module';
+import { MapModule } from '../modules/map/map.module';
 import { ShipyardModule } from '../modules/shipyard/shipyard.module';
 import { FleetModule } from './../modules/fleet/fleet.module';
 import { TechnologyModule } from './../modules/technology/technology.module';
@@ -42,6 +43,7 @@ import { PlanetRoutingModule } from './planet-routing.module';
     TechnologyModule,
     PlanetUiModule,
     FleetModule,
+    MapModule,
   ],
 })
 export class PlanetModule {}

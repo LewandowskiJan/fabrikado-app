@@ -1,0 +1,39 @@
+.map-box {
+  display: flex;
+  overflow: auto;
+  max-width: calc(100vw - 40px - 157px);
+  max-height: calc(100vh - 270px);
+}
+
+canvas {
+  display: flex;
+  height: 2000px;
+  width: 2000px;
+  border: 2px solid green;
+}
+
+$shadow-color-blue-green: #009971;
+
+.map-box {
+  --scrollbarBG: #252525;
+  --thumbBG: #009971;
+}
+
+.map-box::-webkit-scrollbar {
+  width: 11px;
+}
+
+.map-box {
+  scrollbar-width: thin;
+  scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+}
+
+.map-box::-webkit-scrollbar-track {
+  background: var(--scrollbarBG);
+}
+
+.map-box::-webkit-scrollbar-thumb {
+  background-color: var(--thumbBG);
+  border-radius: 6px;
+  border: 3px solid var(--scrollbarBG);
+}

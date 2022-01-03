@@ -7,6 +7,7 @@ import { FleetComponent } from '../modules/fleet/containers/fleet/fleet.componen
 import { ShipyardComponent } from '../modules/shipyard/containers/shipyard/shipyard.component';
 import { TechnologyComponent } from '../modules/technology/containers/technology/technology.component';
 import { PlanetResolver } from '../services/resolvers/planet.resolver';
+import { MapComponent } from './../modules/map/container/map/map.component';
 import { AllianceComponent } from './components/alliance/alliance.component';
 import { GalaxyComponent } from './components/galaxy/galaxy.component';
 import { MarketComponent } from './components/market/market.component';
@@ -30,6 +31,11 @@ const routes: Routes = [
     },
     children: [
       { path: '', redirectTo: 'overview', pathMatch: 'full' },
+      {
+        path: 'map',
+        component: MapComponent,
+        data: { animation: 'Overview' },
+      },
       {
         path: 'overview',
         component: OverviewComponent,
