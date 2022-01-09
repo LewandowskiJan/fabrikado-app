@@ -1,4 +1,5 @@
 import { BuildingEvents } from './../../../../src/app/domain/endpoints/buildings/building-events.map';
+import { GameMapEvents } from './../../../../src/app/domain/endpoints/map/game-map-events.map';
 import { PlanetEvents } from './../../../../src/app/domain/endpoints/planet/planet-events.map';
 import { PlayerEvents } from './../../../../src/app/domain/endpoints/player/player-events.map';
 import { ResourceEvents } from './../../../../src/app/domain/endpoints/resource/resource-events.map';
@@ -56,9 +57,15 @@ export class UnitEventsMap {
   [UnitEvents.UNIT_PREPARE]: any;
 }
 
+export class GameMapEventsMap {
+  [GameMapEvents.GAME_MAP_PREPARE]: any;
+  [GameMapEvents.GAME_MAP_READ]: any;
+}
+
 export type AllEvents = ClientEventsMap &
   BuildingEventsMap &
   PlanetEventsMap &
   ResourceEventsMap &
   UnitEventsMap &
-  PlayerEventsMap;
+  PlayerEventsMap &
+  GameMapEventsMap;

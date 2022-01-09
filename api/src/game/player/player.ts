@@ -3,11 +3,12 @@ import { Server, Socket } from 'socket.io';
 import { BuildingEvents } from './../../../../src/app/domain/endpoints/buildings/building-events.map';
 import { PlanetEvents } from './../../../../src/app/domain/endpoints/planet/planet-events.map';
 import { BuildingManager } from './../../sockets/components/buildings/building-socket.manager';
+import { GameMapManager } from './../../sockets/components/map/game-map-socket.manager';
 import { PlanetManager } from './../../sockets/components/planet/planet-socket.manager';
 import { ResourceManager } from './../../sockets/components/resources/resource-socket.manager';
 import { UnitManager } from './../../sockets/components/unit/unit-socket.manager';
 import { AllEvents } from './../../sockets/configuration/socket-event.map';
-import { Planet } from './../planet/planet';
+import { Planet } from './../components/planet/planet';
 
 export class Player {
   id: string;
@@ -32,6 +33,7 @@ export class Player {
     ResourceManager.setupSockets(io, socket, this.playerRoomName, this);
     BuildingManager.setupSockets(io, socket, this.playerRoomName, this);
     UnitManager.setupSockets(io, socket, this.playerRoomName, this);
+    GameMapManager.setupSockets(io, socket, this.playerRoomName, this);
 
     const arr: string[] = Array.from(
       this.planets,

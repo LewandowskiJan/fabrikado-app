@@ -3,10 +3,10 @@ import { DefaultEventsMap } from 'socket.io/dist/typed-events';
 
 import { AllEvents } from '@src/sockets/configuration/socket-event.map';
 
+import { PlanetData } from '../../../game/components/planet/factory/planet.factory';
 import { PlanetEvents } from './../../../../../src/app/domain/endpoints/planet/planet-events.map';
+import { Planet } from './../../../game/components/planet/planet';
 import { Game } from './../../../game/game';
-import { PlanetData } from './../../../game/planet/factory/planet.factory';
-import { Planet } from './../../../game/planet/planet';
 import { Player } from './../../../game/player/player';
 
 export class PlanetManager {

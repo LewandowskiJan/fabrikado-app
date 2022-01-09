@@ -9,8 +9,13 @@ import {
   ViewChild,
 } from '@angular/core';
 
+import { take } from 'rxjs/operators';
+
 import { Hexagon } from '../../model/hexagon';
-import { HexagonFactory } from '../../model/hexagon.factory';
+import { Path } from '../../model/path/path';
+import { MouseHandlerService } from '../../services/mouse-service/mouse-handler.service';
+import { GameMapData } from './../../../../../../domain/endpoints/map/game-map-data';
+import { MapService } from './../../services/map.service';
 
 @Component({
   selector: 'app-map',
@@ -24,22 +29,11 @@ export class MapComponent
   public height: number = 2000;
 
   public hexagons: Hexagon[] = [];
-  public clickedHexagon: Hexagon | undefined;
+  public hexagonMap: Map<string, Hexagon> = new Map([]);
+
+  public paths: any[] = [];
+
   public hoverHexagon: Hexagon | undefined;
-
-  @HostListener('click', ['$event'])
-  public onClick(event: any): void {
-    this.findPolygon(event)?.click();
-  }
-
-  @HostListener('mousemove', ['$event'])
-  public onMouseHover(event: any): void {
-    if (this.hoverHexagon) {
-      this.hoverHexagon.unHover();
-    }
-    this.hoverHexagon = this.findPolygon(event);
-    this.hoverHexagon?.hover();
-  }
 
   @ViewChild('mapBox', { static: false }) public mapBox:
     | ElementRef<HTMLDivElement>
@@ -56,15 +50,38 @@ export class MapComponent
 
   private animationFrameId: number | undefined;
 
-  private DOTS_AMOUNT: number = 0;
-  private DOT_RADIUS: number = 0;
-  private GLOBE_RADIUS: number = 0;
-  private GLOBE_CENTER_Z: number = 0;
-  private PROJECTION_CENTER_X: number = 0;
-  private PROJECTION_CENTER_Y: number = 0;
-  private FIELD_OF_VIEW: number = 0;
+  constructor(
+    private mapService: MapService,
+    private mouseHandlerService: MouseHandlerService,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {
+    this.mouseHandlerService.clear();
+    console.log('created');
+  }
 
-  constructor(private changeDetectorRef: ChangeDetectorRef) {}
+  @HostListener('click', ['$event'])
+  public onClick(event: any): void {
+    const hexagon: Hexagon | undefined = this.findHexagon(event);
+    hexagon &&
+      this.context &&
+      this.mouseHandlerService.click(
+        event,
+        hexagon,
+        this.context,
+        this.hexagonMap,
+        this.paths
+      );
+  }
+
+  @HostListener('mousemove', ['$event'])
+  public onMouseHover(event: any): void {
+    if (this.hoverHexagon) {
+      this.hoverHexagon.unHover();
+    }
+    this.hoverHexagon = this.findHexagon(event);
+
+    this.hoverHexagon?.hover();
+  }
 
   public ngAfterViewChecked(): void {
     this.changeDetectorRef.detectChanges();
@@ -73,13 +90,14 @@ export class MapComponent
   public ngAfterViewInit(): void {
     if (this.planetCanvas && this.mapBox) {
       this.context = this.planetCanvas.nativeElement.getContext('2d');
-      this.setupConst();
+
       if (this.context) {
-        this.hexagons = HexagonFactory.createAxialCoordinateSystem(
-          4,
-          this.planetCanvas,
-          this.context
-        );
+        this.mapService.getMapData();
+
+        this.mapService.gameMap$
+          .pipe(take(1))
+          .subscribe((gameMap: GameMapData[]) => this.setupHexagons(gameMap));
+
         this.draw();
       }
     }
@@ -89,7 +107,23 @@ export class MapComponent
     this.animationFrameId && cancelAnimationFrame(this.animationFrameId);
   }
 
-  private findPolygon(event: any): Hexagon | undefined {
+  private setupHexagons(gameMap: GameMapData[]): void {
+    gameMap.forEach((gameMapData: GameMapData) => {
+      if (this.context) {
+        const hexagon: Hexagon = new Hexagon(
+          this.planetCanvas,
+          this.context,
+          gameMapData.attributes,
+          gameMapData.name,
+          gameMapData.elementsInside
+        );
+        this.hexagons.push(hexagon);
+        this.hexagonMap.set(hexagon.name, hexagon);
+      }
+    });
+  }
+
+  private findHexagon(event: any): Hexagon | undefined {
     return this.hexagons.find((polygon: Hexagon) => {
       return (
         polygon?.polygonPath &&
@@ -100,16 +134,6 @@ export class MapComponent
         )
       );
     });
-  }
-
-  private setupConst() {
-    this.DOTS_AMOUNT = 1000; // Amount of dots on the screen
-    this.DOT_RADIUS = 4; // Radius of the dots
-    this.GLOBE_RADIUS = this.width * 0.7; // Radius of the globe
-    this.GLOBE_CENTER_Z = -this.GLOBE_RADIUS; // Z value of the globe center
-    this.PROJECTION_CENTER_X = this.width / 2; // X center of the canvas HTML
-    this.PROJECTION_CENTER_Y = this.height / 2; // Y center of the canvas HTML
-    this.FIELD_OF_VIEW = this.width * 0.8;
   }
 
   private draw(): void {
@@ -124,6 +148,19 @@ export class MapComponent
         .forEach((octagon: Hexagon) => {
           octagon.drawMe();
         });
+
+      this.paths.forEach((path: Path) => {
+        path.pathsCoordinates.forEach(({ x, y }: { x: number; y: number }) => {
+          const hex: Hexagon | undefined = this.hexagons.find(
+            (hexagon: Hexagon) => {
+              this.context?.isPointInPath(hexagon.polygonPath as any, x, y);
+            }
+          );
+          // console.log(hex);
+          hex && hex.click();
+        });
+        path.drawMe();
+      });
 
       this.context.restore();
     }

@@ -4,7 +4,7 @@ import { DefaultEventsMap } from 'socket.io/dist/typed-events';
 import { AllEvents } from '@src/sockets/configuration/socket-event.map';
 
 import { Coordinates } from '@game/model/coordinates/coordinates';
-import { UnitType } from '@game/unit/factory/unit.abstract';
+import { UnitType } from '@game/components/unit/factory/unit.abstract';
 
 import { UnitEvents } from './../../../../../src/app/domain/endpoints/unit/unit-events.map';
 import { Game } from './../../../game/game';

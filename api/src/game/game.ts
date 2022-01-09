@@ -8,17 +8,19 @@ import {
 import { BuildingEvents } from './../../../src/app/domain/endpoints/buildings/building-events.map';
 import { PlayerEvents } from './../../../src/app/domain/endpoints/player/player-events.map';
 import { addTestUserToDatabase } from './../db/test/user.mock';
-import { BuildingType } from './building/configuration/buildingType';
-import { Galaxy } from './galaxy/galaxy';
+import { BuildingType } from './components/building/configuration/buildingType';
+import { Galaxy } from './components/galaxy/galaxy';
+import { PlanetFactory } from './components/planet/factory/planet.factory';
+import { Planet } from './components/planet/planet';
+import { PlanetSearch } from './components/planet/util/planet-search.util';
+import { SolarSystem } from './components/solar-system/solar-system';
+import { UnitType } from './components/unit/factory/unit.abstract';
 import { GameState } from './game.state';
 import { GameConfiguration } from './game-configuration';
+import { MapGenerator } from './game-map/map-generator';
+import { Hexagon } from './game-map/model/hexagon';
 import { Coordinates } from './model/coordinates/coordinates';
-import { PlanetFactory } from './planet/factory/planet.factory';
-import { Planet } from './planet/planet';
-import { PlanetSearch } from './planet/util/planet-search.util';
 import { Player } from './player/player';
-import { SolarSystem } from './solar-system/solar-system';
-import { UnitType } from './unit/factory/unit.abstract';
 
 export class Game {
   public static gameConfiguration: GameConfiguration;
@@ -157,8 +159,6 @@ export class Game {
   }
 
   private static setupGameState(): void {
-    this.gameConfiguration;
-
     for (
       let galacticIndex: number = 1;
       galacticIndex <= this.gameConfiguration.galaxyNumber;
@@ -192,6 +192,16 @@ export class Game {
         }
       }
     }
+
+    const configuration: {
+      hexagons: Hexagon[];
+      hexagonMap: Map<string, Hexagon>;
+      hexagonsData: any[];
+    } = MapGenerator.generate(6);
+
+    GameState.hexagons = configuration.hexagons;
+    GameState.hexagonMap = configuration.hexagonMap;
+    GameState.hexagonsData = configuration.hexagonsData;
   }
 
   private static pushPlanetToArray(planet: Planet): void {

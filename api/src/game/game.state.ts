@@ -1,7 +1,8 @@
-import { Galaxy } from './galaxy/galaxy';
-import { Planet } from './planet/planet';
+import { Galaxy } from './components/galaxy/galaxy';
+import { Planet } from './components/planet/planet';
+import { SolarSystem } from './components/solar-system/solar-system';
+import { Hexagon } from './game-map/model/hexagon';
 import { Player } from './player/player';
-import { SolarSystem } from './solar-system/solar-system';
 
 export class GameState {
   public static players: Player[] = [];
@@ -12,4 +13,8 @@ export class GameState {
 
   public static planetsDiscovered: Planet[] = [];
   public static onGamePlayers: Map<string, Player> = new Map();
+
+  public static hexagons: Hexagon[] = [];
+  public static hexagonMap: Map<string, Hexagon> = new Map();
+  public static hexagonsData: any[] = [];
 }

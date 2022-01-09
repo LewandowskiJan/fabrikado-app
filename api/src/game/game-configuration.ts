@@ -1,4 +1,4 @@
-import { buildingConfigurationMap } from './building/configuration/buildingConfiguration.map';
+import { buildingConfigurationMap } from './components/building/configuration/buildingConfiguration.map';
 import {
   GALAXIES_NUMBER,
   PLANETS_IN_SOLAR_SYSTEM_NUMBER,

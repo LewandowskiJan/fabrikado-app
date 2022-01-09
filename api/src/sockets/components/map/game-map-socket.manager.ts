@@ -3,14 +3,12 @@ import { DefaultEventsMap } from 'socket.io/dist/typed-events';
 
 import { AllEvents } from '@src/sockets/configuration/socket-event.map';
 
-import { Coordinates } from '@game/model/coordinates/coordinates';
+import { GameMapEvents } from '../../../../../src/app/domain/endpoints/map/game-map-events.map';
+import { GameState } from '../../../game/game.state';
+import { Player } from '../../../game/player/player';
+import { Hexagon } from './../../../game/game-map/model/hexagon';
 
-import { BuildingEvents } from './../../../../../src/app/domain/endpoints/buildings/building-events.map';
-import { BuildingType } from './../../../game/components/building/configuration/buildingType';
-import { Game } from './../../../game/game';
-import { Player } from './../../../game/player/player';
-
-export class BuildingManager {
+export class GameMapManager {
   public static io: Server;
   public static socket: Socket<AllEvents, AllEvents, DefaultEventsMap, any>;
   public static userId: string | undefined;
@@ -33,24 +31,12 @@ export class BuildingManager {
   }
 
   public static setupEvents(): void {
-    this.socket.on(
-      BuildingEvents.BUILDING_ADD,
-      ({
-        buildingType,
-        coordinates,
-      }: {
-        buildingType: BuildingType;
-        coordinates: Coordinates;
-      }) => Game.updateBuilding(coordinates, buildingType)
-    );
+    this.socket.on(GameMapEvents.GAME_MAP_PREPARE, () => void 0);
 
-    this.socket.on(BuildingEvents.BUILDING_READ, () => {
+    this.socket.on(GameMapEvents.GAME_MAP_READ, () => {
       this.io
         .to(this.player.playerRoomName)
-        .emit(
-          BuildingEvents.BUILDING_READ,
-          this.player.currentPlanet.buildings
-        );
+        .emit(GameMapEvents.GAME_MAP_READ, GameState.hexagonsData);
     });
   }
 }

@@ -30,7 +30,7 @@ const routes: Routes = [
       planet: PlanetResolver,
     },
     children: [
-      { path: '', redirectTo: 'overview', pathMatch: 'full' },
+      { path: '', redirectTo: 'map', pathMatch: 'full' },
       {
         path: 'map',
         component: MapComponent,

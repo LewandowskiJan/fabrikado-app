@@ -1,4 +1,4 @@
-import { Resource } from '../planet/resources/resource';
+import { Resource } from '../components/resources/resource';
 
 export class ResourcesUtilService {
   public static decreaseResourceByResource(

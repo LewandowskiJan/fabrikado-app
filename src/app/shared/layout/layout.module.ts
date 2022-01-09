@@ -31,7 +31,6 @@ import { ResourcesModule } from './modules/resources/resources.module';
     MarketElementComponent,
     MarketElementDetailsComponent,
     DiodeComponent,
-
   ],
   imports: [CommonModule, ResourcesModule],
   exports: [

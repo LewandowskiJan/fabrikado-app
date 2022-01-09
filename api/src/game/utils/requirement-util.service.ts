@@ -1,5 +1,5 @@
-import { Building } from '../building/building';
-import { Resource } from '../planet/resources/resource';
+import { Resource } from '../components/resources/resource';
+import { Building } from './../components/building/building';
 import { Requirements } from './../model/requirements/requirements';
 import { ResourcesUtilService } from './resources-util.service';
 
