@@ -1,13 +1,34 @@
-import { Hexagon } from './model/hexagon';
+import { Planet } from '@game/components/planet/planet';
+
+import { Hexagon } from '../model/hexagon';
+import { SolarSystem } from '../model/solar-system';
+import { PlanetFactory } from './../../components/planet/factory/planet.factory';
+import { GameState } from './../../game.state';
+import { Coordinates } from './../../model/coordinates/coordinates';
+
+export interface HexagonResult {
+  hexagons: Hexagon[];
+  hexagonMap: Map<string, Hexagon>;
+  hexagonsData: any[];
+}
+
+export interface MapGeneratorOptions {
+  isSolarSystem: boolean;
+  coordinates?: Coordinates;
+}
+
+const mapGeneratorDefaultOption: MapGeneratorOptions = {
+  isSolarSystem: false,
+};
 
 export class MapGenerator {
   public static hexagonsOnScope: number | undefined;
 
-  public static generate(levels: number): {
-    hexagons: Hexagon[];
-    hexagonMap: Map<string, Hexagon>;
-    hexagonsData: any[];
-  } {
+  public static generate(
+    levels: number,
+    options: MapGeneratorOptions = mapGeneratorDefaultOption,
+    solarSystem?: SolarSystem
+  ): HexagonResult {
     const hexagonMap: Map<string, Hexagon> = new Map([]);
     const hexagons: Hexagon[] = [];
 
@@ -40,9 +61,11 @@ export class MapGenerator {
           hexagonIndex > -levels;
           hexagonIndex--
         ) {
-          const hexagonName: string = `q${levelIndex}r${hexagonIndex}s${
-            -hexagonIndex - levelIndex
-          }`;
+          const hexagonName: string = this.hexagonName(
+            levelIndex,
+            hexagonIndex
+          );
+
           const hexagon: Hexagon = new Hexagon(
             {
               q: levelIndex,
@@ -57,12 +80,17 @@ export class MapGenerator {
       }
     }
 
+    this.generateScope(hexagons, 3);
+
+    options.isSolarSystem &&
+      options.coordinates &&
+      solarSystem &&
+      this.setupPlanets(hexagons, solarSystem, options);
+
     // console.log(hexagonMap);
     // console.log(hexagons);
 
-    this.generateScope(hexagons, 2);
-    this.setupPlanets(hexagons);
-const hexagonsData: any[] = hexagons.map((h: Hexagon) => h.getData())
+    const hexagonsData: any[] = hexagons.map((h: Hexagon) => h.getData());
 
     // console.log(hexagons.filter((h: Hexagon) => h.elementsInside.length));
     return {
@@ -72,17 +100,36 @@ const hexagonsData: any[] = hexagons.map((h: Hexagon) => h.getData())
     };
   }
 
-  private static setupPlanets(hexagons: Hexagon[]): void {
+  private static hexagonName(levelIndex: number, hexagonIndex: number): string {
+    return `q${levelIndex}r${hexagonIndex}s${-hexagonIndex - levelIndex}`;
+  }
+
+  private static setupPlanets(
+    hexagons: Hexagon[],
+    solarSystem: SolarSystem,
+    options: MapGeneratorOptions
+  ): void {
     hexagons.forEach((hexagon: Hexagon) => {
       if (hexagon.orbit === 0) return;
-      const canAddPlanet: boolean = !hexagon.scopeHexagon.some(
-        (scopeHexagon: Hexagon) => {
-          return scopeHexagon.elementsInside.length !== 0;
-        }
-      );
+      let canAddPlanet: boolean = false;
 
-      if (canAddPlanet && Math.random() > 0.5) {
-        hexagon.elementsInside.push(123);
+      canAddPlanet = !hexagon.scopeHexagon
+        .filter((scopeHexagon: Hexagon) => scopeHexagon.orbit !== 0)
+        .some((scopeHexagon: Hexagon) => {
+          return scopeHexagon.elementsInside.length !== 0;
+        });
+
+      if (canAddPlanet && Math.random() <= 0.5) {
+        const planet: Planet = PlanetFactory.generatePlanet(
+          { ...options.coordinates, planetIndex: hexagon.orbit },
+          hexagon.orbit
+        );
+        solarSystem.addPlanet(planet);
+        hexagon.elementsInside.push(planet);
+      }
+
+      if (solarSystem.planets[0]) {
+        GameState.planetsDiscovered.push(solarSystem.planets[0]);
       }
     });
   }
@@ -91,6 +138,7 @@ const hexagonsData: any[] = hexagons.map((h: Hexagon) => h.getData())
     if (!this.hexagonsOnScope) {
       this.countHexagons(n);
     }
+
     hexagons.forEach(
       (setupHexagon: Hexagon, index: number, arrayOfHexagons: Hexagon[]) => {
         const scope: Hexagon[] = arrayOfHexagons.filter(

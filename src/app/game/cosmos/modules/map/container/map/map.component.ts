@@ -9,12 +9,14 @@ import {
   ViewChild,
 } from '@angular/core';
 
+import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { Hexagon } from '../../model/hexagon';
 import { Path } from '../../model/path/path';
 import { MouseHandlerService } from '../../services/mouse-service/mouse-handler.service';
 import { GameMapData } from './../../../../../../domain/endpoints/map/game-map-data';
+import { SpecialMapObject } from './../../model/special-map-object/special-map-object';
 import { MapService } from './../../services/map.service';
 
 @Component({
@@ -32,6 +34,9 @@ export class MapComponent
   public hexagonMap: Map<string, Hexagon> = new Map([]);
 
   public paths: any[] = [];
+  public specialSubscription: Subscription | undefined;
+
+  public specialMapObjects: any[] = [];
 
   public hoverHexagon: Hexagon | undefined;
 
@@ -61,6 +66,7 @@ export class MapComponent
 
   @HostListener('click', ['$event'])
   public onClick(event: any): void {
+    console.log(event);
     const hexagon: Hexagon | undefined = this.findHexagon(event);
     hexagon &&
       this.context &&
@@ -88,7 +94,7 @@ export class MapComponent
   }
 
   public ngAfterViewInit(): void {
-    if (this.planetCanvas && this.mapBox) {
+    if (this.planetCanvas) {
       this.context = this.planetCanvas.nativeElement.getContext('2d');
 
       if (this.context) {
@@ -98,6 +104,20 @@ export class MapComponent
           .pipe(take(1))
           .subscribe((gameMap: GameMapData[]) => this.setupHexagons(gameMap));
 
+        const special: SpecialMapObject = new SpecialMapObject(
+          this.planetCanvas,
+          this.context
+        );
+        this.specialMapObjects.push(special);
+        let frame: number = 1;
+
+        this.specialSubscription = this.mapService.specialMap$.subscribe(
+          (specialData: any) => {
+            if (frame === 5) frame = 1;
+            special.setupPosition(specialData.x, specialData.y, frame++);
+          }
+        );
+
         this.draw();
       }
     }
@@ -105,6 +125,7 @@ export class MapComponent
 
   public ngOnDestroy(): void {
     this.animationFrameId && cancelAnimationFrame(this.animationFrameId);
+    this.specialSubscription?.unsubscribe();
   }
 
   private setupHexagons(gameMap: GameMapData[]): void {
@@ -145,9 +166,11 @@ export class MapComponent
 
       this.hexagons
         .sort((a: Hexagon, b: Hexagon) => (a.clicked ? -1 : 1))
-        .forEach((octagon: Hexagon) => {
-          octagon.drawMe();
+        .forEach((hexagon: Hexagon) => {
+          hexagon.drawMe();
         });
+
+      this.specialMapObjects.forEach((sp: SpecialMapObject) => sp.draw());
 
       this.paths.forEach((path: Path) => {
         path.pathsCoordinates.forEach(({ x, y }: { x: number; y: number }) => {

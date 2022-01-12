@@ -13,9 +13,12 @@ export class Hexagon {
   public height: number = 0;
   public x: number = 0;
   public y: number = 0;
-  public startPositionX: number = 700;
-  public startPositionY: number = 700;
+  public startPositionX: number = 1000;
+  public startPositionY: number = 1000;
   public lineWidth: number = 1;
+  public change: number = 0;
+  public onBigger: boolean = false;
+
   public clicked: boolean = false;
   public onHover: boolean = false;
   public attributes: HexagonCoordinates;
@@ -34,16 +37,15 @@ export class Hexagon {
     this.ctx = ctx;
     this.countHeight();
     this.calculatePosition();
-    if (
+
+    const isSun: boolean =
       this.attributes.s === 0 &&
       this.attributes.r === 0 &&
-      this.attributes.q === 0
-    ) {
-      this.addPlanetToHexagon();
-    }
-
+      this.attributes.q === 0;
+    console.log(isSun);
+    
     elementInside.length > 2 &&
-      this.elementsInside.push(new Planet(canvas, ctx, this.x, this.y));
+      this.elementsInside.push(new Planet(canvas, ctx, this.x, this.y, isSun));
   }
 
   private calculatePosition(): void {
@@ -73,29 +75,31 @@ export class Hexagon {
   }
 
   public drawMe(): void {
+    this.polygonPath = new Path2D();
     if (this.onHover && !this.click) {
       this.lineWidth = 3;
     }
     if (this.clicked) {
       this.lineWidth = 4;
-      // this.size += this.size < 300 ? 10 : 0;
     } else if (!this.onHover) {
       this.lineWidth = 0.3;
-      // this.size -= this.size > 100 ? 10 : 0;
     }
-    const numberOfSides: number = 6;
 
-    this.polygonPath = new Path2D();
+    const numberOfSides: number = 6;
 
     this.ctx.beginPath();
     this.polygonPath.moveTo(
-      this.x + this.size * Math.cos(0),
-      this.y + this.size * Math.sin(0)
+      this.x + (this.size - this.change) * Math.cos(0),
+      this.y + (this.size - this.change) * Math.sin(0)
     );
     for (let i: number = 1; i <= numberOfSides; i += 1) {
       this.polygonPath.lineTo(
-        this.x + this.size * Math.cos((i * 2 * Math.PI) / numberOfSides),
-        this.y + this.size * Math.sin((i * 2 * Math.PI) / numberOfSides)
+        this.x +
+          (this.size - this.change) *
+            Math.cos((i * 2 * Math.PI) / numberOfSides),
+        this.y +
+          (this.size - this.change) *
+            Math.sin((i * 2 * Math.PI) / numberOfSides)
       );
     }
 
@@ -104,6 +108,7 @@ export class Hexagon {
     this.ctx.stroke(this.polygonPath);
     this.elementsInside.forEach((elem: Planet) => elem.draw(this.clicked));
     this.ctx.font = '12px Arial';
+    this.ctx.font = '1px Arial';
     this.ctx.fillStyle = 'red';
     this.ctx.fillText(
       `q: ${this.attributes.q}, r: ${this.attributes.r}, s: ${
@@ -116,10 +121,15 @@ export class Hexagon {
       this.x - this.height / 2,
       this.y
     );
+    this.ctx.restore();
   }
 
-  private addPlanetToHexagon(): void {
-    const planet: Planet = new Planet(this.canvas, this.ctx, this.x, this.y);
-    this.elementsInside.push(planet);
+  private reSizeAnimation(): void {
+    if (!this.onBigger && this.change <= this.size) {
+      this.onBigger = this.change === this.size;
+      this.change += 5;
+    } else if (this.change > 0) {
+      this.change -= 5;
+    }
   }
 }

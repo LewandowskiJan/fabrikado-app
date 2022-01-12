@@ -11,7 +11,7 @@ export async function addTestUserToDatabase(): Promise<void> {
     password: '123',
     login: 'abc',
     isActive: true,
-    planets: [GameState.planets[0].name, GameState.planets[1].name],
+    planets: [GameState.gameMap.solarSystems.get('S-1').planets[0].name],
   };
 
   const user2: UserData = {
@@ -19,7 +19,7 @@ export async function addTestUserToDatabase(): Promise<void> {
     password: '123',
     login: 'cba',
     isActive: true,
-    planets: [GameState.planets[2].name, GameState.planets[3].name],
+    planets: [GameState.gameMap.solarSystems.get('S-2').planets[0].name],
   };
 
   await UserDao.addUser({ body: user1 });

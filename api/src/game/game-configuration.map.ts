@@ -1,4 +1,4 @@
-import { BuildingType } from './building/configuration/buildingType';
+import { BuildingType } from './components/building/configuration/buildingType';
 import { Requirements } from './model/requirements/requirements';
 
 export const gameConfigurationMap: Map<string, string> = new Map([['1', '1']]);

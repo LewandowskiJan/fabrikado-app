@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
+import {
+  MatDialog,
+  MatDialogConfig,
+  MatDialogRef,
+} from '@angular/material/dialog';
 
+import { DialogComponent } from '../../container/dialog/dialog.component';
 import { DrawService } from '../canvas/draw.service';
 import { Hexagon } from './../../model/hexagon';
 import { ClickService } from './click.service';
@@ -21,7 +27,8 @@ export class MouseHandlerService {
 
   constructor(
     private clickService: ClickService,
-    private drawService: DrawService
+    private drawService: DrawService,
+    public dialog: MatDialog
   ) {}
 
   public clear(): void {
@@ -30,6 +37,18 @@ export class MouseHandlerService {
       first: undefined,
       second: undefined,
     };
+  }
+
+  public openDialog(hexagon: Hexagon): void {
+    const config: MatDialogConfig = { data: hexagon };
+    const dialogRef: MatDialogRef<DialogComponent> = this.dialog.open(
+      DialogComponent,
+      config
+    );
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
   public click(
@@ -74,6 +93,7 @@ export class MouseHandlerService {
 
   private selectHexagon(hexagon: Hexagon | undefined): void {
     if (hexagon) {
+      this.openDialog(hexagon);
       hexagon.click();
       this.selectedHexagons.set(hexagon.name, hexagon);
       this.selectedHexagonId.first

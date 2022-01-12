@@ -60,6 +60,7 @@ export class UnitEventsMap {
 export class GameMapEventsMap {
   [GameMapEvents.GAME_MAP_PREPARE]: any;
   [GameMapEvents.GAME_MAP_READ]: any;
+  [GameMapEvents.GAME_MAP_SPECIAL_READ]: any;
 }
 
 export type AllEvents = ClientEventsMap &

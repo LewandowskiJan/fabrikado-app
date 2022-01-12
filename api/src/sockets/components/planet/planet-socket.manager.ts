@@ -41,6 +41,7 @@ export class PlanetManager {
         galacticIndex: 1,
         solarSystemIndex: 1,
         planetIndex: 1,
+        hexagon: null,
       });
 
       if (planet) {

@@ -1,5 +1,5 @@
-import { Coordinates } from '@game/model/coordinates/coordinates';
-import { GameConfiguration } from '@game/game-configuration';
+import { GameConfiguration } from './../../../game-configuration';
+import { Coordinates } from './../../../model/coordinates/coordinates';
 
 export class PlanetSearch {
   public static searchPlanetIndexByCoordinatesAndGameConfiguration(

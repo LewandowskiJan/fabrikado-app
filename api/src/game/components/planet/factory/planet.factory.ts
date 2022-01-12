@@ -44,11 +44,12 @@ export class PlanetFactory {
   public static planetConfiguration: Map<number, PlanetConfiguration> =
     planetConfigurationByPlanetIndexMap;
 
-  public static generatePlanet(coordinates: Coordinates): Planet {
+  public static generatePlanet(
+    coordinates: Coordinates,
+    orbit: number
+  ): Planet {
     const temperatures: Temperatures =
-      PlanetFactory.calculateTemperatureBaseOnPlanetIndex(
-        coordinates.planetIndex
-      );
+      PlanetFactory.calculateTemperatureBaseOnPlanetIndex(orbit || 1);
 
     // todo: test only
     let playerId: string;

@@ -16,6 +16,11 @@ export class MapService {
       GameMapEvents.GAME_MAP_READ
     );
 
+  public specialMap$: Observable<any> =
+    this.socketService.listeningOnEvent<any>(
+      GameMapEvents.GAME_MAP_SPECIAL_READ
+    );
+
   constructor(private socketService: SocketService) {}
 
   public getMapData(): void {

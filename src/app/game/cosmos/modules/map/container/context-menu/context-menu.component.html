@@ -1,0 +1,11 @@
+<div class="context-menu">
+  <button
+    mat-stroked-button
+    color="primary"
+    *ngFor="let menuItem of contextMenuItems; index as i"
+    (click)="onContextMenuClick($event, menuItem.menuEvent)"
+    (onkeydown)="onContextMenuClick($event, menuItem.menuEvent)"
+  >
+    {{ menuItem.menuText }}
+  </button>
+</div>

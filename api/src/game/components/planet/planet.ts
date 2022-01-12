@@ -105,7 +105,7 @@ export class Planet extends PlanetAbstract {
       unit,
       [...this.buildings, ...this.technologies]
     );
-    console.log(onUnitCreateCost);
+    // console.log(onUnitCreateCost);
     if (onUnitCreateCost) {
       this.resources = ResourcesUtilService.decreaseResourceByResource(
         this.resources,

@@ -1,0 +1,30 @@
+$shadow-color-blue-green: #009971;
+
+.menu-link {
+  cursor: pointer;
+}
+
+.menu-link hr {
+  border: 0;
+  height: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+button {
+  width: 100px;
+  margin: 2px;
+}
+
+.context-menu {
+  padding: 5px 10px;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 1);
+  border: 1px solid $shadow-color-blue-green;
+  min-width: 100px;
+  min-height: 100px;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}

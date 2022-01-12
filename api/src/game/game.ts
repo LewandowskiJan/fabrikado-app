@@ -6,19 +6,16 @@ import {
   ClientEvents,
 } from '../sockets/configuration/socket-event.map';
 import { BuildingEvents } from './../../../src/app/domain/endpoints/buildings/building-events.map';
+import { GameMapEvents } from './../../../src/app/domain/endpoints/map/game-map-events.map';
 import { PlayerEvents } from './../../../src/app/domain/endpoints/player/player-events.map';
 import { addTestUserToDatabase } from './../db/test/user.mock';
 import { BuildingType } from './components/building/configuration/buildingType';
-import { Galaxy } from './components/galaxy/galaxy';
-import { PlanetFactory } from './components/planet/factory/planet.factory';
 import { Planet } from './components/planet/planet';
 import { PlanetSearch } from './components/planet/util/planet-search.util';
-import { SolarSystem } from './components/solar-system/solar-system';
 import { UnitType } from './components/unit/factory/unit.abstract';
 import { GameState } from './game.state';
 import { GameConfiguration } from './game-configuration';
-import { MapGenerator } from './game-map/map-generator';
-import { Hexagon } from './game-map/model/hexagon';
+import { MapGeneratorService } from './game-map/generator.service';
 import { Coordinates } from './model/coordinates/coordinates';
 import { Player } from './player/player';
 
@@ -31,11 +28,20 @@ export class Game {
 
   public static async startGame(io: Server): Promise<void> {
     this.io = io;
+    this.generateMap();
     this.setupConfiguration();
-    this.setupGameState();
+    // this.setupGameState();
     await addTestUserToDatabase();
     this.setupSocket();
     this.setupInterval();
+
+    GameState.gameMap.solarSystems.forEach((ss: any) =>
+      console.log(ss.planets.map((planet: any) => planet.name))
+    );
+  }
+
+  public static generateMap(): void {
+    GameState.gameMap = MapGeneratorService.generateUniverse();
   }
 
   public static getPlanetByCoordinates(coordinates: Coordinates): Planet {
@@ -44,8 +50,8 @@ export class Game {
         coordinates,
         this.gameConfiguration
       );
-
-    return GameState.planets[createdIndexFromCoordinates];
+    // todo: change coordinates
+    return GameState.gameMap.solarSystems.get('S-1').planets[0];
   }
 
   public static updateBuilding(
@@ -133,7 +139,10 @@ export class Game {
   }
 
   private static setupInterval(): void {
-    if (!this.gameInterval) {
+    if (
+      !this.gameInterval &&
+      GameState.planetsDiscovered[Game.currentId ? Game.currentId : 0]
+    ) {
       this.io.emit(
         BuildingEvents.BUILDING_UPDATE,
         GameState.planetsDiscovered[Game.currentId ? Game.currentId : 0]
@@ -141,6 +150,11 @@ export class Game {
       );
 
       this.gameInterval = setInterval(() => {
+        this.io.emit(
+          GameMapEvents.GAME_MAP_SPECIAL_READ,
+          GameState.specialObjects[0]
+        );
+
         GameState.onGamePlayers.forEach((player: Player) => {
           player.planets.size && player.updateData(this.io);
         });
@@ -154,58 +168,70 @@ export class Game {
           }
           planet.upgradeResources();
         });
+
+        GameState.specialObjects.forEach(
+          (special: { x: number; y: number }) => {
+            if (special.x > 2000 || special.y > 2000) {
+              special.x = 0;
+              special.y = 0;
+            }
+            special.x += 10;
+            special.y += 10;
+          }
+        );
       }, 1_000);
     }
   }
 
-  private static setupGameState(): void {
-    for (
-      let galacticIndex: number = 1;
-      galacticIndex <= this.gameConfiguration.galaxyNumber;
-      galacticIndex++
-    ) {
-      const galaxy: Galaxy = new Galaxy(galacticIndex);
-      GameState.galaxies.push(galaxy);
-      for (
-        let solarSystemIndex: number = 1;
-        solarSystemIndex <= this.gameConfiguration.solarSystemNumber;
-        solarSystemIndex++
-      ) {
-        const solarSystem: SolarSystem = new SolarSystem(
-          solarSystemIndex,
-          galacticIndex
-        );
-        GameState.solarSystems.push(solarSystem);
+  // private static setupGameState(): void {
+  //   for (
+  //     let galacticIndex: number = 1;
+  //     galacticIndex <= this.gameConfiguration.galaxyNumber;
+  //     galacticIndex++
+  //   ) {
+  //     const galaxy: Galaxy = new Galaxy(galacticIndex);
+  //     GameState.galaxies.push(galaxy);
+  //     for (
+  //       let solarSystemIndex: number = 1;
+  //       solarSystemIndex <= this.gameConfiguration.solarSystemNumber;
+  //       solarSystemIndex++
+  //     ) {
+  //       const solarSystem: SolarSystem = new SolarSystem(
+  //         solarSystemIndex,
+  //         galacticIndex
+  //       );
+  //       GameState.solarSystems.push(solarSystem);
 
-        for (
-          let planetIndex: number = 1;
-          planetIndex <= this.gameConfiguration.planetsInSolarSystem;
-          planetIndex++
-        ) {
-          const planet: Planet = PlanetFactory.generatePlanet({
-            galacticIndex,
-            solarSystemIndex,
-            planetIndex,
-          });
+  //       for (
+  //         let planetIndex: number = 1;
+  //         planetIndex <= this.gameConfiguration.planetsInSolarSystem;
+  //         planetIndex++
+  //       ) {
+  //         const planet: Planet = PlanetFactory.generatePlanet({
+  //           galacticIndex,
+  //           solarSystemIndex,
+  //           planetIndex,
+  //           hexagon: { q: 1, r: 1, s: 1 },
+  //         });
 
-          Game.pushPlanetToArray(planet);
-        }
-      }
-    }
+  //         Game.pushPlanetToArray(planet);
+  //       }
+  //     }
+  //   }
 
-    const configuration: {
-      hexagons: Hexagon[];
-      hexagonMap: Map<string, Hexagon>;
-      hexagonsData: any[];
-    } = MapGenerator.generate(6);
+  //   const configuration: {
+  //     hexagons: Hexagon[];
+  //     hexagonMap: Map<string, Hexagon>;
+  //     hexagonsData: any[];
+  //   } = MapGenerator.generate(10);
 
-    GameState.hexagons = configuration.hexagons;
-    GameState.hexagonMap = configuration.hexagonMap;
-    GameState.hexagonsData = configuration.hexagonsData;
-  }
+  //   GameState.hexagons = configuration.hexagons;
+  //   GameState.hexagonMap = configuration.hexagonMap;
+  //   GameState.hexagonsData = configuration.hexagonsData;
+  // }
 
-  private static pushPlanetToArray(planet: Planet): void {
-    if (planet.playerId) GameState.planetsDiscovered.push(planet);
-    GameState.planets.push(planet);
-  }
+  // private static pushPlanetToArray(planet: Planet): void {
+  //   if (planet.playerId) GameState.planetsDiscovered.push(planet);
+  //   GameState.planets.push(planet);
+  // }
 }

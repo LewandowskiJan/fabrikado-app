@@ -6,7 +6,6 @@ import { AllEvents } from '@src/sockets/configuration/socket-event.map';
 import { GameMapEvents } from '../../../../../src/app/domain/endpoints/map/game-map-events.map';
 import { GameState } from '../../../game/game.state';
 import { Player } from '../../../game/player/player';
-import { Hexagon } from './../../../game/game-map/model/hexagon';
 
 export class GameMapManager {
   public static io: Server;
@@ -34,9 +33,13 @@ export class GameMapManager {
     this.socket.on(GameMapEvents.GAME_MAP_PREPARE, () => void 0);
 
     this.socket.on(GameMapEvents.GAME_MAP_READ, () => {
+      // console.log(GameState.hexagonsData);
       this.io
         .to(this.player.playerRoomName)
-        .emit(GameMapEvents.GAME_MAP_READ, GameState.hexagonsData);
+        .emit(
+          GameMapEvents.GAME_MAP_READ,
+          GameState.gameMap.solarSystems.get('S-1').hexagonsData
+        );
     });
   }
 }

@@ -1,7 +1,7 @@
 import { Coordinates } from '@game/model/coordinates/coordinates';
 
 const galaxySymbol: string = 'G';
-const galaxyChars: string[] = ['C', 'S', 'W', 'E', 'N'];
+const galaxyChars: string[] = ['C', 'S', 'W', 'E', 'N', 'X', 'U', 'V', 'O'];
 
 const solarSystemSymbol: string = 'SY';
 const solarSystemChars: string[] = 'ABCDEFGHIJKLMNOPRSTUVWYXZ'.split('');
