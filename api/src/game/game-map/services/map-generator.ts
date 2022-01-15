@@ -119,7 +119,7 @@ export class MapGenerator {
           return scopeHexagon.elementsInside.length !== 0;
         });
 
-      if (canAddPlanet && Math.random() <= 0.5) {
+      if (canAddPlanet && Math.random() <= 0.2) {
         const planet: Planet = PlanetFactory.generatePlanet(
           { ...options.coordinates, planetIndex: hexagon.orbit },
           hexagon.orbit

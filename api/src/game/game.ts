@@ -30,7 +30,6 @@ export class Game {
     this.io = io;
     this.generateMap();
     this.setupConfiguration();
-    // this.setupGameState();
     await addTestUserToDatabase();
     this.setupSocket();
     this.setupInterval();
@@ -182,56 +181,4 @@ export class Game {
       }, 1_000);
     }
   }
-
-  // private static setupGameState(): void {
-  //   for (
-  //     let galacticIndex: number = 1;
-  //     galacticIndex <= this.gameConfiguration.galaxyNumber;
-  //     galacticIndex++
-  //   ) {
-  //     const galaxy: Galaxy = new Galaxy(galacticIndex);
-  //     GameState.galaxies.push(galaxy);
-  //     for (
-  //       let solarSystemIndex: number = 1;
-  //       solarSystemIndex <= this.gameConfiguration.solarSystemNumber;
-  //       solarSystemIndex++
-  //     ) {
-  //       const solarSystem: SolarSystem = new SolarSystem(
-  //         solarSystemIndex,
-  //         galacticIndex
-  //       );
-  //       GameState.solarSystems.push(solarSystem);
-
-  //       for (
-  //         let planetIndex: number = 1;
-  //         planetIndex <= this.gameConfiguration.planetsInSolarSystem;
-  //         planetIndex++
-  //       ) {
-  //         const planet: Planet = PlanetFactory.generatePlanet({
-  //           galacticIndex,
-  //           solarSystemIndex,
-  //           planetIndex,
-  //           hexagon: { q: 1, r: 1, s: 1 },
-  //         });
-
-  //         Game.pushPlanetToArray(planet);
-  //       }
-  //     }
-  //   }
-
-  //   const configuration: {
-  //     hexagons: Hexagon[];
-  //     hexagonMap: Map<string, Hexagon>;
-  //     hexagonsData: any[];
-  //   } = MapGenerator.generate(10);
-
-  //   GameState.hexagons = configuration.hexagons;
-  //   GameState.hexagonMap = configuration.hexagonMap;
-  //   GameState.hexagonsData = configuration.hexagonsData;
-  // }
-
-  // private static pushPlanetToArray(planet: Planet): void {
-  //   if (planet.playerId) GameState.planetsDiscovered.push(planet);
-  //   GameState.planets.push(planet);
-  // }
 }

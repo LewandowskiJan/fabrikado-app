@@ -39,7 +39,7 @@ export class SocketService {
     this.socket.emit(event, data);
   }
 
-  public reconnect(config: Partial<SocketIoConfig>): void {
+  public reconnect(config?: Partial<SocketIoConfig>): void {
     this.socket.disconnect();
     this.socket = new Socket({ ...this.config, ...config });
   }

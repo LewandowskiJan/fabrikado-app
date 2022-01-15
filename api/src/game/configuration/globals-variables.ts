@@ -13,5 +13,5 @@ export const SOLAR_SYSTEMS_NUMBER: number = 1;
 export const SOLAR_SYSTEMS_LAYOUT_NUMBER: number = 2;
 export const PLANETS_IN_SOLAR_SYSTEM_NUMBER: number = 4;
 export const PLANETS_RATE_IN_SOLAR_SYSTEM_NUMBER: number = 4;
-export const LAYOUTS_IN_SOLAR_SYSTEM: number = 7;
+export const LAYOUTS_IN_SOLAR_SYSTEM: number = 3;
 // PLANET CONFIG

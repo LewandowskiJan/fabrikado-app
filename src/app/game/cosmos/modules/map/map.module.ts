@@ -7,6 +7,7 @@ import { ContextMenuComponent } from './container/context-menu/context-menu.comp
 import { DialogComponent } from './container/dialog/dialog.component';
 import { GameMapBoxComponent } from './container/game-map-box/game-map-box.component';
 import { MapComponent } from './container/map/map.component';
+import { MapRoutingModule } from './map-routing.module';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,6 @@ import { MapComponent } from './container/map/map.component';
     GameMapBoxComponent,
   ],
   exports: [MapComponent],
-  imports: [CommonModule, MatDialogModule, MatButtonModule],
+  imports: [CommonModule, MatDialogModule, MatButtonModule, MapRoutingModule],
 })
 export class MapModule {}

@@ -33,7 +33,8 @@ const routes: Routes = [
       { path: '', redirectTo: 'map', pathMatch: 'full' },
       {
         path: 'map',
-        component: MapComponent,
+        loadChildren: () =>
+          import('./../modules/map/map.module').then((m: any) => m.MapModule),
         data: { animation: 'Overview' },
       },
       {

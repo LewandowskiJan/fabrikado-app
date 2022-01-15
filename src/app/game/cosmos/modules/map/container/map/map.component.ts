@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 
 import { Subscription } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { take, tap } from 'rxjs/operators';
 
 import { Hexagon } from '../../model/hexagon';
 import { Path } from '../../model/path/path';
@@ -100,8 +100,9 @@ export class MapComponent
       if (this.context) {
         this.mapService.getMapData();
 
-        this.mapService.gameMap$
-          .pipe(take(1))
+        this.mapService
+          .getGameMapListener()
+          .pipe(take(1), tap(console.log))
           .subscribe((gameMap: GameMapData[]) => this.setupHexagons(gameMap));
 
         const special: SpecialMapObject = new SpecialMapObject(
@@ -111,12 +112,12 @@ export class MapComponent
         this.specialMapObjects.push(special);
         let frame: number = 1;
 
-        this.specialSubscription = this.mapService.specialMap$.subscribe(
-          (specialData: any) => {
+        this.specialSubscription = this.mapService
+          .getSpecialMapObjectListener()
+          .subscribe((specialData: any) => {
             if (frame === 5) frame = 1;
             special.setupPosition(specialData.x, specialData.y, frame++);
-          }
-        );
+          });
 
         this.draw();
       }
@@ -162,8 +163,6 @@ export class MapComponent
       this.context.save();
       this.context.clearRect(0, 0, this.width, this.height);
 
-      this.animationFrameId = requestAnimationFrame(this.draw.bind(this));
-
       this.hexagons
         .sort((a: Hexagon, b: Hexagon) => (a.clicked ? -1 : 1))
         .forEach((hexagon: Hexagon) => {
@@ -186,6 +185,7 @@ export class MapComponent
       });
 
       this.context.restore();
+      this.animationFrameId = requestAnimationFrame(this.draw.bind(this));
     }
   }
 }
