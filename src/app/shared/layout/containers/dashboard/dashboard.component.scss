@@ -27,7 +27,7 @@ $shadow-color-blue-green: #009971;
 .dashboard {
   display: grid;
   grid-template-columns: 100vw;
-  grid-template-rows: 50px 100px 1fr 100px;
+  grid-template-rows: 50px 100px 1fr 30px;
   grid-template-areas:
     "top-menu"
     "menu"

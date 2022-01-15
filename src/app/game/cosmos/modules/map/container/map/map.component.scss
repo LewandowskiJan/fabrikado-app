@@ -2,7 +2,7 @@
   display: flex;
   overflow: auto;
   max-width: calc(100vw - 185px);
-  max-height: calc(100vh - 270px);
+  max-height: calc(100vh - 190px);
 }
 
 canvas {
@@ -26,6 +26,7 @@ $shadow-color-blue-green: #009971;
 .map-box {
   scrollbar-width: thin;
   scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+  scrollbar-track-color: blue;
 }
 
 .map-box::-webkit-scrollbar-track {
@@ -36,4 +37,8 @@ $shadow-color-blue-green: #009971;
   background-color: var(--thumbBG);
   border-radius: 6px;
   border: 3px solid var(--scrollbarBG);
+}
+
+.map-box::-webkit-scrollbar-corner {
+  background-color: #252525;
 }
