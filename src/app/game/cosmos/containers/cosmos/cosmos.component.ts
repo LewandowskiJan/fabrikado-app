@@ -13,13 +13,15 @@ import { CosmosService } from './../../services/cosmos.service';
 export class CosmosComponent {
   public planetsNames: string[] = this.cosmosService.planetsName;
 
-  constructor(
-    private cosmosService: CosmosService
-  ) {}
+  constructor(private cosmosService: CosmosService) {}
 
   public prepareRoute(outlet: RouterOutlet): any {
     return {
       value: outlet?.activatedRoute?.snapshot?.params?.id,
     };
+  }
+
+  public logout(): void {
+    this.cosmosService.logout();
   }
 }

@@ -1,0 +1,13 @@
+$shadow-color-blue-green: #009971;
+
+.link-button {
+  color: $shadow-color-blue-green;
+  background-color: transparent;
+  border: none;
+
+  &:hover {
+    color: #00daa0;
+    cursor: pointer;
+  }
+
+}

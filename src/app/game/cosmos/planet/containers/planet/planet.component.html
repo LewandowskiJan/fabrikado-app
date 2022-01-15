@@ -1,11 +1,6 @@
-<app-resources></app-resources>
 <app-planet-container>
   <app-button side-navigation>
-    <button
-      class="button"
-      [routerLinkActive]="'active'"
-      [routerLink]="['map']"
-    >
+    <button class="button" [routerLinkActive]="'active'" [routerLink]="['map']">
       map
     </button>
   </app-button>
@@ -115,11 +110,6 @@
       [routerLink]="['shop']"
     >
       shop
-    </button>
-  </app-button>
-  <app-button side-navigation>
-    <button class="button" (click)="logout()" (onKeyDown)="logout()">
-      logout
     </button>
   </app-button>
   <ng-container content>

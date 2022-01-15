@@ -11,6 +11,7 @@ import { PlanetButtonComponent } from './components/planet-button/planet-button.
 import { StructureComponent } from './components/structure/structure.component';
 import { StructureDetailsComponent } from './components/structure-details/structure-details.component';
 import { DashboardComponent } from './containers/dashboard/dashboard.component';
+import { GameLayoutComponent } from './containers/game-layout/game-layout.component';
 import { LayoutComponent } from './containers/layout/layout.component';
 import { MarketContainerComponent } from './containers/market-container/market-container.component';
 import { PlanetContainerComponent } from './containers/planet-container/planet-container.component';
@@ -31,6 +32,7 @@ import { ResourcesModule } from './modules/resources/resources.module';
     MarketElementComponent,
     MarketElementDetailsComponent,
     DiodeComponent,
+    GameLayoutComponent,
   ],
   imports: [CommonModule, ResourcesModule],
   exports: [
@@ -48,6 +50,7 @@ import { ResourcesModule } from './modules/resources/resources.module';
     MarketElementComponent,
     MarketElementDetailsComponent,
     DiodeComponent,
+    GameLayoutComponent,
   ],
 })
 export class LayoutModule {}

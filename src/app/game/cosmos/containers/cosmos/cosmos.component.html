@@ -1,6 +1,10 @@
 <app-dashboard>
+  <ng-container top-menu>
+    <button class="link-button" (click)="logout()" (onKeyDown)="logout()">
+      Logout
+    </button>
+  </ng-container>
   <ng-container menu>
-    <!-- <app-planet-button *ngFor="let name of planetsNames$ | async"> -->
     <app-planet-button *ngFor="let name of planetsNames">
       <button
         [routerLinkActive]="'active'"

@@ -6,8 +6,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { MockComponent } from 'ng-mocks';
 
-import { PlanetButtonComponent } from './../../../layout/components/planet-button/planet-button.component';
-import { DashboardComponent } from './../../../layout/containers/dashboard/dashboard.component';
+import { PlanetButtonComponent } from '@src/app/shared/layout/components/planet-button/planet-button.component';
+import { DashboardComponent } from '@src/app/shared/layout/containers/dashboard/dashboard.component';
+
 import { CosmosComponent } from './cosmos.component';
 
 describe('CosmosComponent', () => {
