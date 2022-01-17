@@ -38,12 +38,11 @@ export class GameMapBoxComponent {
   public getRightClickMenuStyle(): any {
     if (this.rightClickMenuPositionX)
       if (this.rightClickMenuPositionY)
-        console.log(this.rightClickMenuPositionY, this.rightClickMenuPositionX);
-    return {
-      position: 'fixed',
-      left: `${this.rightClickMenuPositionX}px`,
-      top: `${this.rightClickMenuPositionY}px`,
-    };
+        return {
+          position: 'fixed',
+          left: `${this.rightClickMenuPositionX}px`,
+          top: `${this.rightClickMenuPositionY}px`,
+        };
   }
 
   public handleMenuItemClick(event: any): void {

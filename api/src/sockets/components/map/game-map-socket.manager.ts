@@ -41,5 +41,15 @@ export class GameMapManager {
           GameState.gameMap.solarSystems.get('S-1').hexagonsData
         );
     });
+
+        this.socket.on(GameMapEvents.GAME_MAP_READ, () => {
+          // console.log(GameState.hexagonsData);
+          this.io
+            .to(this.player.playerRoomName)
+            .emit(
+              GameMapEvents.GAME_MAP_READ,
+              GameState.gameMap.solarSystems.get('S-1').hexagonsData
+            );
+        });
   }
 }

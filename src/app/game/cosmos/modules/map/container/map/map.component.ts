@@ -12,6 +12,7 @@ import {
 import { Subscription } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 
+import { FleetMapObject, FleetSprite } from '../../model/fleet/fleet';
 import { Hexagon } from '../../model/hexagon';
 import { Path } from '../../model/path/path';
 import { MouseHandlerService } from '../../services/mouse-service/mouse-handler.service';
@@ -37,8 +38,13 @@ export class MapComponent
   public specialSubscription: Subscription | undefined;
 
   public specialMapObjects: any[] = [];
+  public fleetMapObjects: any[] = [];
 
   public hoverHexagon: Hexagon | undefined;
+
+  public lastTime: number = 0;
+  public interval: number = 1000 / 60;
+  public timer: number = 0;
 
   @ViewChild('mapBox', { static: false }) public mapBox:
     | ElementRef<HTMLDivElement>
@@ -61,15 +67,12 @@ export class MapComponent
     private changeDetectorRef: ChangeDetectorRef
   ) {
     this.mouseHandlerService.clear();
-    console.log('created');
   }
 
   @HostListener('click', ['$event'])
   public onClick(event: any): void {
-    console.log(event);
     const hexagon: Hexagon | undefined = this.findHexagon(event);
-    hexagon &&
-      this.context &&
+    if (this.context && hexagon) {
       this.mouseHandlerService.click(
         event,
         hexagon,
@@ -77,6 +80,7 @@ export class MapComponent
         this.hexagonMap,
         this.paths
       );
+    }
   }
 
   @HostListener('mousemove', ['$event'])
@@ -102,9 +106,15 @@ export class MapComponent
 
         this.mapService
           .getGameMapListener()
-          .pipe(take(1), tap(console.log))
+          .pipe(take(1))
           .subscribe((gameMap: GameMapData[]) => this.setupHexagons(gameMap));
 
+        const fleet: FleetMapObject = new FleetMapObject(
+          this.planetCanvas,
+          this.context
+        );
+        fleet.setupPosition(100, 100, FleetSprite.BOTTOM_RIGHT);
+        this.fleetMapObjects.push(fleet);
         const special: SpecialMapObject = new SpecialMapObject(
           this.planetCanvas,
           this.context
@@ -158,34 +168,41 @@ export class MapComponent
     });
   }
 
-  private draw(): void {
-    if (this.context) {
-      this.context.save();
-      this.context.clearRect(0, 0, this.width, this.height);
+  private draw(timeStamp: number = 0): void {
+    const deltaTime: number = timeStamp - this.lastTime;
+    this.lastTime = timeStamp;
 
-      this.hexagons
-        .sort((a: Hexagon, b: Hexagon) => (a.clicked ? -1 : 1))
-        .forEach((hexagon: Hexagon) => {
+    if (this.timer > this.interval) {
+      if (this.context) {
+        this.context.clearRect(0, 0, this.width, this.height);
+
+        this.hexagons.forEach((hexagon: Hexagon) => {
           hexagon.drawMe();
         });
 
-      this.specialMapObjects.forEach((sp: SpecialMapObject) => sp.draw());
+        this.specialMapObjects.forEach((sp: SpecialMapObject) => sp.draw());
+        this.fleetMapObjects.forEach((sp: FleetMapObject) => sp.draw());
 
-      this.paths.forEach((path: Path) => {
-        path.pathsCoordinates.forEach(({ x, y }: { x: number; y: number }) => {
-          const hex: Hexagon | undefined = this.hexagons.find(
-            (hexagon: Hexagon) => {
-              this.context?.isPointInPath(hexagon.polygonPath as any, x, y);
+        this.paths.forEach((path: Path) => {
+          path.pathsCoordinates.forEach(
+            ({ x, y }: { x: number; y: number }) => {
+              const hex: Hexagon | undefined = this.hexagons.find(
+                (hexagon: Hexagon) => {
+                  this.context?.isPointInPath(hexagon.polygonPath as any, x, y);
+                }
+              );
+
+              hex && hex.click();
             }
           );
-          // console.log(hex);
-          hex && hex.click();
+          path.drawMe();
         });
-        path.drawMe();
-      });
-
-      this.context.restore();
-      this.animationFrameId = requestAnimationFrame(this.draw.bind(this));
+        this.timer = 0;
+      }
+    } else {
+      this.timer += deltaTime;
     }
+
+    this.animationFrameId = requestAnimationFrame(this.draw.bind(this));
   }
 }

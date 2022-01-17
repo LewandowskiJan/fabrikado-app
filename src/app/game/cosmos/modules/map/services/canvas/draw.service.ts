@@ -25,10 +25,8 @@ export class DrawService {
     if (!this.hexagonMap) {
       this.hexagonMap = hexagonMap;
       this.hexagonFrameNumber = (hexagonMap.size - 1) / 6;
-      console.log(this.hexagonFrameNumber);
     }
 
-    console.log('draw path');
     if (!selectedHexagonId.first || !selectedHexagonId.second) {
       return;
     }
@@ -82,9 +80,6 @@ export class DrawService {
 
       paths.push(new Path(this.context, vectors));
     }
-
-    console.log(lengthOfHexagonPath);
-    console.log(paths);
   }
 
   public getAllHexagonInPath(
@@ -185,8 +180,6 @@ export class DrawService {
           })
         )
       );
-    console.log(paths);
-    // paths[0].drawMe();
   }
 
   private pushPathPoint(

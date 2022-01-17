@@ -35,6 +35,7 @@ export class Hexagon {
 
   public getData(): any {
     // console.log(this.elementsInside);
+    this.getElementInsideData();
     return {
       name: this.name,
       attributes: {
@@ -43,9 +44,7 @@ export class Hexagon {
         s: this.attributes.s,
       },
       orbit: this.orbit,
-      elementsInside: JSON.stringify(
-        this.elementsInside.map((el: any) => JSON.stringify(el))
-      ),
+      elementsInside: this.elementsInside,
       scopeHexagon: this.scopeHexagon.map((h: Hexagon) => {
         return {
           name: h.name,
@@ -55,5 +54,9 @@ export class Hexagon {
         };
       }),
     };
+  }
+
+  public getElementInsideData(): void {
+    this.elementsInside.map((el: any) => console.log(el));
   }
 }

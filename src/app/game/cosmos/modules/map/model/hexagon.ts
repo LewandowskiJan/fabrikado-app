@@ -42,9 +42,8 @@ export class Hexagon {
       this.attributes.s === 0 &&
       this.attributes.r === 0 &&
       this.attributes.q === 0;
-    console.log(isSun);
-    
-    elementInside.length > 2 &&
+
+    elementInside.length > 0 &&
       this.elementsInside.push(new Planet(canvas, ctx, this.x, this.y, isSun));
   }
 

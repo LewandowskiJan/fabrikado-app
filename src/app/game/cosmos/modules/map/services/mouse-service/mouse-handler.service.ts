@@ -58,7 +58,6 @@ export class MouseHandlerService {
     hexagonMap: Map<string, Hexagon>,
     paths: any[]
   ): void {
-    // console.log(hexagon);
     if (this.isHexagonSelected(hexagon.name)) {
       this.unClickAndDeleteHexagon(hexagon);
     } else if (this.selectedHexagons.size === 0) {
@@ -86,9 +85,6 @@ export class MouseHandlerService {
         paths
       );
     }
-
-    // console.log(this.selectedHexagons);
-    // console.log(this.selectedHexagonId);
   }
 
   private selectHexagon(hexagon: Hexagon | undefined): void {

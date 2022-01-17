@@ -13,7 +13,7 @@ export class SpecialMapObject {
 
   constructor(
     canvas: ElementRef<HTMLCanvasElement>,
-    ctx: CanvasRenderingContext2D,
+    ctx: CanvasRenderingContext2D
   ) {
     this.canvas = canvas;
     this.ctx = ctx;
@@ -31,10 +31,10 @@ export class SpecialMapObject {
     this.clicked = !this.clicked;
   }
 
-  public setupPosition(x: number, y: number, frame:number): void {
+  public setupPosition(x: number, y: number, frame: number): void {
     this.x = x;
     this.y = y;
-    this.frame = frame
+    this.frame = frame;
   }
 
   public draw(): void {
@@ -53,30 +53,5 @@ export class SpecialMapObject {
       this.size * 5,
       this.size * 5
     );
-    // this.circle = new Path2D();
-
-    // this.ctx.beginPath();
-
-    // this.circle.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
-    // this.circle.bezierCurveTo(
-    //   this.x - 10,
-    //   this.y - 10,
-    //   this.x,
-    //   this.y,
-    //   this.x,
-    //   this.y + 2
-    // );
-    // this.circle.bezierCurveTo(
-    //   this.x - 20,
-    //   this.y - 20,
-    //   this.x,
-    //   this.y,
-    //   this.x,
-    //   this.y - 2
-    // );
-
-    // this.ctx.strokeStyle = '#37a2b8';
-    // this.ctx.lineWidth = this.lineWidth;
-    // this.ctx.stroke(this.circle);
   }
 }
