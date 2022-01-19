@@ -1,4 +1,13 @@
+$shadow-color-blue-green: #009971;
+
 :host {
   display: block;
-  max-width: 300px;
+}
+
+::ng-deep {
+  .popup-modal {
+    .mat-dialog-container {
+      background-color: rgba($color: $shadow-color-blue-green, $alpha: .8);
+    }
+  }
 }
