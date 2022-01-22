@@ -10,6 +10,7 @@ export class Planet {
   public lineWidth: number = 1;
   public clicked: boolean = false;
   public isSun: boolean = false;
+  public image: HTMLImageElement | undefined;
 
   constructor(
     canvas: ElementRef<HTMLCanvasElement>,
@@ -23,6 +24,12 @@ export class Planet {
     this.canvas = canvas;
     this.ctx = ctx;
     this.isSun = isSun;
+
+    this.image = new Image();
+
+    this.isSun
+      ? (this.image.src = './../../../../assets/models/sun-tiny.png')
+      : (this.image.src = './../../../../assets/models/planet-type-1-tiny.png');
   }
 
   public hover(): void {
@@ -38,19 +45,15 @@ export class Planet {
   }
 
   public draw(x: number, y: number, size: number): void {
-    const image: HTMLImageElement = new Image();
     this.x = x;
     this.y = y;
-    this.isSun
-      ? (image.src = './../../../../assets/models/sun-tiny.png')
-      : (image.src = './../../../../assets/models/planet-type-1-tiny.png');
-
-    this.ctx.drawImage(
-      image,
-      this.x - (this.size * size) / 2,
-      this.y - (this.size * size) / 2,
-      this.size * size,
-      this.size * size
-    );
+    this.image &&
+      this.ctx.drawImage(
+        this.image,
+        this.x - (this.size * size) / 2,
+        this.y - (this.size * size) / 2,
+        this.size * size,
+        this.size * size
+      );
   }
 }

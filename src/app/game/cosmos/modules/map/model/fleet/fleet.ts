@@ -37,6 +37,7 @@ export class FleetMapObject {
   public frameWidth: number = 402;
   public frameHeight: number = 279;
   public frame: FleetSprite = FleetSprite.TOP;
+  public image: HTMLImageElement;
 
   constructor(
     canvas: ElementRef<HTMLCanvasElement>,
@@ -44,6 +45,8 @@ export class FleetMapObject {
   ) {
     this.canvas = canvas;
     this.ctx = ctx;
+    this.image = new Image();
+    this.image.src = './../../../../assets/models/fleet/fleet-sprite.png';
   }
 
   public hover(): void {
@@ -69,10 +72,6 @@ export class FleetMapObject {
       return;
     }
 
-    const image: HTMLImageElement = new Image();
-
-    image.src = './../../../../assets/models/fleet/fleet-sprite.png';
-
     const column: number | undefined = fleetSpriteConfiguration.get(
       this.frame
     )?.column;
@@ -82,7 +81,7 @@ export class FleetMapObject {
 
     if (column !== undefined && row !== undefined) {
       this.ctx.drawImage(
-        image,
+        this.image,
         column * this.frameWidth,
         row * this.frameHeight,
         this.frameWidth,

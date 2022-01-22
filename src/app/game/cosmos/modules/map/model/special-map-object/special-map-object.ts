@@ -10,11 +10,15 @@ export class SpecialMapObject {
   public lineWidth: number = 5;
   public clicked: boolean = false;
   public frame: number = 1;
+  public image: HTMLImageElement;
 
   constructor(
     canvas: ElementRef<HTMLCanvasElement>,
     ctx: CanvasRenderingContext2D
   ) {
+    this.image = new Image();
+    this.image.src = `./../../../../assets/models/meteor-${this.frame}.png`;
+
     this.canvas = canvas;
     this.ctx = ctx;
   }
@@ -42,12 +46,8 @@ export class SpecialMapObject {
       return;
     }
 
-    const image: HTMLImageElement = new Image();
-
-    image.src = `./../../../../assets/models/meteor-${this.frame}.png`;
-
     this.ctx.drawImage(
-      image,
+      this.image,
       this.x - (this.size * 5) / 2,
       this.y - (this.size * 5) / 2,
       this.size * 5,

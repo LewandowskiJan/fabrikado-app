@@ -83,7 +83,7 @@ export class MapComponent
   @HostListener('mousedown', ['$event'])
   public onClick(event: any): void {
     this.onHold = true;
-    if (this.onHold && this.onDrag && this.onLeftCtrl) return;
+    if ((this.onHold && this.onDrag) || this.onLeftCtrl) return;
     const hexagon: Hexagon | undefined = this.findHexagon(event);
     if (this.context && hexagon) {
       this.mouseHandlerService.click(
