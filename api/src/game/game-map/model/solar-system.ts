@@ -1,5 +1,5 @@
 import { HexagonResult } from '../services/map-generator';
-import { Planet } from './../../components/planet/planet';
+import { Planet } from './../../../game/modules/game-map/planet/planet';
 import { Hexagon } from './hexagon';
 import { HexagonMapCoordinate } from './hexagon-map-coordinate';
 

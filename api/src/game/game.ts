@@ -1,23 +1,23 @@
 import { Server, Socket } from 'socket.io';
 import { ExtendedError } from 'socket.io/dist/namespace';
 
-import {
-  AllEvents,
-  ClientEvents,
-} from '../sockets/configuration/socket-event.map';
 import { BuildingEvents } from './../../../src/app/domain/endpoints/buildings/building-events.map';
 import { GameMapEvents } from './../../../src/app/domain/endpoints/map/game-map-events.map';
 import { PlayerEvents } from './../../../src/app/domain/endpoints/player/player-events.map';
 import { addTestUserToDatabase } from './../db/test/user.mock';
-import { BuildingType } from './components/building/configuration/buildingType';
-import { Planet } from './components/planet/planet';
-import { PlanetSearch } from './components/planet/util/planet-search.util';
-import { UnitType } from './components/unit/factory/unit.abstract';
+import {
+  AllEvents,
+  ClientEvents,
+} from './../sockets/configuration/socket-event.map';
 import { GameState } from './game.state';
 import { GameConfiguration } from './game-configuration';
 import { MapGeneratorService } from './game-map/generator.service';
 import { Coordinates } from './model/coordinates/coordinates';
-import { Player } from './player/player';
+import { BuildingType } from './modules/buildings/configuration/buildingType';
+import { Planet } from './modules/game-map/planet/planet';
+import { PlanetSearch } from './modules/game-map/planet/util/planet-search.util';
+import { Player } from './modules/player/player';
+import { UnitType } from './modules/units/factory/unit.abstract';
 
 export class Game {
   public static gameConfiguration: GameConfiguration;
@@ -34,9 +34,9 @@ export class Game {
     this.setupSocket();
     this.setupInterval();
 
-    GameState.gameMap.solarSystems.forEach((ss: any) =>
-      console.log(ss.planets.map((planet: any) => planet.name))
-    );
+    // GameState.gameMap.solarSystems.forEach((ss: any) =>
+    //   console.log(ss.planets.map((planet: any) => planet.name))
+    // );
   }
 
   public static generateMap(): void {

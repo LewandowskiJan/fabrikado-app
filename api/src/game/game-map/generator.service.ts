@@ -82,9 +82,9 @@ export class MapGeneratorService {
       }
     }
 
-    console.log(config.universe);
-    console.log(config.galaxies);
-    console.log(config.solarSystems);
+    // console.log(config.universe);
+    // console.log(config.galaxies);
+    // console.log(config.solarSystems);
     return config;
   }
 }

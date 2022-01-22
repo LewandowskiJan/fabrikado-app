@@ -1,5 +1,5 @@
-import { Resource } from '../components/resources/resource';
-import { Building } from './../components/building/building';
+import { Building } from '../modules/buildings/building';
+import { Resource } from '../modules/shared/resources/resource';
 import { Requirements } from './../model/requirements/requirements';
 import { ResourcesUtilService } from './resources-util.service';
 

@@ -4,7 +4,7 @@ export class Planet {
   public canvas: ElementRef<HTMLCanvasElement>;
   public ctx: CanvasRenderingContext2D;
   public circle: Path2D | undefined;
-  public size: number = 20;
+  public size: number = 100;
   public x: number = 0;
   public y: number = 0;
   public lineWidth: number = 1;
@@ -37,35 +37,20 @@ export class Planet {
     this.clicked = !this.clicked;
   }
 
-  public draw(isClicked: boolean = false): void {
-    // if (isClicked) {
-    //   this.size += this.size < 120 ? 5 : 0;
-    // } else {
-    //   this.size -= this.size > 20 ? 5 : 0;
-    // }
-
+  public draw(x: number, y: number, size: number): void {
     const image: HTMLImageElement = new Image();
-
+    this.x = x;
+    this.y = y;
     this.isSun
       ? (image.src = './../../../../assets/models/sun-tiny.png')
       : (image.src = './../../../../assets/models/planet-type-1-tiny.png');
 
     this.ctx.drawImage(
       image,
-      this.x - (this.size * 5) / 2,
-      this.y - (this.size * 5) / 2,
-      this.size * 5,
-      this.size * 5
+      this.x - (this.size * size) / 2,
+      this.y - (this.size * size) / 2,
+      this.size * size,
+      this.size * size
     );
-
-    // this.circle = new Path2D();
-
-    // this.ctx.beginPath();
-
-    // this.circle.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
-
-    // this.ctx.strokeStyle = '#ffffff';
-    // this.ctx.lineWidth = this.lineWidth;
-    // this.ctx.stroke(this.circle);
   }
 }

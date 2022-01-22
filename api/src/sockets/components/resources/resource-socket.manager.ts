@@ -1,10 +1,9 @@
 import { Server, Socket } from 'socket.io';
 import { DefaultEventsMap } from 'socket.io/dist/typed-events';
 
-import { AllEvents } from '@src/sockets/configuration/socket-event.map';
-
-import { ResourceEvents } from './../../../../../src/app/domain/endpoints/resource/resource-events.map';
-import { Player } from './../../../game/player/player';
+import { Player } from './../../../game/modules/player/player';
+import { AllEvents } from './../../../sockets/configuration/socket-event.map';
+import { ResourceEvents } from './../../domain/endpoints/resource/resource-events.map';
 
 export class ResourceManager {
   public static io: Server;

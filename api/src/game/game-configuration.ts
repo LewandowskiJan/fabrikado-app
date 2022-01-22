@@ -1,4 +1,3 @@
-import { buildingConfigurationMap } from './components/building/configuration/buildingConfiguration.map';
 import {
   GALAXIES_NUMBER,
   PLANETS_IN_SOLAR_SYSTEM_NUMBER,
@@ -7,6 +6,7 @@ import {
 } from './configuration/globals-variables';
 import { GameRuleConfiguration } from './game-configuration.map';
 import { GameConfig } from './game-configuration.map';
+import { buildingConfigurationMap } from './modules/buildings/configuration/buildingConfiguration.map';
 
 const gameRuleConfig: GameRuleConfiguration = {
   planetRuleConfiguration: {

@@ -1,14 +1,12 @@
 import { Server, Socket } from 'socket.io';
 import { DefaultEventsMap } from 'socket.io/dist/typed-events';
 
-import { AllEvents } from '@src/sockets/configuration/socket-event.map';
-
-import { Coordinates } from '@game/model/coordinates/coordinates';
-
-import { BuildingEvents } from './../../../../../src/app/domain/endpoints/buildings/building-events.map';
-import { BuildingType } from './../../../game/components/building/configuration/buildingType';
 import { Game } from './../../../game/game';
-import { Player } from './../../../game/player/player';
+import { Coordinates } from './../../../game/model/coordinates/coordinates';
+import { BuildingType } from './../../../game/modules/buildings/configuration/buildingType';
+import { Player } from './../../../game/modules/player/player';
+import { AllEvents } from './../../../sockets/configuration/socket-event.map';
+import { BuildingEvents } from './../../domain/endpoints/buildings/building-events.map';
 
 export class BuildingManager {
   public static io: Server;

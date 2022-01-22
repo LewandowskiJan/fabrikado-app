@@ -1,5 +1,19 @@
 <app-game-map-box>
   <div #mapBox class="map-box">
-    <canvas #mapCanvas [height]="2000" [width]="2000"></canvas>
+    <canvas
+      #mapCanvas
+      [height]="2000"
+      [width]="2000"
+      (mousemove)="move($event)"
+      (mousedown)="hold()"
+      (mouseup)="leave()"
+      (mouseout)="mouseLeave()"
+      (mousewheel)="onMouseWheel($event)"
+      (blur)="(0)"
+      [ngClass]="onHold && onDrag ? 'on-hold' : ''"
+    ></canvas>
   </div>
 </app-game-map-box>
+<button (click)="navigateToNextSolarSystem('S-1')">solar system 1</button>
+<button (click)="navigateToNextSolarSystem('S-2')">solar system 2</button>
+<button (click)="navigateToNextSolarSystem('S-3')">solar system 3</button>

@@ -1,13 +1,12 @@
 import { Server, Socket } from 'socket.io';
 import { DefaultEventsMap } from 'socket.io/dist/typed-events';
 
-import { AllEvents } from '@src/sockets/configuration/socket-event.map';
-
-import { PlanetData } from '../../../game/components/planet/factory/planet.factory';
-import { PlanetEvents } from './../../../../../src/app/domain/endpoints/planet/planet-events.map';
-import { Planet } from './../../../game/components/planet/planet';
+import { PlanetData } from './../../../game//modules/game-map/planet/factory/planet.factory';
 import { Game } from './../../../game/game';
-import { Player } from './../../../game/player/player';
+import { Planet } from './../../../game/modules/game-map/planet/planet';
+import { Player } from './../../../game/modules/player/player';
+import { AllEvents } from './../../../sockets/configuration/socket-event.map';
+import { PlanetEvents } from './../../domain/endpoints/planet/planet-events.map';
 
 export class PlanetManager {
   public static io: Server;

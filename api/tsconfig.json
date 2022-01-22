@@ -2,9 +2,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@domain/*": ["./../src/app/domain/*"],
-      "@game/*": ["./src/game/*"],
-      "@src/*": ["./src/*"]
+      "@domain-api/*": ["./src/socket/domain/*"],
+      "@src-api/*": ["./src/*"]
     },
     "module": "commonjs",
     "esModuleInterop": true,

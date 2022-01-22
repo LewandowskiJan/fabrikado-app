@@ -31,6 +31,10 @@ export class MapComponent
   public width: number = 2000;
   public height: number = 2000;
 
+  public startPositionX: number = 400;
+  public startPositionY: number = 400;
+  public size: number = 1;
+
   public hexagons: Hexagon[] = [];
   public hexagonMap: Map<string, Hexagon> = new Map([]);
 
@@ -41,6 +45,9 @@ export class MapComponent
   public fleetMapObjects: any[] = [];
 
   public hoverHexagon: Hexagon | undefined;
+
+  public onHold: boolean = false;
+  public onDrag: boolean = false;
 
   public lastTime: number = 0;
   public interval: number = 1000 / 60;
@@ -71,8 +78,12 @@ export class MapComponent
 
   @HostListener('click', ['$event'])
   public onClick(event: any): void {
+    if (this.onHold && this.onDrag) return;
+    console.log('a');
     const hexagon: Hexagon | undefined = this.findHexagon(event);
+    console.log('b');
     if (this.context && hexagon) {
+      console.log('c');
       this.mouseHandlerService.click(
         event,
         hexagon,
@@ -80,6 +91,55 @@ export class MapComponent
         this.hexagonMap,
         this.paths
       );
+    }
+    console.log('d');
+  }
+
+  public onMouseWheel(event: any): void {
+    if (event.wheelDelta / 120 > 0) {
+      if (this.size >= 1.5) return;
+      this.size = Number((this.size + 0.1).toFixed(2));
+    } else {
+      if (this.size <= 0.5) return;
+      this.size = Number((this.size - 0.1).toFixed(2));
+    }
+  }
+
+  public move(event: any): void {
+    if (this.onHold) {
+      this.onDrag = true;
+      this.startPositionX -= event.movementX;
+      this.startPositionY -= event.movementY;
+    }
+  }
+
+  public hold(): void {
+    this.onHold = true;
+  }
+
+  public leave(): void {
+    this.onHold = false;
+    this.onDrag = false;
+  }
+
+  public mouseLeave(): void {
+    this.onHold = false;
+  }
+
+  @HostListener('document:mousemove', ['$event'])
+  public onMouseDown(event: any): any {
+    // we make sure only draggables on the document elements are selected
+    if (event.target.getAttribute('draggable')) {
+      console.log('mousedown');
+
+      const currentX: number = event.clientX;
+      const currentY: number = event.clientY;
+      const selectedElement: any = event.target;
+      console.log(currentX, ': ', currentY);
+      // ##### add this code.
+      // event.preventDefault(); // choose one
+      // ##### or add this code.
+      return false; // choose one
     }
   }
 
@@ -139,7 +199,17 @@ export class MapComponent
     this.specialSubscription?.unsubscribe();
   }
 
+  public navigateToNextSolarSystem(position: string): void {
+    this.mapService.getMapData(position);
+    this.mapService
+      .getGameMapListener()
+      .pipe(take(1))
+      .subscribe((gameMap: GameMapData[]) => this.setupHexagons(gameMap));
+  }
+
   private setupHexagons(gameMap: GameMapData[]): void {
+    this.hexagons = [];
+    this.hexagonMap.clear();
     gameMap.forEach((gameMapData: GameMapData) => {
       if (this.context) {
         const hexagon: Hexagon = new Hexagon(
@@ -177,7 +247,7 @@ export class MapComponent
         this.context.clearRect(0, 0, this.width, this.height);
 
         this.hexagons.forEach((hexagon: Hexagon) => {
-          hexagon.drawMe();
+          hexagon.drawMe(this.startPositionX, this.startPositionY, this.size);
         });
 
         this.specialMapObjects.forEach((sp: SpecialMapObject) => sp.draw());

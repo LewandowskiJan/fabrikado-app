@@ -1,8 +1,10 @@
 .map-box {
   display: flex;
-  overflow: auto;
+  overflow: hidden;
   max-width: calc(100vw - 185px);
   max-height: calc(100vh - 190px);
+
+
 }
 
 canvas {
@@ -10,6 +12,10 @@ canvas {
   height: 2000px;
   width: 2000px;
   border: 2px solid green;
+
+  &.on-hold {
+    cursor: all-scroll;
+  }
 }
 
 $shadow-color-blue-green: #009971;

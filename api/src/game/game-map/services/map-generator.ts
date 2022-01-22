@@ -1,10 +1,9 @@
-import { Planet } from '@game/components/planet/planet';
-
 import { Hexagon } from '../model/hexagon';
 import { SolarSystem } from '../model/solar-system';
-import { PlanetFactory } from './../../components/planet/factory/planet.factory';
-import { GameState } from './../../game.state';
-import { Coordinates } from './../../model/coordinates/coordinates';
+import { GameState } from './../../../game/game.state';
+import { Coordinates } from './../../../game/model/coordinates/coordinates';
+import { PlanetFactory } from './../../../game/modules/game-map/planet/factory/planet.factory';
+import { Planet } from './../../../game/modules/game-map/planet/planet';
 
 export interface HexagonResult {
   hexagons: Hexagon[];

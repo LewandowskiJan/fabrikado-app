@@ -1,9 +1,8 @@
 import { Server } from 'socket.io';
 
-import { BuildingEventsMap } from '@src/sockets/configuration/socket-event.map';
-
-import { BuildingEvents } from './../../../../../src/app/domain/endpoints/buildings/building-events.map';
-import { Building } from './../../../game/building/building';
+import { Building } from './../../../game/modules/buildings/building';
+import { BuildingEventsMap } from './../../../sockets/configuration/socket-event.map';
+import { BuildingEvents } from './../../domain/endpoints/buildings/building-events.map';
 
 export function fetchBuildings(
   io: Server<BuildingEventsMap, BuildingEventsMap>,

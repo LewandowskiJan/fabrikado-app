@@ -1,9 +1,9 @@
-import { BuildingEvents } from './../../../../src/app/domain/endpoints/buildings/building-events.map';
-import { GameMapEvents } from './../../../../src/app/domain/endpoints/map/game-map-events.map';
-import { PlanetEvents } from './../../../../src/app/domain/endpoints/planet/planet-events.map';
-import { PlayerEvents } from './../../../../src/app/domain/endpoints/player/player-events.map';
-import { ResourceEvents } from './../../../../src/app/domain/endpoints/resource/resource-events.map';
-import { UnitEvents } from './../../../../src/app/domain/endpoints/unit/unit-events.map';
+import { BuildingEvents } from './../domain/endpoints/buildings/building-events.map';
+import { GameMapEvents } from './../domain/endpoints/map/game-map-events.map';
+import { PlanetEvents } from './../domain/endpoints/planet/planet-events.map';
+import { PlayerEvents } from './../domain/endpoints/player/player-events.map';
+import { ResourceEvents } from './../domain/endpoints/resource/resource-events.map';
+import { UnitEvents } from './../domain/endpoints/unit/unit-events.map';
 
 export enum ClientEvents {
   SOCKET_CONNECTION = 'connection',

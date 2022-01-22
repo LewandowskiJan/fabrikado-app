@@ -1,14 +1,12 @@
 import { Server, Socket } from 'socket.io';
 import { DefaultEventsMap } from 'socket.io/dist/typed-events';
 
-import { AllEvents } from '@src/sockets/configuration/socket-event.map';
-
-import { Coordinates } from '@game/model/coordinates/coordinates';
-import { UnitType } from '@game/components/unit/factory/unit.abstract';
-
-import { UnitEvents } from './../../../../../src/app/domain/endpoints/unit/unit-events.map';
 import { Game } from './../../../game/game';
-import { Player } from './../../../game/player/player';
+import { Coordinates } from './../../../game/model/coordinates/coordinates';
+import { Player } from './../../../game/modules/player/player';
+import { UnitType } from './../../../game/modules/units/factory/unit.abstract';
+import { AllEvents } from './../../../sockets/configuration/socket-event.map';
+import { UnitEvents } from './../../domain/endpoints/unit/unit-events.map';
 
 export class UnitManager {
   public static io: Server;

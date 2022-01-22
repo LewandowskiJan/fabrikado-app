@@ -25,7 +25,7 @@ export class MapService {
     );
   }
 
-  public getMapData(): void {
-    this.socketService.sendToEvent(GameMapEvents.GAME_MAP_READ);
+  public getMapData(position: string = 'S-1'): void {
+    this.socketService.sendToEvent(GameMapEvents.GAME_MAP_READ, position);
   }
 }
