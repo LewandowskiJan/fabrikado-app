@@ -30,13 +30,7 @@ const routes: Routes = [
       planet: PlanetResolver,
     },
     children: [
-      { path: '', redirectTo: 'map', pathMatch: 'full' },
-      {
-        path: 'map',
-        loadChildren: () =>
-          import('./../modules/map/map.module').then((m: any) => m.MapModule),
-        data: { animation: 'Overview' },
-      },
+      { path: '', redirectTo: 'overview', pathMatch: 'full' },
       {
         path: 'overview',
         component: OverviewComponent,

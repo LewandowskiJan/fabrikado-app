@@ -1,17 +1,18 @@
+.over-map {
+  position: absolute;
+}
+
 .map-box {
   display: flex;
   overflow: hidden;
-  max-width: calc(100vw - 185px);
-  max-height: calc(100vh - 190px);
-
-
+  max-width: calc(100vw);
+  max-height: calc(100vh - 30px);
 }
 
 canvas {
   display: flex;
   height: 2000px;
   width: 2000px;
-  border: 2px solid green;
 
   &.on-hold {
     cursor: all-scroll;

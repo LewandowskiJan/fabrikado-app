@@ -6,15 +6,21 @@ import { PlanetGuard } from './services/guards/planet.guard';
 
 const routes: Routes = [
   {
-    path: 'planets',
+    path: '',
     component: CosmosComponent,
     children: [
       {
-        path: '',
+        path: 'planets',
         loadChildren: () =>
           import('./planet/planet.module').then((m: any) => m.PlanetModule),
         data: { animation: 'CosmosPage' },
         canLoad: [PlanetGuard],
+      },
+      {
+        path: 'map',
+        loadChildren: () =>
+          import('./modules/map/map.module').then((m: any) => m.MapModule),
+        data: { animation: 'Overview' },
       },
     ],
   },

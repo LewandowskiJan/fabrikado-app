@@ -4,21 +4,9 @@
       Logout
     </button>
   </ng-container>
-  <ng-container menu>
-    <app-planet-button *ngFor="let name of planetsNames">
-      <button
-        [routerLinkActive]="'active'"
-        [routerLink]="[name]"
-        class="button"
-      >
-        planet
-      </button>
-    </app-planet-button>
-  </ng-container>
   <ng-container content>
     <div [@fadeInRouteNavigation]="prepareRoute(outlet)">
       <router-outlet #outlet="outlet"></router-outlet>
     </div>
   </ng-container>
-  <ng-container footer></ng-container>
 </app-dashboard>

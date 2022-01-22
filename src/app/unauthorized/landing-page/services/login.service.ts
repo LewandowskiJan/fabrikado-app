@@ -47,7 +47,8 @@ export class LoginService {
       switchMap((user: UserData) => {
         if (user) {
           return from(
-            this.router.navigateByUrl(`cosmos/planets/${user.planets[0]}`)
+            // this.router.navigateByUrl(`cosmos/planets/${user.planets[0]}`)
+            this.router.navigateByUrl('cosmos/map')
           );
         } else {
           return from(this.router.navigateByUrl('welcome'));

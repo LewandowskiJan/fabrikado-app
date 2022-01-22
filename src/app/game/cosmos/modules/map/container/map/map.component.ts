@@ -31,8 +31,8 @@ export class MapComponent
   public width: number = 2000;
   public height: number = 2000;
 
-  public startPositionX: number = 400;
-  public startPositionY: number = 400;
+  public startPositionX: number = 600;
+  public startPositionY: number = 600;
   public size: number = 1;
 
   public hexagons: Hexagon[] = [];

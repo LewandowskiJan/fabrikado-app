@@ -35,7 +35,8 @@ export class PlanetGuard implements CanLoad {
           switchMap((userData: UserData) => {
             return from(
               this.router.navigateByUrl(
-                `/cosmos/planets/${userData.planets[0]}`
+                // `/cosmos/planets/${userData.planets[0]}`
+                '/cosmos/map'
               )
             );
           })

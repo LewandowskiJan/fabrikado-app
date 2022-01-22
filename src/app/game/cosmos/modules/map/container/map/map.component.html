@@ -1,4 +1,10 @@
 <app-game-map-box>
+  <div class="over-map">
+    <button (click)="navigateToNextSolarSystem('S-1')">solar system 1</button>
+    <button (click)="navigateToNextSolarSystem('S-2')">solar system 2</button>
+    <button (click)="navigateToNextSolarSystem('S-3')">solar system 3</button>
+  </div>
+
   <div #mapBox class="map-box">
     <canvas
       #mapCanvas
@@ -14,6 +20,3 @@
     ></canvas>
   </div>
 </app-game-map-box>
-<button (click)="navigateToNextSolarSystem('S-1')">solar system 1</button>
-<button (click)="navigateToNextSolarSystem('S-2')">solar system 2</button>
-<button (click)="navigateToNextSolarSystem('S-3')">solar system 3</button>
