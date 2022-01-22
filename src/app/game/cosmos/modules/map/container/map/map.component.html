@@ -10,13 +10,12 @@
       #mapCanvas
       [height]="2000"
       [width]="2000"
-      (mousemove)="move($event)"
-      (mousedown)="hold()"
-      (mouseup)="leave()"
-      (mouseout)="mouseLeave()"
+      (mousedown)="onMousePressHold()"
+      (mouseup)="onMousePressLeave()"
+      (mouseout)="onMouseCanvasOut()"
       (mousewheel)="onMouseWheel($event)"
       (blur)="(0)"
-      [ngClass]="onHold && onDrag ? 'on-hold' : ''"
+      [ngClass]="onLeftCtrl && onHold ? 'on-hold' : ''"
     ></canvas>
   </div>
 </app-game-map-box>

@@ -16,7 +16,9 @@ import { FleetMapObject, FleetSprite } from '../../model/fleet/fleet';
 import { Hexagon } from '../../model/hexagon';
 import { Path } from '../../model/path/path';
 import { MouseHandlerService } from '../../services/mouse-service/mouse-handler.service';
+import { KeyboardCode } from '../configuration/keyboard.config';
 import { GameMapData } from './../../../../../../domain/endpoints/map/game-map-data';
+import { HotKeyPanel } from './../../model/hot-key-panel/hot-key-panel';
 import { SpecialMapObject } from './../../model/special-map-object/special-map-object';
 import { MapService } from './../../services/map.service';
 
@@ -38,6 +40,7 @@ export class MapComponent
   public hexagons: Hexagon[] = [];
   public hexagonMap: Map<string, Hexagon> = new Map([]);
 
+  public hotKeysPanel: HotKeyPanel | undefined;
   public paths: any[] = [];
   public specialSubscription: Subscription | undefined;
 
@@ -48,6 +51,7 @@ export class MapComponent
 
   public onHold: boolean = false;
   public onDrag: boolean = false;
+  public onLeftCtrl: boolean = false;
 
   public lastTime: number = 0;
   public interval: number = 1000 / 60;
@@ -76,14 +80,12 @@ export class MapComponent
     this.mouseHandlerService.clear();
   }
 
-  @HostListener('click', ['$event'])
+  @HostListener('mousedown', ['$event'])
   public onClick(event: any): void {
-    if (this.onHold && this.onDrag) return;
-    console.log('a');
+    this.onHold = true;
+    if (this.onHold && this.onDrag && this.onLeftCtrl) return;
     const hexagon: Hexagon | undefined = this.findHexagon(event);
-    console.log('b');
     if (this.context && hexagon) {
-      console.log('c');
       this.mouseHandlerService.click(
         event,
         hexagon,
@@ -92,59 +94,31 @@ export class MapComponent
         this.paths
       );
     }
-    console.log('d');
   }
 
-  public onMouseWheel(event: any): void {
-    if (event.wheelDelta / 120 > 0) {
-      if (this.size >= 1.5) return;
-      this.size = Number((this.size + 0.1).toFixed(2));
-    } else {
-      if (this.size <= 0.5) return;
-      this.size = Number((this.size - 0.1).toFixed(2));
+  @HostListener('document:keydown', ['$event'])
+  public onKeyDown(event: any): void {
+    if (event.code === KeyboardCode.LEFT_CTRL) {
+      this.onLeftCtrl = event.ctrlKey;
     }
   }
 
-  public move(event: any): void {
-    if (this.onHold) {
-      this.onDrag = true;
-      this.startPositionX -= event.movementX;
-      this.startPositionY -= event.movementY;
-    }
-  }
-
-  public hold(): void {
-    this.onHold = true;
-  }
-
-  public leave(): void {
-    this.onHold = false;
-    this.onDrag = false;
-  }
-
-  public mouseLeave(): void {
-    this.onHold = false;
-  }
-
-  @HostListener('document:mousemove', ['$event'])
-  public onMouseDown(event: any): any {
-    // we make sure only draggables on the document elements are selected
-    if (event.target.getAttribute('draggable')) {
-      console.log('mousedown');
-
-      const currentX: number = event.clientX;
-      const currentY: number = event.clientY;
-      const selectedElement: any = event.target;
-      console.log(currentX, ': ', currentY);
-      // ##### add this code.
-      // event.preventDefault(); // choose one
-      // ##### or add this code.
-      return false; // choose one
+  @HostListener('document:keyup', ['$event'])
+  public onKeyUp(event: any): void {
+    if (event.code === KeyboardCode.LEFT_CTRL) {
+      this.onLeftCtrl = event.ctrlKey;
     }
   }
 
   @HostListener('mousemove', ['$event'])
   public onMouseHover(event: any): void {
+    if (this.onHold && this.onLeftCtrl) {
+      this.onDrag = true;
+      this.startPositionX -= event.movementX;
+      this.startPositionY -= event.movementY;
+      return;
+    }
+
     if (this.hoverHexagon) {
       this.hoverHexagon.unHover();
     }
@@ -173,12 +147,14 @@ export class MapComponent
           this.planetCanvas,
           this.context
         );
+
         fleet.setupPosition(100, 100, FleetSprite.BOTTOM_RIGHT);
         this.fleetMapObjects.push(fleet);
         const special: SpecialMapObject = new SpecialMapObject(
           this.planetCanvas,
           this.context
         );
+
         this.specialMapObjects.push(special);
         let frame: number = 1;
 
@@ -189,6 +165,8 @@ export class MapComponent
             special.setupPosition(specialData.x, specialData.y, frame++);
           });
 
+        this.hotKeysPanel = new HotKeyPanel(this.planetCanvas, this.context);
+
         this.draw();
       }
     }
@@ -197,6 +175,29 @@ export class MapComponent
   public ngOnDestroy(): void {
     this.animationFrameId && cancelAnimationFrame(this.animationFrameId);
     this.specialSubscription?.unsubscribe();
+  }
+
+  public onMouseWheel(event: any): void {
+    if (event.wheelDelta / 120 > 0) {
+      if (this.size >= 1.5) return;
+      this.size = Number((this.size + 0.1).toFixed(2));
+    } else {
+      if (this.size <= 0.5) return;
+      this.size = Number((this.size - 0.1).toFixed(2));
+    }
+  }
+
+  public onMousePressHold(): void {
+    this.onHold = true;
+  }
+
+  public onMousePressLeave(): void {
+    this.onHold = false;
+    this.onDrag = false;
+  }
+
+  public onMouseCanvasOut(): void {
+    this.onHold = false;
   }
 
   public navigateToNextSolarSystem(position: string): void {
@@ -267,6 +268,8 @@ export class MapComponent
           );
           path.drawMe();
         });
+
+        this.hotKeysPanel?.drawMe();
         this.timer = 0;
       }
     } else {
