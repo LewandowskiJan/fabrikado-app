@@ -3,8 +3,8 @@ import { ElementRef } from '@angular/core';
 const hotKeyHints: Map<string, string> = new Map([
   ['a', 'LEFT MOUSE CLICK: select'],
   ['b', 'LEFT CTRL + LEFT MOUSE PRESS: map move'],
-  ['c', ''],
-  ['d', ''],
+  ['c', 'dupadupa'],
+  ['d', 'aaaaaaaaaa'],
 ]);
 
 export class HotKeyPanel {

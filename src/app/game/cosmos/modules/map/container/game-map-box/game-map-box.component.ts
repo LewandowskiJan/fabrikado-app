@@ -28,6 +28,10 @@ export class GameMapBoxComponent {
         menuText: 'Format',
         menuEvent: 'Handle format',
       },
+      {
+        menuText: 'Deploy',
+        menuEvent: 'Handle deploy',
+      },
     ];
 
     this.rightClickMenuPositionX = event.clientX;

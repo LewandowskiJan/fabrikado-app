@@ -275,7 +275,6 @@ export class MapComponent
     } else {
       this.timer += deltaTime;
     }
-
     this.animationFrameId = requestAnimationFrame(this.draw.bind(this));
   }
 }

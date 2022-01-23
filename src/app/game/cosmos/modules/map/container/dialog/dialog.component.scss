@@ -7,7 +7,103 @@ $shadow-color-blue-green: #009971;
 ::ng-deep {
   .popup-modal {
     .mat-dialog-container {
-      background-color: rgba($color: $shadow-color-blue-green, $alpha: .8);
+      background-color: rgba($color: $shadow-color-blue-green, $alpha: .2);
+      padding: 0px
+    }
+
+    .container {
+      display: grid;
+      grid-auto-columns: 1fr;
+      grid-template-columns: 10px 420px 10px 420px 10px 210px 160px 10px;
+      grid-template-rows: 10px 400px 10px;
+      gap: 0px 0px;
+      grid-template-areas:
+        ". . . . . . . ."
+        ". . . . . . . ."
+        ". . . . . . . .";
+    }
+
+
+    .content-of-clicked-position {
+      background-color: rgba($color: $shadow-color-blue-green, $alpha: 0.4);
+      box-shadow: inset 0px 0px 15px 5px $shadow-color-blue-green;
+      animation: gradient-green-blue 5s infinite ease;
+
+    }
+
+    .content-of-clicked-position,
+    .actions1,
+    .fleet-res-info {
+      text-align: center;
+      font-size: 20px;
+      padding-top: 15px;
+    }
+
+    .fleet-res-content,
+    .clicked-position-content,
+    .action-content {
+      padding-top: 20px;
+      text-align: center;
+    }
+
+    .border {
+      background-color: #2b2b2b;
+      animation: border 5s infinite ease;
+    }
+
+    .btn-group button {
+      display: flex;
+      justify-content: center;
+      font-size: 14px;
+      background-color: rgba(0, 153, 113, 0.4);
+      animation: gradient-green-blue 5s infinite ease;
+      border: 1px solid #03bba2;
+      color: white;
+      width: 130px;
+      cursor: pointer;
+    }
+
+    .btn-group button:hover {
+      background-color: rgb(61, 126, 63);
+    }
+
+    .actions1,
+    .actions2 {
+      background-color: rgba($color: $shadow-color-blue-green, $alpha: 0.4);
+      animation: gradient-green-blue 5s infinite ease;
+    }
+
+    .actions2 {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .fleet-res-info {
+      background-color: rgba($color: $shadow-color-blue-green, $alpha: 0.4);
+      box-shadow: inset 0px 0px 15px 5px $shadow-color-blue-green;
+      animation: gradient-green-blue 5s infinite ease;
+    }
+
+    html {
+      background-color: black;
+
+      animation: 1s infinite alternate ease-out breathing-color--dark;
+    }
+
+    html {
+      background-color: black;
+
+      animation: 1s infinite alternate ease-out breathing-color--dark;
+    }
+
+    @keyframes border {
+      from {
+        background-color: #2b2b2b;
+      }
+
+      to {
+        background-color: hsl(0, 0%, 10%);
+      }
     }
   }
 }

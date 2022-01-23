@@ -42,8 +42,6 @@ export class MouseHandlerService {
   public openDialog(hexagon: Hexagon): void {
     const config: MatDialogConfig = {
       data: hexagon,
-      minWidth: '80vw',
-      minHeight: '80vh',
       panelClass: 'popup-modal',
     };
     const dialogRef: MatDialogRef<DialogComponent> = this.dialog.open(
