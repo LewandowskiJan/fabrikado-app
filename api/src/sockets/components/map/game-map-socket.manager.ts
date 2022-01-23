@@ -32,25 +32,30 @@ export class GameMapManager {
     this.socket.on(GameMapEvents.GAME_MAP_PREPARE, () => void 0);
 
     this.socket.on(GameMapEvents.GAME_MAP_READ, (position: string) => {
-      // console.log(GameState.hexagonsData);
-      console.log(position);
+      let mapData: any[];
+
+      if (position.split('')[0] === 'S') {
+        mapData =
+          GameState.gameMap.solarSystems.get(position) &&
+          GameState.gameMap.solarSystems.get(position).hexagonsData;
+      }
+      if (position.split('')[0] === 'G') {
+        mapData =
+          GameState.gameMap.galaxies.get(position) &&
+          GameState.gameMap.galaxies.get(position).hexagonsData;
+      }
+      if (position.split('')[0] === 'U') {
+        mapData =
+          GameState.gameMap.universe.get(position) &&
+          GameState.gameMap.universe.get(position).hexagonsData;
+      }
+
+      if (!mapData) return;
+
       this.player.currentPlayerPosition = position;
       this.io
         .to(this.player.playerRoomName)
-        .emit(
-          GameMapEvents.GAME_MAP_READ,
-          GameState.gameMap.solarSystems.get(position).hexagonsData
-        );
-    });
-
-    this.socket.on(GameMapEvents.GAME_MAP_READ, () => {
-      // console.log(GameState.hexagonsData);
-      this.io
-        .to(this.player.playerRoomName)
-        .emit(
-          GameMapEvents.GAME_MAP_READ,
-          GameState.gameMap.solarSystems.get('S-1').hexagonsData
-        );
+        .emit(GameMapEvents.GAME_MAP_READ, mapData);
     });
   }
 }

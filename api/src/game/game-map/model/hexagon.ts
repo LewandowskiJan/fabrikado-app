@@ -1,3 +1,5 @@
+import { MapGeneratorOptions } from '../services/map-generator';
+import { PlanetFactory } from './../../modules/game-map/planet/factory/planet.factory';
 import { HexagonMapCoordinate } from './hexagon-map-coordinate';
 
 export class Hexagon {
@@ -7,24 +9,23 @@ export class Hexagon {
   public elementsInside: any[] = [];
   public scopeHexagon: Hexagon[] = [];
 
-  constructor(attributes: HexagonMapCoordinate, name: string) {
+  public universe: string;
+  public galactic: string | undefined;
+  public solarSystem: string | undefined;
+
+  constructor(
+    attributes: HexagonMapCoordinate,
+    name: string,
+    options: MapGeneratorOptions
+  ) {
     this.name = name;
+    this.universe = options.universe;
+    this.galactic = options.galactic;
+    this.solarSystem = options.solarSystem;
+
     this.attributes = attributes;
     this.calculateOrbit();
-    if (
-      this.attributes.s === 0 &&
-      this.attributes.r === 0 &&
-      this.attributes.q === 0
-    ) {
-      this.addPlanetToHexagon();
-    }
   }
-
-  private addPlanetToHexagon(): void {
-    const planet: any = { planet: 12 };
-    this.elementsInside.push(planet);
-  }
-
   private calculateOrbit(): void {
     this.orbit =
       (Math.abs(this.attributes.q) +
@@ -34,8 +35,6 @@ export class Hexagon {
   }
 
   public getData(): any {
-    // console.log(this.elementsInside);
-    this.getElementInsideData();
     return {
       name: this.name,
       attributes: {
@@ -43,6 +42,9 @@ export class Hexagon {
         r: this.attributes.r,
         s: this.attributes.s,
       },
+      universe: this.universe,
+      galactic: this.galactic,
+      solarSystem: this.solarSystem,
       orbit: this.orbit,
       elementsInside: this.elementsInside,
       scopeHexagon: this.scopeHexagon.map((h: Hexagon) => {
@@ -54,9 +56,5 @@ export class Hexagon {
         };
       }),
     };
-  }
-
-  public getElementInsideData(): void {
-    this.elementsInside.map((el: any) => console.log(el));
   }
 }

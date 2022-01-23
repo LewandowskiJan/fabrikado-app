@@ -8,12 +8,13 @@ import { OnUnitCreateCost, UnitType } from '../../units/factory/unit.abstract';
 import { Unit } from '../../units/unit';
 import { Coordinates } from './../../../../game/model/coordinates/coordinates';
 import { ResourcesUtilService } from './../../../../game/utils/resources-util.service';
-import { PlanetData } from './factory/planet.factory';
+import { CelestialBodyType, PlanetData } from './factory/planet.factory';
 import { PlanetAbstract } from './planet.abstract';
 
 export class Planet extends PlanetAbstract {
   public playerId: string | undefined;
   public name: string;
+  public celestialBodyType: CelestialBodyType;
   public coordinates: Coordinates;
   public size: number;
 
@@ -44,6 +45,7 @@ export class Planet extends PlanetAbstract {
     super();
 
     this.playerId = planetInitialData.playerId;
+    this.celestialBodyType = planetInitialData.celestialBodyType;
     this.name = planetInitialData.name;
     this.coordinates = planetInitialData.coordinates;
     this.satStrength = planetInitialData.satStrength;
@@ -105,7 +107,7 @@ export class Planet extends PlanetAbstract {
       unit,
       [...this.buildings, ...this.technologies]
     );
-    // console.log(onUnitCreateCost);
+
     if (onUnitCreateCost) {
       this.resources = ResourcesUtilService.decreaseResourceByResource(
         this.resources,
@@ -185,6 +187,7 @@ export class Planet extends PlanetAbstract {
 
   public getData(): PlanetData {
     return {
+      celestialBodyType: this.celestialBodyType,
       playerId: this.playerId,
       name: this.name,
       coordinates: this.coordinates,

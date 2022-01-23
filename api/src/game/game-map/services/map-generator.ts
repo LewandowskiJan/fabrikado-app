@@ -12,20 +12,18 @@ export interface HexagonResult {
 }
 
 export interface MapGeneratorOptions {
-  isSolarSystem: boolean;
+  universe: string;
+  galactic?: string;
+  solarSystem?: string;
   coordinates?: Coordinates;
 }
-
-const mapGeneratorDefaultOption: MapGeneratorOptions = {
-  isSolarSystem: false,
-};
 
 export class MapGenerator {
   public static hexagonsOnScope: number | undefined;
 
   public static generate(
     levels: number,
-    options: MapGeneratorOptions = mapGeneratorDefaultOption,
+    options: MapGeneratorOptions,
     solarSystem?: SolarSystem
   ): HexagonResult {
     const hexagonMap: Map<string, Hexagon> = new Map([]);
@@ -49,7 +47,8 @@ export class MapGenerator {
               r: hexagonIndex,
               s: -hexagonIndex - levelIndex,
             },
-            hexagonName
+            hexagonName,
+            options
           );
           hexagons.push(hexagon);
           hexagonMap.set(hexagonName, hexagon);
@@ -71,7 +70,8 @@ export class MapGenerator {
               r: hexagonIndex,
               s: -hexagonIndex - levelIndex,
             },
-            hexagonName
+            hexagonName,
+            options
           );
           hexagons.push(hexagon);
           hexagonMap.set(hexagonName, hexagon);
@@ -81,17 +81,13 @@ export class MapGenerator {
 
     this.generateScope(hexagons, 3);
 
-    options.isSolarSystem &&
-      options.coordinates &&
+    options.solarSystem &&
+      options.galactic &&
       solarSystem &&
       this.setupPlanets(hexagons, solarSystem, options);
 
-    // console.log(hexagonMap);
-    // console.log(hexagons);
-
     const hexagonsData: any[] = hexagons.map((h: Hexagon) => h.getData());
 
-    // console.log(hexagons.filter((h: Hexagon) => h.elementsInside.length));
     return {
       hexagonMap,
       hexagons,
@@ -109,7 +105,6 @@ export class MapGenerator {
     options: MapGeneratorOptions
   ): void {
     hexagons.forEach((hexagon: Hexagon) => {
-      if (hexagon.orbit === 0) return;
       let canAddPlanet: boolean = false;
 
       canAddPlanet = !hexagon.scopeHexagon
@@ -118,7 +113,7 @@ export class MapGenerator {
           return scopeHexagon.elementsInside.length !== 0;
         });
 
-      if (canAddPlanet && Math.random() <= 0.2) {
+      if ((canAddPlanet && Math.random() <= 0.2) || hexagon.orbit === 0) {
         const planet: Planet = PlanetFactory.generatePlanet(
           { ...options.coordinates, planetIndex: hexagon.orbit },
           hexagon.orbit

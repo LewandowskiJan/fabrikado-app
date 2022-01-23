@@ -14,6 +14,10 @@ import {
   planetConfigurationByPlanetIndexMap,
 } from './planet.configuration';
 
+export enum CelestialBodyType {
+  PLANET = 'planet',
+  STAR = 'star',
+}
 export interface Temperatures {
   averageTemperature: number;
   maxTemperature: number;
@@ -21,6 +25,7 @@ export interface Temperatures {
 }
 
 export interface PlanetData {
+  celestialBodyType: CelestialBodyType;
   playerId: string;
   name: string;
   coordinates: Coordinates;
@@ -50,6 +55,8 @@ export class PlanetFactory {
   ): Planet {
     const temperatures: Temperatures =
       PlanetFactory.calculateTemperatureBaseOnPlanetIndex(orbit || 1);
+
+    let celestialBodyType: CelestialBodyType = CelestialBodyType.PLANET;
 
     // todo: test only
     let playerId: string;
@@ -85,8 +92,11 @@ export class PlanetFactory {
       playerId = '61c9fb4ac2fbb2a228441a99';
     }
     // remove under
+    if (coordinates.planetIndex === 0)
+      celestialBodyType = CelestialBodyType.STAR;
 
     const planetInitialData: PlanetData = {
+      celestialBodyType: celestialBodyType,
       playerId,
       coordinates,
       name: PlanetNameGenerator.generatePlanetNameBaseOnCoordinates(

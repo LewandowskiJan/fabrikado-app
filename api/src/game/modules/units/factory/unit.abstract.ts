@@ -96,9 +96,6 @@ export abstract class UnitAbstract {
     currentUnit: Unit,
     currentPlanetBuildings: Building[]
   ): OnUnitCreateCost {
-    console.log(
-      this.canCreate(currentUnit, currentResources, currentPlanetBuildings)
-    );
     if (this.onCreation) {
       return undefined;
     } else if (

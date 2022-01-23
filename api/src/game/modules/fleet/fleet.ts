@@ -28,7 +28,6 @@ export class Fleet {
   }
 
   public addShip(unitType: UnitType, numberOfUnits: number): void {
-    // console.log(unitType);
     const {
       numberOfUnit,
       stats,

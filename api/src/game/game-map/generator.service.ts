@@ -7,7 +7,7 @@ import {
 import { Galactic } from './model/galactic';
 import { SolarSystem } from './model/solar-system';
 import { Universe } from './model/universe';
-import { MapGenerator, MapGeneratorOptions } from './services/map-generator';
+import { MapGenerator } from './services/map-generator';
 import { HexagonUtilService } from './util/hexagon-util.service';
 
 export interface GameMap {
@@ -41,7 +41,11 @@ export class MapGeneratorService {
       universeIndex++
     ) {
       const universe: Universe = new Universe(`U-${universeIndex}`);
-      universe.setupMap(MapGenerator.generate(GALAXIES_LAYOUT_NUMBER));
+      universe.setupMap(
+        MapGenerator.generate(GALAXIES_LAYOUT_NUMBER, {
+          universe: `U-${universeIndex}`,
+        })
+      );
       config.universe.set(universe.id, universe);
       for (
         let galacticIndex: number = 1;
@@ -52,7 +56,12 @@ export class MapGeneratorService {
           `G-${galacticIndex}`,
           `U-${universeIndex}`
         );
-        galactic.setupMap(MapGenerator.generate(SOLAR_SYSTEMS_LAYOUT_NUMBER));
+        galactic.setupMap(
+          MapGenerator.generate(SOLAR_SYSTEMS_LAYOUT_NUMBER, {
+            universe: `U-${universeIndex}`,
+            galactic: `G-${galacticIndex}`,
+          })
+        );
         config.galaxies.set(galactic.id, galactic);
         universe.addGalactic(galactic);
         for (
@@ -66,25 +75,26 @@ export class MapGeneratorService {
             `G-${galacticIndex}`
           );
 
-          const options: MapGeneratorOptions = {
-            isSolarSystem: true,
-            coordinates: {
-              galacticIndex: galacticIndex,
-              solarSystemIndex: solarSystemIndex,
-            },
-          };
           solarSystem.setupMap(
-            MapGenerator.generate(LAYOUTS_IN_SOLAR_SYSTEM, options, solarSystem)
+            MapGenerator.generate(
+              LAYOUTS_IN_SOLAR_SYSTEM,
+              {
+                universe: `U-${universeIndex}`,
+                galactic: `G-${galacticIndex}`,
+                solarSystem: `S-${solarSystemIndex}`,
+                coordinates: {
+                  galacticIndex: galacticIndex,
+                  solarSystemIndex: solarSystemIndex,
+                },
+              },
+              solarSystem
+            )
           );
           config.solarSystems.set(solarSystem.id, solarSystem);
           galactic.addSolarSystem(solarSystem);
         }
       }
     }
-
-    // console.log(config.universe);
-    // console.log(config.galaxies);
-    // console.log(config.solarSystems);
     return config;
   }
 }

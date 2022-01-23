@@ -28,15 +28,25 @@ export class Game {
 
   public static async startGame(io: Server): Promise<void> {
     this.io = io;
+    console.info('\x1b[36m', '[Game] generating game map...');
     this.generateMap();
-    this.setupConfiguration();
-    await addTestUserToDatabase();
-    this.setupSocket();
-    this.setupInterval();
+    console.info('\x1b[32m', '[Game] map generated');
 
-    // GameState.gameMap.solarSystems.forEach((ss: any) =>
-    //   console.log(ss.planets.map((planet: any) => planet.name))
-    // );
+    console.info('\x1b[36m', '[Game] setup configuration...');
+    this.setupConfiguration();
+    console.info('\x1b[32m', '[Game] configuration set success');
+
+    console.info('\x1b[36m', '[Game] add test user to DB...');
+    await addTestUserToDatabase();
+    console.info('\x1b[32m', '[Game] users added');
+
+    console.info('\x1b[36m', '[Game] setup sockets...');
+    this.setupSocket();
+    console.info('\x1b[32m', '[Game] setup - success');
+
+    console.info('\x1b[36m', '[Game] setup game interval...');
+    this.setupInterval();
+    console.info('\x1b[32m', '[Game] setup interval - success');
   }
 
   public static generateMap(): void {
