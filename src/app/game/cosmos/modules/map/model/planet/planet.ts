@@ -9,7 +9,6 @@ export class Planet {
   public y: number = 0;
   public lineWidth: number = 1;
   public clicked: boolean = false;
-  public isSun: boolean = false;
   public image: HTMLImageElement | undefined;
 
   constructor(
@@ -17,19 +16,25 @@ export class Planet {
     ctx: CanvasRenderingContext2D,
     x: number,
     y: number,
-    isSun: boolean = false
+    isSun: boolean = false,
+    isGalactic: boolean = false,
+    isUniverse: boolean = false
   ) {
     this.x = x;
     this.y = y;
     this.canvas = canvas;
     this.ctx = ctx;
-    this.isSun = isSun;
 
     this.image = new Image();
 
-    this.isSun
+    isSun
       ? (this.image.src = './../../../../assets/models/sun-tiny.png')
       : (this.image.src = './../../../../assets/models/planet-type-1-tiny.png');
+
+    if (isGalactic)
+      this.image.src = './../../../../assets/models/universe/universe.png';
+    if (isUniverse)
+      this.image.src = './../../../../assets/models/universe/universe.png';
   }
 
   public hover(): void {

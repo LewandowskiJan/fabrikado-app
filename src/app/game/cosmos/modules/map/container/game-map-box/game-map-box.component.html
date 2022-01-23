@@ -1,12 +1,3 @@
 <div class="container">
-  <div class="element" (contextmenu)="displayContextMenu($event); (false)">
-    <ng-content></ng-content>
-      <app-context-menu
-        *ngIf="rightClickMenuItems.length > 0 && isDisplayContextMenu"
-        [ngStyle]="style"
-        [contextMenuItems]="rightClickMenuItems"
-        (onContextMenuItemClick)="handleMenuItemClick($event)"
-      ></app-context-menu>
-    </div>
-  </div>
-
+  <ng-content></ng-content>
+</div>

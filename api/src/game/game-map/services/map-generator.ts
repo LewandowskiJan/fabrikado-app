@@ -24,6 +24,8 @@ export class MapGenerator {
   public static generate(
     levels: number,
     options: MapGeneratorOptions,
+    isGalactic: boolean,
+    isUniverse: boolean,
     solarSystem?: SolarSystem
   ): HexagonResult {
     const hexagonMap: Map<string, Hexagon> = new Map([]);
@@ -48,7 +50,9 @@ export class MapGenerator {
               s: -hexagonIndex - levelIndex,
             },
             hexagonName,
-            options
+            options,
+            isGalactic,
+            isUniverse
           );
           hexagons.push(hexagon);
           hexagonMap.set(hexagonName, hexagon);
@@ -71,7 +75,9 @@ export class MapGenerator {
               s: -hexagonIndex - levelIndex,
             },
             hexagonName,
-            options
+            options,
+            isGalactic,
+            isUniverse
           );
           hexagons.push(hexagon);
           hexagonMap.set(hexagonName, hexagon);

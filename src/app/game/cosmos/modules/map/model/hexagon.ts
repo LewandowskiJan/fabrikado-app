@@ -3,10 +3,17 @@ import { ElementRef } from '@angular/core';
 import { HexagonCoordinates } from './interfaces/hexagon-coordinates';
 import { Planet } from './planet/planet';
 
+export interface Position {
+  solarSystem?: string;
+  galactic?: string;
+  universe?: string;
+}
 export class Hexagon {
   public canvas: ElementRef<HTMLCanvasElement>;
   public ctx: CanvasRenderingContext2D;
   public polygonPath: Path2D | undefined;
+
+  public position: Position;
 
   public name: string;
   public size: number = 60;
@@ -24,27 +31,56 @@ export class Hexagon {
   public attributes: HexagonCoordinates;
   public elementsInside: any[] = [];
 
+  public isGalactic: boolean = false;
+  public isUniverse: boolean = false;
+
   constructor(
     canvas: ElementRef<HTMLCanvasElement>,
     ctx: CanvasRenderingContext2D,
     attributes: HexagonCoordinates,
     name: string,
+    position: Position,
+    isGalactic: boolean,
+    isUniverse: boolean,
     elementInside?: any
   ) {
     this.name = name;
     this.attributes = attributes;
     this.canvas = canvas;
     this.ctx = ctx;
-    this.countHeight();
-    this.calculatePosition();
+    this.position = position;
+    this.isGalactic = isGalactic;
+    this.isUniverse = isUniverse;
 
     const isSun: boolean =
       this.attributes.s === 0 &&
       this.attributes.r === 0 &&
       this.attributes.q === 0;
 
+    if (isGalactic) {
+      this.size = 100;
+      this.isGalactic = true;
+      this.elementsInside.push(
+        new Planet(canvas, ctx, this.x, this.y, isSun, isGalactic, isUniverse)
+      );
+    }
+
+    if (isUniverse) {
+      this.size = 150;
+
+      this.isUniverse = true;
+      this.elementsInside.push(
+        new Planet(canvas, ctx, this.x, this.y, isSun, isGalactic, isUniverse)
+      );
+    }
+
+    this.countHeight();
+    this.calculatePosition();
+
     elementInside.length > 0 &&
-      this.elementsInside.push(new Planet(canvas, ctx, this.x, this.y, isSun));
+      this.elementsInside.push(
+        new Planet(canvas, ctx, this.x, this.y, isSun, false, false)
+      );
   }
 
   public calculatePosition(): void {
@@ -83,6 +119,8 @@ export class Hexagon {
       this.lineWidth = 4;
     } else if (!this.onHover) {
       this.lineWidth = 0.1;
+      if (this.isGalactic) this.lineWidth = 0.5;
+      if (this.isUniverse) this.lineWidth = 1;
     }
 
     const numberOfSides: number = 6;

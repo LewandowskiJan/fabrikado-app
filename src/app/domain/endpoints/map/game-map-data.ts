@@ -18,4 +18,9 @@ export interface GameMapData {
   orbit: number;
   elementsInside: any[];
   scopeHexagon: HexagonData[];
+  isGalactic: boolean;
+  isUniverse: boolean;
+  galactic?: string;
+  solarSystem?: string;
+  universe?: string;
 }

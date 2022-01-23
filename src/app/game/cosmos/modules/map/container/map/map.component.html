@@ -13,6 +13,7 @@
       #mapCanvas
       [height]="2000"
       [width]="2000"
+      (contextmenu)="onMousePressHold()"
       (mousedown)="onMousePressHold()"
       (mouseup)="onMousePressLeave()"
       (mouseout)="onMouseCanvasOut()"
@@ -22,3 +23,9 @@
     ></canvas>
   </div>
 </app-game-map-box>
+<app-context-menu
+  *ngIf="isDisplayContextMenu"
+  [ngStyle]="contextMenuStyle"
+  [contextMenuItems]="contextMenuContent"
+  (onContextMenuItemClick)="handleMenuItemClick($event)"
+></app-context-menu>

@@ -10,6 +10,10 @@ import { DrawService } from '../canvas/draw.service';
 import { Hexagon } from './../../model/hexagon';
 import { ClickService } from './click.service';
 
+export enum MouseButton {
+  LEFT = 0,
+  RIGHT = 2,
+}
 export interface SelectedHexagonIds {
   first: string | undefined;
   second: string | undefined;

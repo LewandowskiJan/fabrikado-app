@@ -1,5 +1,4 @@
 import { MapGeneratorOptions } from '../services/map-generator';
-import { PlanetFactory } from './../../modules/game-map/planet/factory/planet.factory';
 import { HexagonMapCoordinate } from './hexagon-map-coordinate';
 
 export class Hexagon {
@@ -12,16 +11,23 @@ export class Hexagon {
   public universe: string;
   public galactic: string | undefined;
   public solarSystem: string | undefined;
+  public isGalactic: boolean = false;
+  public isUniverse: boolean = false;
 
   constructor(
     attributes: HexagonMapCoordinate,
     name: string,
-    options: MapGeneratorOptions
+    options: MapGeneratorOptions,
+    isGalactic: boolean,
+    isUniverse: boolean
   ) {
     this.name = name;
     this.universe = options.universe;
     this.galactic = options.galactic;
     this.solarSystem = options.solarSystem;
+
+    this.isGalactic = isGalactic;
+    this.isUniverse = isUniverse;
 
     this.attributes = attributes;
     this.calculateOrbit();
@@ -45,6 +51,8 @@ export class Hexagon {
       universe: this.universe,
       galactic: this.galactic,
       solarSystem: this.solarSystem,
+      isGalactic: this.isGalactic,
+      isUniverse: this.isUniverse,
       orbit: this.orbit,
       elementsInside: this.elementsInside,
       scopeHexagon: this.scopeHexagon.map((h: Hexagon) => {

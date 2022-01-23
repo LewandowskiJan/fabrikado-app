@@ -14,8 +14,13 @@ export interface HexagonData {
 
 export interface GameMapData {
   name: string;
-  attributes: HexagonMapCoordinate;
+ attributes: HexagonMapCoordinate;
   orbit: number;
   elementsInside: any[];
   scopeHexagon: HexagonData[];
+  galactic?: string;
+  solarSystem?: string;
+  universe?: string
+  isGalactic: boolean;
+  isUniverse: boolean;
 }

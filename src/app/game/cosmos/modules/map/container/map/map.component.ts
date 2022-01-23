@@ -10,17 +10,20 @@ import {
 } from '@angular/core';
 
 import { Subscription } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 
 import { FleetMapObject, FleetSprite } from '../../model/fleet/fleet';
 import { Hexagon } from '../../model/hexagon';
 import { Path } from '../../model/path/path';
 import { MouseHandlerService } from '../../services/mouse-service/mouse-handler.service';
+import { RightClickService } from '../../services/right-click/right-click.service';
 import { KeyboardCode } from '../configuration/keyboard.config';
+import { ContextMenuModel } from '../context-menu/context-menu.component';
 import { GameMapData } from './../../../../../../domain/endpoints/map/game-map-data';
 import { HotKeyPanel } from './../../model/hot-key-panel/hot-key-panel';
 import { SpecialMapObject } from './../../model/special-map-object/special-map-object';
 import { MapService } from './../../services/map.service';
+import { MouseButton } from './../../services/mouse-service/mouse-handler.service';
 
 @Component({
   selector: 'app-map',
@@ -53,6 +56,10 @@ export class MapComponent
   public onDrag: boolean = false;
   public onLeftCtrl: boolean = false;
 
+  public isDisplayContextMenu: boolean = false;
+  public contextMenuContent: ContextMenuModel[] = [];
+  public contextMenuStyle: any;
+
   public lastTime: number = 0;
   public interval: number = 1000 / 60;
   public timer: number = 0;
@@ -75,30 +82,60 @@ export class MapComponent
   constructor(
     private mapService: MapService,
     private mouseHandlerService: MouseHandlerService,
+    private rightClickService: RightClickService,
     private changeDetectorRef: ChangeDetectorRef
   ) {
     this.mouseHandlerService.clear();
   }
 
+  public handleMenuItemClick(event: any): void {
+    this.rightClickService.handleMenuItemClick(event);
+    this.isDisplayContextMenu = false;
+  }
+
+  @HostListener('contextmenu', ['$event'])
+  public contextmenu(event: any): void {
+    event.preventDefault();
+    if (event.button === MouseButton.RIGHT) {
+      this.isDisplayContextMenu = true;
+      this.rightClickService.displayContextMenu(event);
+      this.contextMenuContent = this.rightClickService.getMenuItems();
+      this.contextMenuStyle = this.rightClickService.getRightClickMenuStyle();
+    }
+  }
+
   @HostListener('mousedown', ['$event'])
   public onClick(event: any): void {
-    this.onHold = true;
-    if ((this.onHold && this.onDrag) || this.onLeftCtrl) return;
-    const hexagon: Hexagon | undefined = this.findHexagon(event);
-    if (this.context && hexagon) {
-      this.mouseHandlerService.click(
-        event,
-        hexagon,
-        this.context,
-        this.hexagonMap,
-        this.paths
-      );
+    if (this.isDisplayContextMenu) {
+      return;
+    }
+    if (event.button === MouseButton.LEFT) {
+      this.onHold = true;
+      if ((this.onHold && this.onDrag) || this.onLeftCtrl) return;
+      const hexagon: Hexagon | undefined = this.findHexagon(event);
+      console.log(hexagon);
+
+      if (hexagon && hexagon.isGalactic && hexagon.position.solarSystem) {
+        this.navigateToNextSolarSystem(hexagon.position.solarSystem);
+        return;
+      }
+
+      if (this.context && hexagon) {
+        this.mouseHandlerService.click(
+          event,
+          hexagon,
+          this.context,
+          this.hexagonMap,
+          this.paths
+        );
+      }
     }
   }
 
   @HostListener('document:keydown', ['$event'])
   public onKeyDown(event: any): void {
     if (event.code === KeyboardCode.LEFT_CTRL) {
+      this.isDisplayContextMenu = false;
       this.onLeftCtrl = event.ctrlKey;
     }
   }
@@ -188,6 +225,7 @@ export class MapComponent
   }
 
   public onMousePressHold(): void {
+    this.isDisplayContextMenu = false;
     this.onHold = true;
   }
 
@@ -218,6 +256,13 @@ export class MapComponent
           this.context,
           gameMapData.attributes,
           gameMapData.name,
+          {
+            solarSystem: gameMapData.solarSystem,
+            galactic: gameMapData.galactic,
+            universe: gameMapData.universe,
+          },
+          gameMapData.isGalactic,
+          gameMapData.isUniverse,
           gameMapData.elementsInside
         );
         this.hexagons.push(hexagon);
