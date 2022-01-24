@@ -209,6 +209,8 @@ export class MapComponent
 
         this.hotKeysPanel = new HotKeyPanel(this.planetCanvas, this.context);
 
+        this.startPositionX = this.mapBox.nativeElement.offsetWidth / 2;
+        this.startPositionY = this.mapBox.nativeElement.offsetHeight / 2;
         this.draw();
       }
     }
