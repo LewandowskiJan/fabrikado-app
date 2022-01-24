@@ -40,29 +40,37 @@ export class MapGeneratorService {
       universeIndex <= universeNumber;
       universeIndex++
     ) {
+      let galacticIndex: number = 1;
       const universe: Universe = new Universe(`U-${universeIndex}`);
       universe.setupMap(
-        MapGenerator.generate(GALAXIES_LAYOUT_NUMBER, {
-          universe: `U-${universeIndex}`,
-        }, false, true)
+        MapGenerator.generate(
+          GALAXIES_LAYOUT_NUMBER,
+          {
+            universe: `U-${universeIndex}`,
+            galactic: `G-${galacticIndex}`,
+          },
+          false,
+          true
+        )
       );
       config.universe.set(universe.id, universe);
-      for (
-        let galacticIndex: number = 1;
-        galacticIndex <= galaxiesNumber;
-        galacticIndex++
-      ) {
+      for (galacticIndex; galacticIndex <= galaxiesNumber; galacticIndex++) {
         let solarSystemIndex: number = 1;
         const galactic: Galactic = new Galactic(
           `G-${galacticIndex}`,
           `U-${universeIndex}`
         );
         galactic.setupMap(
-          MapGenerator.generate(SOLAR_SYSTEMS_LAYOUT_NUMBER, {
-            universe: `U-${universeIndex}`,
-            galactic: `G-${galacticIndex}`,
-            solarSystem: `S-${solarSystemIndex}`,
-          }, true, false)
+          MapGenerator.generate(
+            SOLAR_SYSTEMS_LAYOUT_NUMBER,
+            {
+              universe: `U-${universeIndex}`,
+              galactic: `G-${galacticIndex}`,
+              solarSystem: `S-${solarSystemIndex}`,
+            },
+            true,
+            false
+          )
         );
         config.galaxies.set(galactic.id, galactic);
         universe.addGalactic(galactic);

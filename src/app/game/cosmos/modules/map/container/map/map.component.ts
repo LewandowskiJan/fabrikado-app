@@ -120,6 +120,11 @@ export class MapComponent
         return;
       }
 
+      if (hexagon && hexagon.isUniverse && hexagon.position.galactic) {
+        this.navigateToNextSolarSystem(hexagon.position.galactic);
+        return;
+      }
+
       if (this.context && hexagon) {
         this.mouseHandlerService.click(
           event,
@@ -219,8 +224,26 @@ export class MapComponent
       if (this.size >= 1.5) return;
       this.size = Number((this.size + 0.1).toFixed(2));
     } else {
-      if (this.size <= 0.5) return;
+      if (this.size <= 0.5) {
+        this.navigateUnder();
+        return;
+      }
       this.size = Number((this.size - 0.1).toFixed(2));
+    }
+  }
+
+  private navigateUnder(): void {
+    const hexagon: Hexagon = this.hexagons[0];
+
+    if (hexagon.position.galactic && hexagon.position.universe) {
+      if (hexagon.isGalactic) {
+        this.navigateToNextSolarSystem(hexagon.position.universe);
+        this.size = 1.5;
+      }
+      if (!hexagon.isGalactic && !hexagon.isUniverse) {
+        this.navigateToNextSolarSystem(hexagon.position.galactic);
+        this.size = 1.5;
+      }
     }
   }
 
