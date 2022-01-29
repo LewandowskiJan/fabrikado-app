@@ -22,6 +22,6 @@ export class DialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private socketPlanetService: PlanetSocketService
   ) {
-    this.socketPlanetService.preparePlanet('G1C-SY1HN-P2H');
+    this.socketPlanetService.preparePlanet('G1C-SY1AF-P3H');
   }
 }

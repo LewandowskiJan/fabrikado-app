@@ -17,9 +17,13 @@ export class Universe {
     this.id = id;
   }
 
-  public addGalactic(galactic: Galactic): void {
+  public addGalactic(galactic: Galactic, galacticIndex: number): void {
     this.galaxies.push(galactic);
     this.galaxiesMap.set(galactic.id, galactic);
+
+    const hexagon: Hexagon = this.hexagons[galacticIndex - 1];
+    hexagon.galactic = galactic.id;
+    this.hexagonsData = this.hexagons.map((h: Hexagon) => h.getData());
   }
 
   public setupMap(hexagonResult: HexagonResult): void {

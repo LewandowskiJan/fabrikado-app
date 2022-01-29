@@ -19,9 +19,16 @@ export class Galactic {
     this.universeId = universeId;
   }
 
-  public addSolarSystem(solarSystem: SolarSystem): void {
+  public addSolarSystem(
+    solarSystem: SolarSystem,
+    solarSystemIndex: number
+  ): void {
     this.solarSystems.push(solarSystem);
     this.solarSystemsMap.set(solarSystem.id, solarSystem);
+
+    const hexagon: Hexagon = this.hexagons[solarSystemIndex - 1];
+    hexagon.solarSystem = solarSystem.id;
+    this.hexagonsData = this.hexagons.map((h: Hexagon) => h.getData());
   }
 
   public setupMap(hexagonResult: HexagonResult): void {

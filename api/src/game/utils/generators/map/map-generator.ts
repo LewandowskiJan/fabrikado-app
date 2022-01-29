@@ -31,6 +31,7 @@ export class MapGenerator {
           const hexagonName: string = `q${levelIndex}r${hexagonIndex}s${
             -hexagonIndex - levelIndex
           }`;
+
           const hexagon: Hexagon = new Hexagon(
             {
               q: levelIndex,

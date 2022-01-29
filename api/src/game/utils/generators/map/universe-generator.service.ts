@@ -42,7 +42,6 @@ export class UniverseGenerator {
           GALAXIES_LAYOUT_NUMBER,
           {
             universe: `U-${universeIndex}`,
-            galactic: `G-${galacticIndex}`,
           },
           false,
           true
@@ -63,14 +62,13 @@ export class UniverseGenerator {
             {
               universe: `U-${universeIndex}`,
               galactic: `G-${galacticIndex}`,
-              solarSystem: `S-${solarSystemIndex}`,
             },
             true,
             false
           )
         );
         config.galaxies.set(galactic.id, galactic);
-        universe.addGalactic(galactic);
+        universe.addGalactic(galactic, galacticIndex);
         for (
           solarSystemIndex;
           solarSystemIndex <= solarSystemNumber;
@@ -100,7 +98,7 @@ export class UniverseGenerator {
             )
           );
           config.solarSystems.set(solarSystem.id, solarSystem);
-          galactic.addSolarSystem(solarSystem);
+          galactic.addSolarSystem(solarSystem, solarSystemIndex);
         }
       }
     }

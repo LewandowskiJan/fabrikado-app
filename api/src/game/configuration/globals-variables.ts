@@ -6,7 +6,7 @@ export const UNIVERSE_NUMBER: number = 1;
 
 // GALAXIES CONFIG
 export const GALAXIES_NUMBER: number = 1;
-export const GALAXIES_LAYOUT_NUMBER: number = 1;
+export const GALAXIES_LAYOUT_NUMBER: number = 2;
 
 // SOLAR_SYSTEMS CONFIG
 export const SOLAR_SYSTEMS_NUMBER: number = 1;

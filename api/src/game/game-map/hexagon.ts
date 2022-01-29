@@ -13,6 +13,7 @@ export class Hexagon {
   public solarSystem: string | undefined;
   public isGalactic: boolean = false;
   public isUniverse: boolean = false;
+  public isSolarSystem: boolean = false;
 
   constructor(
     attributes: HexagonMapCoordinate,
@@ -32,6 +33,7 @@ export class Hexagon {
     this.attributes = attributes;
     this.calculateOrbit();
   }
+
   private calculateOrbit(): void {
     this.orbit =
       (Math.abs(this.attributes.q) +
