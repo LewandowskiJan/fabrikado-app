@@ -2,22 +2,20 @@ import { Server, Socket } from 'socket.io';
 import { ExtendedError } from 'socket.io/dist/namespace';
 
 import { BuildingEvents } from './../../../src/app/domain/endpoints/buildings/building-events.map';
-import { GameMapEvents } from './../../../src/app/domain/endpoints/map/game-map-events.map';
-import { PlayerEvents } from './../../../src/app/domain/endpoints/player/player-events.map';
 import { addTestUserToDatabase } from './../db/test/user.mock';
 import {
   AllEvents,
   ClientEvents,
 } from './../sockets/configuration/socket-event.map';
+import { GameMapEvents } from './../sockets/domain/endpoints/map/game-map-events.map';
+import { PlayerEvents } from './../sockets/domain/endpoints/player/player-events.map';
 import { GameState } from './game.state';
 import { GameConfiguration } from './game-configuration';
-import { MapGeneratorService } from './game-map/generator.service';
-import { Coordinates } from './model/coordinates/coordinates';
-import { BuildingType } from './modules/buildings/configuration/buildingType';
 import { Planet } from './modules/game-map/planet/planet';
-import { PlanetSearch } from './modules/game-map/planet/util/planet-search.util';
 import { Player } from './modules/player/player';
-import { UnitType } from './modules/units/factory/unit.abstract';
+import { GeneratorService } from './utils/generators/generator.service';
+import { BuildingType } from './utils/models/enums/building-type';
+import { UnitType } from './utils/models/enums/unit-type';
 
 export class Game {
   public static gameConfiguration: GameConfiguration;
@@ -50,31 +48,32 @@ export class Game {
   }
 
   public static generateMap(): void {
-    GameState.gameMap = MapGeneratorService.generateUniverse();
+    GameState.gameMap = GeneratorService.generateGameMap();
   }
 
-  public static getPlanetByCoordinates(coordinates: Coordinates): Planet {
-    const createdIndexFromCoordinates: number =
-      PlanetSearch.searchPlanetIndexByCoordinatesAndGameConfiguration(
-        coordinates,
-        this.gameConfiguration
-      );
-    // todo: change coordinates
-    return GameState.gameMap.solarSystems.get('S-1').planets[0];
+  public static getPlanetByName(
+    planetName: string,
+    solarSystemName: string = 'S-1'
+  ): Planet {
+    return GameState.gameMap.solarSystems
+      .get(solarSystemName)
+      .planetsMap.get(planetName);
   }
 
   public static updateBuilding(
-    planetCoordinate: Coordinates,
+    planetName: string,
+    solarSystem: string,
     buildingType: BuildingType
   ): void {
-    Game.getPlanetByCoordinates(planetCoordinate).upgradeBuilding(buildingType);
+    Game.getPlanetByName(planetName, solarSystem).upgradeBuilding(buildingType);
   }
 
   public static createUnit(
-    planetCoordinate: Coordinates,
+    planetName: string,
+    solarSystem: string,
     unitType: UnitType
   ): void {
-    Game.getPlanetByCoordinates(planetCoordinate).createUnit(unitType);
+    Game.getPlanetByName(planetName, solarSystem).createUnit(unitType);
   }
 
   private static setupConfiguration(): void {

@@ -2,9 +2,8 @@ import { Server, Socket } from 'socket.io';
 import { DefaultEventsMap } from 'socket.io/dist/typed-events';
 
 import { Game } from './../../../game/game';
-import { Coordinates } from './../../../game/model/coordinates/coordinates';
-import { BuildingType } from './../../../game/modules/buildings/configuration/buildingType';
 import { Player } from './../../../game/modules/player/player';
+import { BuildingType } from './../../../game/utils/models/enums/building-type';
 import { AllEvents } from './../../../sockets/configuration/socket-event.map';
 import { BuildingEvents } from './../../domain/endpoints/buildings/building-events.map';
 
@@ -35,11 +34,13 @@ export class BuildingManager {
       BuildingEvents.BUILDING_ADD,
       ({
         buildingType,
-        coordinates,
+        planetName,
+        solarSystem,
       }: {
         buildingType: BuildingType;
-        coordinates: Coordinates;
-      }) => Game.updateBuilding(coordinates, buildingType)
+        planetName: string;
+        solarSystem: string;
+      }) => Game.updateBuilding(planetName, solarSystem, buildingType)
     );
 
     this.socket.on(BuildingEvents.BUILDING_READ, () => {

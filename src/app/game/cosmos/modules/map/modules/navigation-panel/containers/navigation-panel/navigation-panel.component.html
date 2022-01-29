@@ -1,0 +1,11 @@
+<div class="navigation-panel">
+  <div *ngFor="let planetName of myPlanets$ | async">
+    <button
+      type="button"
+      (click)="navigate(planetName)"
+      (keydown)="navigate(planetName)"
+    >
+      go to {{ planetName }}
+    </button>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+$shadow-color-blue-green: #009971;
+
+.navigation-panel {
+  color: white;
+  position: absolute;
+  top: 50px;
+  right: calc(50vw - 15vw);
+  width: 30vw;
+  height: 30px;
+  background-color: rgba($color: $shadow-color-blue-green, $alpha: 0.1);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

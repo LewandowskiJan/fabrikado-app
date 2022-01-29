@@ -10,6 +10,7 @@ import { DialogComponent } from './container/dialog/dialog.component';
 import { GameMapBoxComponent } from './container/game-map-box/game-map-box.component';
 import { MapComponent } from './container/map/map.component';
 import { MapRoutingModule } from './map-routing.module';
+import { NavigationPanelModule } from './modules/navigation-panel/navigation-panel.module';
 import { SideMenuModule } from './modules/side-menu/side-menu.module';
 
 @NgModule({
@@ -27,6 +28,7 @@ import { SideMenuModule } from './modules/side-menu/side-menu.module';
     MapRoutingModule,
     LayoutModule,
     SideMenuModule,
+    NavigationPanelModule,
   ],
 })
 export class MapModule {}

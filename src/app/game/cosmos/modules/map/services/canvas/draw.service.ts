@@ -158,7 +158,7 @@ export class DrawService {
       }
     }
 
-    console.log(arr);
+
     this.context &&
       paths.push(
         new Path(

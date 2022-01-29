@@ -1,7 +1,7 @@
-import { FleetData } from '../fleets/fleet-data';
 import { Building } from './../../../../game/modules/buildings/building';
 import { Resource } from './../../../../game/modules/shared/resources/resource';
 import { Unit } from './../../../../game/modules/units/unit';
+import { FleetData } from './../fleets/fleet-data';
 
 export interface CoordinatesSocketData {
   galacticIndex: number;

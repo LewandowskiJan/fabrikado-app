@@ -2,9 +2,8 @@ import { Server, Socket } from 'socket.io';
 import { DefaultEventsMap } from 'socket.io/dist/typed-events';
 
 import { Game } from './../../../game/game';
-import { Coordinates } from './../../../game/model/coordinates/coordinates';
 import { Player } from './../../../game/modules/player/player';
-import { UnitType } from './../../../game/modules/units/factory/unit.abstract';
+import { UnitType } from './../../../game/utils/models/enums/unit-type';
 import { AllEvents } from './../../../sockets/configuration/socket-event.map';
 import { UnitEvents } from './../../domain/endpoints/unit/unit-events.map';
 
@@ -35,11 +34,13 @@ export class UnitManager {
       UnitEvents.UNIT_ADD,
       ({
         unitType,
-        coordinates,
+        planetName,
+        solarSystem,
       }: {
         unitType: UnitType;
-        coordinates: Coordinates;
-      }) => Game.createUnit(coordinates, unitType)
+        planetName: string;
+        solarSystem: string;
+      }) => Game.createUnit(planetName, solarSystem, unitType)
     );
 
     this.socket.on(UnitEvents.UNIT_READ, () => {

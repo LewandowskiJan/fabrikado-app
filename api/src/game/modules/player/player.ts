@@ -36,20 +36,11 @@ export class Player {
     UnitManager.setupSockets(io, socket, this.playerRoomName, this);
     GameMapManager.setupSockets(io, socket, this.playerRoomName, this);
 
-    const arr: string[] = Array.from(
-      this.planets,
-      ([key]: [string, Planet]): string => key
-    );
-
-    io.to(this.playerRoomName).emit(PlanetEvents.PLANET_GET_NAMES, arr);
-
     socket.on(PlanetEvents.PLANET_GET_NAMES, () => {
-      const arr: string[] = Array.from(
-        this.planets,
-        ([key]: [string, Planet]): string => key
+      io.to(this.playerRoomName).emit(
+        PlanetEvents.PLANET_GET_NAMES,
+        this.planetsName
       );
-
-      io.to(this.playerRoomName).emit(PlanetEvents.PLANET_GET_NAMES, arr);
     });
   }
 
@@ -57,11 +48,6 @@ export class Player {
     if (!this.currentPlanet) {
       this.currentPlanet = this.planets.get(this.planetsName[0]);
     }
-
-    io.to(this.playerRoomName).emit(
-      PlanetEvents.PLANET_READ,
-      this.currentPlanet
-    );
 
     if (this.currentPlanet.onUpgradeBuilding.length !== 0) {
       io.to(this.playerRoomName).emit(

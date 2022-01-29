@@ -32,7 +32,6 @@ export class MouseHandlerService {
   constructor(
     private clickService: ClickService,
     private drawService: DrawService,
-    public dialog: MatDialog
   ) {}
 
   public clear(): void {
@@ -41,21 +40,6 @@ export class MouseHandlerService {
       first: undefined,
       second: undefined,
     };
-  }
-
-  public openDialog(hexagon: Hexagon): void {
-    const config: MatDialogConfig = {
-      data: hexagon,
-      panelClass: 'popup-modal',
-    };
-    const dialogRef: MatDialogRef<DialogComponent> = this.dialog.open(
-      DialogComponent,
-      config
-    );
-
-    dialogRef.afterClosed().subscribe((result: any) => {
-      console.log(`Dialog result: ${result}`);
-    });
   }
 
   public click(
@@ -96,7 +80,6 @@ export class MouseHandlerService {
 
   private selectHexagon(hexagon: Hexagon | undefined): void {
     if (hexagon) {
-      this.openDialog(hexagon);
       hexagon.click();
       this.selectedHexagons.set(hexagon.name, hexagon);
       this.selectedHexagonId.first

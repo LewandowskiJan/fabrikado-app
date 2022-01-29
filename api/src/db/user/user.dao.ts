@@ -1,4 +1,4 @@
-import { DaoOptions } from '../services/models/search-option';
+import { DaoOptions } from './../services/models/search-option';
 import { UtilDaoService } from './../services/util-dao.service';
 import { User } from './user-schema.model';
 

@@ -1,5 +1,5 @@
 import { BuildingType } from './../../../../game/modules/buildings/configuration/buildingType';
-import { NextLevelRequirements } from './../../../../game/modules/shared/resources/next-level-requirements';
+import { NextLevelRequirements } from './../../../../game/utils/models/next-level-requirements';
 
 export interface BuildingSocketData {
   type: BuildingType;

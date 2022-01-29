@@ -1,4 +1,4 @@
-import { Coordinates } from '../../../model/coordinates/coordinates';
+import { Coordinates } from './../../../../game/utils/models/coordinates';
 
 export interface PathData {
   startPosition: Coordinates;

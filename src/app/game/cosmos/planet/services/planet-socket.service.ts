@@ -52,8 +52,15 @@ export class PlanetSocketService {
   }
 
   public getPlanetsName(): Observable<string[]> {
+    this.socketService.sendToEvent(PlanetEvents.PLANET_GET_NAMES);
     return this.socketService.listeningOnEvent<string[]>(
       PlanetEvents.PLANET_GET_NAMES
+    );
+  }
+
+  public getCurrentPlanet(): Observable<PlanetSocketData> {
+    return this.socketService.listeningOnEvent<PlanetSocketData>(
+      PlanetEvents.PLANET_PREPARE
     );
   }
 
@@ -61,10 +68,9 @@ export class PlanetSocketService {
     this.socketService
       .listeningOnEvent<PlanetSocketData>(PlanetEvents.PLANET_PREPARE)
       .pipe(
-        tap(
-          (planetData: PlanetSocketData) =>
-            (this.currentPlanetCoordinates = planetData.coordinates)
-        )
+        tap((planetData: PlanetSocketData) => {
+          this.currentPlanetCoordinates = planetData.coordinates;
+        })
       )
       .subscribe((planetData: PlanetSocketData) =>
         this.planetService.setupPlanetData(planetData)
@@ -89,7 +95,8 @@ export class PlanetSocketService {
     this.currentPlanetCoordinates &&
       this.socketService.sendToEvent(UnitEvents.UNIT_ADD, {
         unitType,
-        coordinates: this.currentPlanetCoordinates,
+        planetName: '',
+        solarSystem: '',
       });
   }
 }

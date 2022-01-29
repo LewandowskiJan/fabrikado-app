@@ -5,3 +5,4 @@ export class Galactic {
     this.index = index;
   }
 }
+

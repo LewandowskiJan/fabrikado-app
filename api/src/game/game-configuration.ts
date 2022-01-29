@@ -4,9 +4,9 @@ import {
   PLAYERS_NUMBER,
   SOLAR_SYSTEMS_NUMBER,
 } from './configuration/globals-variables';
-import { GameRuleConfiguration } from './game-configuration.map';
-import { GameConfig } from './game-configuration.map';
-import { buildingConfigurationMap } from './modules/buildings/configuration/buildingConfiguration.map';
+import { buildingConfigurationMap } from './utils/factories/building-factory/configuration/buildingConfiguration.map';
+import { GameConfig } from './utils/models/config-types/game-config';
+import { GameRuleConfiguration } from './utils/models/config-types/rule/game-rule-configuration';
 
 const gameRuleConfig: GameRuleConfiguration = {
   planetRuleConfiguration: {

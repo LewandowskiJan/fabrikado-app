@@ -1,15 +1,18 @@
-import { Building } from '../../buildings/building';
-import { OnUpdateCost } from '../../buildings/building-type/building.abstract';
-import { BuildingType } from '../../buildings/configuration/buildingType';
-import { Fleet } from '../../fleet/fleet';
-import { FleetFactory } from '../../fleet/fleet.factory';
-import { Resource } from '../../shared/resources/resource';
-import { OnUnitCreateCost, UnitType } from '../../units/factory/unit.abstract';
-import { Unit } from '../../units/unit';
-import { Coordinates } from './../../../../game/model/coordinates/coordinates';
-import { ResourcesUtilService } from './../../../../game/utils/resources-util.service';
-import { CelestialBodyType, PlanetData } from './factory/planet.factory';
-import { PlanetAbstract } from './planet.abstract';
+import { PlanetAbstract } from './../../../../game/utils/factories/planet-factory/planet.abstract';
+import { Coordinates } from './../../../../game/utils/models/coordinates';
+import { CelestialBodyType } from './../../../../game/utils/models/enums/celestial-body-type';
+import { UnitType } from './../../../../game/utils/models/enums/unit-type';
+import { SolarSystemMapPlanetData } from './../../../../game/utils/models/map-data/solar-system-map-data';
+import { OnUnitCreateCost } from './../../../../game/utils/models/on-unit-create-cost';
+import { OnUpdateCost } from './../../../../game/utils/models/on-update-cost';
+import { PlanetData } from './../../../../game/utils/models/planet-data';
+import { Resource } from './../../../../game/utils/models/resource';
+import { ResourcesUtilService } from './../../../../game/utils/services/resources-util.service';
+import { BuildingType } from './../../../utils/models/enums/building-type';
+import { Building } from './../../buildings/building';
+import { Fleet } from './../../fleet/fleet';
+import { FleetFactory } from './../../fleet/fleet.factory';
+import { Unit } from './../../units/unit';
 
 export class Planet extends PlanetAbstract {
   public playerId: string | undefined;
@@ -40,6 +43,7 @@ export class Planet extends PlanetAbstract {
   public onUpgradeBuilding: Building[] = [];
   public onCreatingUnit: Unit[] = [];
   public fleet: Fleet;
+  public solarSystemMapPlanetData: SolarSystemMapPlanetData;
 
   constructor(planetInitialData: PlanetData) {
     super();
@@ -61,6 +65,7 @@ export class Planet extends PlanetAbstract {
     this.technologies = planetInitialData.technologies;
     this.units = planetInitialData.units;
     this.size = planetInitialData.size;
+    this.solarSystemMapPlanetData = planetInitialData.solarSystemMapPlanetData;
 
     this.resourcesCapacity = {
       metal: 10_000,
@@ -205,6 +210,7 @@ export class Planet extends PlanetAbstract {
       units: this.units,
       fleet: this.fleet,
       defence: this.defence,
+      solarSystemMapPlanetData: this.solarSystemMapPlanetData,
     };
   }
 

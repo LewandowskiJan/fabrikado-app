@@ -1,4 +1,4 @@
-import { UnitType } from './../../../../game/modules/units/factory/unit.abstract';
+import { UnitType } from './../../../../game/utils/factories/unit-factory/unit.abstract';
 
 export interface UnitNumbers {
   numberOfUnit: number;

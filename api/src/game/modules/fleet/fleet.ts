@@ -1,7 +1,6 @@
-import {
-  RapidFireConfiguration,
-  UnitType,
-} from '../units/factory/unit.abstract';
+
+import { UnitType } from './../../../game/utils/models/enums/unit-type';
+import { RapidFireConfiguration } from './../../../game/utils/models/rapid-fire-configuration';
 import { UnitData, UnitNumbers } from './fleet.factory';
 
 export class Fleet {

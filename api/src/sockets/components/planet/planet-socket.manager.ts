@@ -1,10 +1,10 @@
 import { Server, Socket } from 'socket.io';
 import { DefaultEventsMap } from 'socket.io/dist/typed-events';
 
-import { PlanetData } from './../../../game//modules/game-map/planet/factory/planet.factory';
 import { Game } from './../../../game/game';
 import { Planet } from './../../../game/modules/game-map/planet/planet';
 import { Player } from './../../../game/modules/player/player';
+import { PlanetData } from './../../../game/utils/models/planet-data';
 import { AllEvents } from './../../../sockets/configuration/socket-event.map';
 import { PlanetEvents } from './../../domain/endpoints/planet/planet-events.map';
 
@@ -30,30 +30,38 @@ export class PlanetManager {
   }
 
   public static setupEvents(): void {
-    this.socket.on(PlanetEvents.PLANET_PREPARE, (name: string) => {
-      this.player.currentPlanet = this.player.planets.get(name);
-      this.io.emit(PlanetEvents.PLANET_PREPARE, this.player.currentPlanet);
-    });
-
-    this.socket.on(PlanetEvents.PLANET_READ, () => {
-      const planet: Planet = Game.getPlanetByCoordinates({
-        galacticIndex: 1,
-        solarSystemIndex: 1,
-        planetIndex: 1,
-        hexagon: null,
-      });
-
-      if (planet) {
-        this.io
-          .to(this.roomName)
-          .emit(PlanetEvents.PLANET_READ, planet.getData());
-        this.io.to(this.roomName).emit(PlanetEvents.PLANET_ERROR, undefined);
-      } else {
-        this.io
-          .to(this.roomName)
-          .emit(PlanetEvents.PLANET_ERROR, 'no planet on given coordinates');
+    this.socket.on(
+      PlanetEvents.PLANET_PREPARE,
+      ({
+        planetName,
+        solarSystem,
+      }: {
+        planetName: string;
+        solarSystem: string;
+      }) => {
+        this.player.currentPlanet = this.player.planets.get(planetName);
+        const planet: Planet = Game.getPlanetByName(planetName, solarSystem);
+        this.io.to(this.roomName).emit(PlanetEvents.PLANET_PREPARE, planet);
       }
-    });
+    );
+
+    this.socket.on(
+      PlanetEvents.PLANET_READ,
+      (planetName: string, solarSystem: string) => {
+        const planet: Planet = Game.getPlanetByName(planetName, solarSystem);
+
+        if (planet) {
+          this.io
+            .to(this.roomName)
+            .emit(PlanetEvents.PLANET_READ, planet.getData());
+          this.io.to(this.roomName).emit(PlanetEvents.PLANET_ERROR, undefined);
+        } else {
+          this.io
+            .to(this.roomName)
+            .emit(PlanetEvents.PLANET_ERROR, 'no planet on given coordinates');
+        }
+      }
+    );
   }
 
   public static getPlanetDataByIndex(): PlanetData {

@@ -1,6 +1,6 @@
-import { dbConnect } from '../services/db.service';
-import { UserDao } from '../user/user.dao';
-import { UserData } from '../user/user-schema.model';
+import { dbConnect } from './../services/db.service';
+import { UserDao } from './../user/user.dao';
+import { UserData } from './../user/user-schema.model';
 import { GameState } from './../../game/game.state';
 
 export async function addTestUserToDatabase(): Promise<void> {

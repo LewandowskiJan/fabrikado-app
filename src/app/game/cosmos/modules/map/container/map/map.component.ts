@@ -104,6 +104,10 @@ export class MapComponent
     }
   }
 
+  public navigationPanelAction(solarSystem: string): void {
+    this.navigateToNextSolarSystem(solarSystem);
+  }
+
   @HostListener('mousedown', ['$event'])
   public onClick(event: any): void {
     if (this.isDisplayContextMenu) {
@@ -113,19 +117,21 @@ export class MapComponent
       this.onHold = true;
       if ((this.onHold && this.onDrag) || this.onLeftCtrl) return;
       const hexagon: Hexagon | undefined = this.findHexagon(event);
-      console.log(hexagon);
 
-      if (hexagon && hexagon.isGalactic && hexagon.position.solarSystem) {
+      if (!hexagon) return;
+      console.log(hexagon);
+      console.log(hexagon.position);
+      if (hexagon.isGalactic && hexagon.position.solarSystem) {
         this.navigateToNextSolarSystem(hexagon.position.solarSystem);
         return;
       }
 
-      if (hexagon && hexagon.isUniverse && hexagon.position.galactic) {
+      if (hexagon.isUniverse && hexagon.position.galactic) {
         this.navigateToNextSolarSystem(hexagon.position.galactic);
         return;
       }
 
-      if (this.context && hexagon) {
+      if (this.context) {
         this.mouseHandlerService.click(
           event,
           hexagon,
@@ -207,8 +213,6 @@ export class MapComponent
             special.setupPosition(specialData.x, specialData.y, frame++);
           });
 
-        this.hotKeysPanel = new HotKeyPanel(this.planetCanvas, this.context);
-
         this.startPositionX = this.mapBox.nativeElement.offsetWidth / 2;
         this.startPositionY = this.mapBox.nativeElement.offsetHeight / 2;
         this.draw();
@@ -264,6 +268,7 @@ export class MapComponent
   }
 
   public navigateToNextSolarSystem(position: string): void {
+    console.log(position);
     this.mapService.getMapData(position);
     this.mapService
       .getGameMapListener()
@@ -339,7 +344,6 @@ export class MapComponent
           path.drawMe();
         });
 
-        this.hotKeysPanel?.drawMe();
         this.timer = 0;
       }
     } else {
