@@ -8,4 +8,7 @@ export interface PlanetMapData {
   defenceLevel: number;
   moonsNumber: number;
   isUnderSiege: boolean;
+  universe: string;
+  galactic: string;
+  solarSystem: string;
 }

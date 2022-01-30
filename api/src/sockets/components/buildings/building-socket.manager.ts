@@ -35,12 +35,15 @@ export class BuildingManager {
       ({
         buildingType,
         planetName,
-        solarSystem,
       }: {
         buildingType: BuildingType;
         planetName: string;
         solarSystem: string;
-      }) => Game.updateBuilding(planetName, solarSystem, buildingType)
+      }) =>
+        Game.updateBuilding(
+          planetName,
+          buildingType
+        )
     );
 
     this.socket.on(BuildingEvents.BUILDING_READ, () => {

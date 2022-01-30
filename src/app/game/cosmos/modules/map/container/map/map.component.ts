@@ -12,13 +12,13 @@ import {
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
+import { RightClickMenuModel } from '../../../right-click-menu/model/right-click-menu.model';
+import { RightClickService } from '../../../right-click-menu/services/right-click.service';
 import { FleetMapObject, FleetSprite } from '../../model/fleet/fleet';
 import { Hexagon } from '../../model/hexagon';
 import { Path } from '../../model/path/path';
 import { MouseHandlerService } from '../../services/mouse-service/mouse-handler.service';
-import { RightClickService } from '../../services/right-click/right-click.service';
 import { KeyboardCode } from '../configuration/keyboard.config';
-import { ContextMenuModel } from '../context-menu/context-menu.component';
 import { GameMapData } from './../../../../../../domain/endpoints/map/game-map-data';
 import { HotKeyPanel } from './../../model/hot-key-panel/hot-key-panel';
 import { SpecialMapObject } from './../../model/special-map-object/special-map-object';
@@ -57,7 +57,7 @@ export class MapComponent
   public onLeftCtrl: boolean = false;
 
   public isDisplayContextMenu: boolean = false;
-  public contextMenuContent: ContextMenuModel[] = [];
+  public contextMenuContent: RightClickMenuModel[] = [];
   public contextMenuStyle: any;
 
   public lastTime: number = 0;
@@ -97,9 +97,13 @@ export class MapComponent
   public contextmenu(event: any): void {
     event.preventDefault();
     if (event.button === MouseButton.RIGHT) {
+      const hexagon: Hexagon | undefined = this.findHexagon(event);
+
       this.isDisplayContextMenu = true;
       this.rightClickService.displayContextMenu(event);
-      this.contextMenuContent = this.rightClickService.getMenuItems();
+      this.contextMenuContent = this.rightClickService.getMenuItems(
+        hexagon?.elementsInside
+      );
       this.contextMenuStyle = this.rightClickService.getRightClickMenuStyle();
     }
   }
@@ -268,7 +272,6 @@ export class MapComponent
   }
 
   public navigateToNextSolarSystem(position: string): void {
-    console.log(position);
     this.mapService.getMapData(position);
     this.mapService
       .getGameMapListener()

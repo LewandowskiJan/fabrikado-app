@@ -1,18 +1,15 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-export interface ContextMenuModel {
-  menuText: string;
-  menuEvent: string;
-}
+import { RightClickMenuModel } from '../model/right-click-menu.model';
 
 @Component({
-  selector: 'app-context-menu',
-  templateUrl: './context-menu.component.html',
-  styleUrls: ['./context-menu.component.scss'],
+  selector: 'app-right-click-menu',
+  templateUrl: './right-click-menu.component.html',
+  styleUrls: ['./right-click-menu.component.scss'],
 })
-export class ContextMenuComponent {
+export class RightClickMenuComponent {
   @Input()
-  public contextMenuItems: Array<ContextMenuModel> | undefined;
+  public contextMenuItems: RightClickMenuModel[] | undefined;
 
   @Output()
   public onContextMenuItemClick: EventEmitter<any> = new EventEmitter<any>();

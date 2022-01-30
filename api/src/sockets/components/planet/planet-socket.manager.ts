@@ -32,36 +32,26 @@ export class PlanetManager {
   public static setupEvents(): void {
     this.socket.on(
       PlanetEvents.PLANET_PREPARE,
-      ({
-        planetName,
-        solarSystem,
-      }: {
-        planetName: string;
-        solarSystem: string;
-      }) => {
+      ({ planetName }: { planetName: string }) => {
         this.player.currentPlanet = this.player.planets.get(planetName);
-        const planet: Planet = Game.getPlanetByName(planetName, solarSystem);
+        const planet: Planet = Game.getPlanetByPositionAndName(planetName);
         this.io.to(this.roomName).emit(PlanetEvents.PLANET_PREPARE, planet);
       }
     );
 
-    this.socket.on(
-      PlanetEvents.PLANET_READ,
-      (planetName: string, solarSystem: string) => {
-        const planet: Planet = Game.getPlanetByName(planetName, solarSystem);
-
-        if (planet) {
-          this.io
-            .to(this.roomName)
-            .emit(PlanetEvents.PLANET_READ, planet.getData());
-          this.io.to(this.roomName).emit(PlanetEvents.PLANET_ERROR, undefined);
-        } else {
-          this.io
-            .to(this.roomName)
-            .emit(PlanetEvents.PLANET_ERROR, 'no planet on given coordinates');
-        }
+    this.socket.on(PlanetEvents.PLANET_READ, (planetName: string) => {
+      const planet: Planet = Game.getPlanetByPositionAndName(planetName);
+      if (planet) {
+        this.io
+          .to(this.roomName)
+          .emit(PlanetEvents.PLANET_READ, planet.getData());
+        this.io.to(this.roomName).emit(PlanetEvents.PLANET_ERROR, undefined);
+      } else {
+        this.io
+          .to(this.roomName)
+          .emit(PlanetEvents.PLANET_ERROR, 'no planet on given coordinates');
       }
-    );
+    });
   }
 
   public static getPlanetDataByIndex(): PlanetData {

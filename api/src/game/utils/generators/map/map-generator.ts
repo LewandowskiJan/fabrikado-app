@@ -5,6 +5,7 @@ import { SolarSystem } from './../../../game-map/solar-system';
 import { PlanetFactory } from './../../factories/planet-factory/planet.factory';
 import { MapGeneratorOptions } from './../../models/config-types/map-generator-options';
 import { HexagonResult } from './../../models/hexagon-result';
+import { GameMap } from './../../models/map-data/game-map';
 
 export class MapGenerator {
   public static hexagonsOnScope: number | undefined;
@@ -14,7 +15,8 @@ export class MapGenerator {
     options: MapGeneratorOptions,
     isGalactic: boolean,
     isUniverse: boolean,
-    solarSystem?: SolarSystem
+    solarSystem?: SolarSystem,
+    config?: GameMap
   ): HexagonResult {
     const hexagonMap: Map<string, Hexagon> = new Map([]);
     const hexagons: Hexagon[] = [];
@@ -79,7 +81,7 @@ export class MapGenerator {
     options.solarSystem &&
       options.galactic &&
       solarSystem &&
-      this.setupPlanets(hexagons, solarSystem, options);
+      this.setupPlanets(hexagons, solarSystem, options, config);
 
     const hexagonsData: any[] = hexagons.map((h: Hexagon) => h.getData());
 
@@ -97,7 +99,8 @@ export class MapGenerator {
   private static setupPlanets(
     hexagons: Hexagon[],
     solarSystem: SolarSystem,
-    options: MapGeneratorOptions
+    options: MapGeneratorOptions,
+    config?: GameMap
   ): void {
     hexagons.forEach((hexagon: Hexagon) => {
       let canAddPlanet: boolean = false;
@@ -105,16 +108,18 @@ export class MapGenerator {
       canAddPlanet = !hexagon.scopeHexagon
         .filter((scopeHexagon: Hexagon) => scopeHexagon.orbit !== 0)
         .some((scopeHexagon: Hexagon) => {
-          return scopeHexagon.elementsInside.length !== 0;
+          return !!scopeHexagon.elementsInside.planet;
         });
 
       if ((canAddPlanet && Math.random() <= 0.2) || hexagon.orbit === 0) {
         const planet: Planet = PlanetFactory.generatePlanet(
           { ...options.coordinates, planetIndex: hexagon.orbit },
-          hexagon.orbit
+          hexagon.orbit,
+          options
         );
         solarSystem.addPlanet(planet);
-        hexagon.elementsInside.push(planet.getData().solarSystemMapPlanetData);
+        hexagon.elementsInside = planet.getData().solarSystemMapPlanetData;
+        if (config) config.planets.set(planet.name, planet);
       }
 
       if (solarSystem.planets[0] && GameState.planetsDiscovered.length === 0) {

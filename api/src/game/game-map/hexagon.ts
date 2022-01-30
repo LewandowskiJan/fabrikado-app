@@ -1,11 +1,15 @@
 import { MapGeneratorOptions } from './../utils/models/config-types/map-generator-options';
 import { HexagonMapCoordinate } from './../utils/models/hexagon-map-coordinate';
+import { SolarSystemMapPlanetData } from './../utils/models/map-data/solar-system-map-data';
 
 export class Hexagon {
   public name: string;
   public attributes: HexagonMapCoordinate;
   public orbit: number;
-  public elementsInside: any[] = [];
+  public elementsInside: SolarSystemMapPlanetData = {
+    isBattle: false,
+    fleet: [],
+  };
   public scopeHexagon: Hexagon[] = [];
 
   public universe: string;

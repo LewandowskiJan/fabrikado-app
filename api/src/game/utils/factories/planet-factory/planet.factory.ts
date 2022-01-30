@@ -2,6 +2,7 @@ import { Building } from './../../../../game/modules/buildings/building';
 import { Planet } from './../../../../game/modules/game-map/planet/planet';
 import { Unit } from './../../../../game/modules/units/unit';
 import { GeneratorService } from './../../generators/generator.service';
+import { MapGeneratorOptions } from './../../models/config-types/map-generator-options';
 import { PlanetConfiguration } from './../../models/config-types/planet-configuration';
 import { Coordinates } from './../../models/coordinates';
 import { BuildingType } from './../../models/enums/building-type';
@@ -20,25 +21,18 @@ export class PlanetFactory {
 
   public static generatePlanet(
     coordinates: Coordinates,
-    orbit: number
+    orbit: number,
+    options: MapGeneratorOptions
   ): Planet {
     let celestialBodyType: CelestialBodyType = CelestialBodyType.PLANET;
 
     // todo: test only
     let playerId: string;
-    if (
-      coordinates.galacticIndex === 1 &&
-      coordinates.solarSystemIndex === 1 &&
-      coordinates.planetIndex > 2
-    ) {
+    if (coordinates.galacticIndex === 1 && coordinates.solarSystemIndex === 1) {
       playerId = '61c3871db04d1e63f2ddbf2f';
     }
 
-    if (
-      coordinates.galacticIndex === 1 &&
-      coordinates.solarSystemIndex === 1 &&
-      coordinates.planetIndex <= 2
-    ) {
+    if (coordinates.galacticIndex === 2 && coordinates.solarSystemIndex === 2) {
       playerId = '61c9fb4ac2fbb2a228441a99';
     }
 
@@ -94,6 +88,9 @@ export class PlanetFactory {
           defenceLevel: 0,
           moonsNumber: 0,
           isUnderSiege: false,
+          universe: options.universe,
+          galactic: options.galactic,
+          solarSystem: options.solarSystem,
         },
         isBattle: false,
         fleet: [],

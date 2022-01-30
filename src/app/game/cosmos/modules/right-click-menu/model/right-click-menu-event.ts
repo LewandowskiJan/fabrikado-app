@@ -1,0 +1,5 @@
+export enum RightClickMenuEvent {
+  PLANET_OPTION = 'PLANET_OPTION',
+  FLEET_OPTION = 'FLEET_OPTION',
+  RESEARCH = 'RESEARCH',
+}

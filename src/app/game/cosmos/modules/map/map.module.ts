@@ -5,7 +5,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { LayoutModule } from '@src/app/shared/layout/layout.module';
 
-import { ContextMenuComponent } from './container/context-menu/context-menu.component';
+import { RightClickMenuModule } from './../right-click-menu/right-click-menu.module';
 import { DialogComponent } from './container/dialog/dialog.component';
 import { GameMapBoxComponent } from './container/game-map-box/game-map-box.component';
 import { MapComponent } from './container/map/map.component';
@@ -14,12 +14,7 @@ import { NavigationPanelModule } from './modules/navigation-panel/navigation-pan
 import { SideMenuModule } from './modules/side-menu/side-menu.module';
 
 @NgModule({
-  declarations: [
-    MapComponent,
-    DialogComponent,
-    ContextMenuComponent,
-    GameMapBoxComponent,
-  ],
+  declarations: [MapComponent, DialogComponent, GameMapBoxComponent],
   exports: [MapComponent],
   imports: [
     CommonModule,
@@ -29,6 +24,7 @@ import { SideMenuModule } from './modules/side-menu/side-menu.module';
     LayoutModule,
     SideMenuModule,
     NavigationPanelModule,
+    RightClickMenuModule,
   ],
 })
 export class MapModule {}

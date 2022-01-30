@@ -7,6 +7,7 @@ import { tap } from 'rxjs/operators';
 import { PlanetSocketService } from '@src/app/game/cosmos/planet/services/planet-socket.service';
 
 import { PlanetSocketData } from './../../../../../../domain/endpoints/planet/planet-data';
+import { ElementsInsideHexagonData } from './../../model/hexagon';
 
 @Component({
   selector: 'app-dialog',
@@ -18,10 +19,12 @@ export class DialogComponent {
     this.socketPlanetService.getCurrentPlanet().pipe(tap(console.log));
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: ElementsInsideHexagonData,
     public dialogRef: MatDialogRef<DialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
     private socketPlanetService: PlanetSocketService
   ) {
-    this.socketPlanetService.preparePlanet('G1C-SY1AF-P3H');
+    if (!this.data.planet || !this.data.planet.data) return;
+
+    this.socketPlanetService.preparePlanet(this.data.planet.data.planetName);
   }
 }

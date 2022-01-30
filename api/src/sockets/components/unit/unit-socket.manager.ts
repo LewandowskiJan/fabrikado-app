@@ -32,15 +32,8 @@ export class UnitManager {
   public static setupEvents(): void {
     this.socket.on(
       UnitEvents.UNIT_ADD,
-      ({
-        unitType,
-        planetName,
-        solarSystem,
-      }: {
-        unitType: UnitType;
-        planetName: string;
-        solarSystem: string;
-      }) => Game.createUnit(planetName, solarSystem, unitType)
+      ({ unitType, planetName }: { unitType: UnitType; planetName: string }) =>
+        Game.createUnit(planetName, unitType)
     );
 
     this.socket.on(UnitEvents.UNIT_READ, () => {

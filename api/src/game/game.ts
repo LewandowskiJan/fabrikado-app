@@ -51,29 +51,19 @@ export class Game {
     GameState.gameMap = GeneratorService.generateGameMap();
   }
 
-  public static getPlanetByName(
-    planetName: string,
-    solarSystemName: string = 'S-1'
-  ): Planet {
-    return GameState.gameMap.solarSystems
-      .get(solarSystemName)
-      .planetsMap.get(planetName);
+  public static getPlanetByPositionAndName(planetName: string): Planet {
+    return GameState.gameMap.planets.get(planetName);
   }
 
   public static updateBuilding(
     planetName: string,
-    solarSystem: string,
     buildingType: BuildingType
   ): void {
-    Game.getPlanetByName(planetName, solarSystem).upgradeBuilding(buildingType);
+    Game.getPlanetByPositionAndName(planetName).upgradeBuilding(buildingType);
   }
 
-  public static createUnit(
-    planetName: string,
-    solarSystem: string,
-    unitType: UnitType
-  ): void {
-    Game.getPlanetByName(planetName, solarSystem).createUnit(unitType);
+  public static createUnit(planetName: string, unitType: UnitType): void {
+    Game.getPlanetByPositionAndName(planetName).createUnit(unitType);
   }
 
   private static setupConfiguration(): void {

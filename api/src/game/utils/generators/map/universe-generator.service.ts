@@ -17,6 +17,7 @@ export class UniverseGenerator {
       universe: new Map(),
       galaxies: new Map(),
       solarSystems: new Map(),
+      planets: new Map(),
     };
 
     const universeNumber: number =
@@ -94,7 +95,8 @@ export class UniverseGenerator {
               },
               false,
               false,
-              solarSystem
+              solarSystem,
+              config
             )
           );
           config.solarSystems.set(solarSystem.id, solarSystem);

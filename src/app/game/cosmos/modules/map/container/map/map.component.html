@@ -15,10 +15,10 @@
     ></canvas>
   </div>
 </app-game-map-box>
-<app-context-menu
+<app-right-click-menu
   *ngIf="isDisplayContextMenu"
   [ngStyle]="contextMenuStyle"
   [contextMenuItems]="contextMenuContent"
   (onContextMenuItemClick)="handleMenuItemClick($event)"
-></app-context-menu>
+></app-right-click-menu>
 <app-navigation-panel (navigateToPlanet)="navigationPanelAction($event)"></app-navigation-panel>

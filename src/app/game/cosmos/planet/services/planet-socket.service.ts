@@ -48,7 +48,7 @@ export class PlanetSocketService {
   }
 
   public preparePlanet(id: string): void {
-    this.socketService.sendToEvent(PlanetEvents.PLANET_PREPARE, id);
+    this.socketService.sendToEvent(PlanetEvents.PLANET_READ, id);
   }
 
   public getPlanetsName(): Observable<string[]> {
@@ -60,7 +60,7 @@ export class PlanetSocketService {
 
   public getCurrentPlanet(): Observable<PlanetSocketData> {
     return this.socketService.listeningOnEvent<PlanetSocketData>(
-      PlanetEvents.PLANET_PREPARE
+      PlanetEvents.PLANET_READ
     );
   }
 

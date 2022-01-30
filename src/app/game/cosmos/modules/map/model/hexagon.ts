@@ -3,6 +3,12 @@ import { ElementRef } from '@angular/core';
 import { HexagonCoordinates } from './interfaces/hexagon-coordinates';
 import { Planet } from './planet/planet';
 
+export interface ElementsInsideHexagonData {
+  planet?: Planet;
+  fleet: any[];
+  isBattle: boolean;
+}
+
 export interface Position {
   solarSystem?: string;
   galactic?: string;
@@ -29,7 +35,10 @@ export class Hexagon {
   public clicked: boolean = false;
   public onHover: boolean = false;
   public attributes: HexagonCoordinates;
-  public elementsInside: any[] = [];
+  public elementsInside: ElementsInsideHexagonData = {
+    isBattle: false,
+    fleet: [],
+  };
 
   public isGalactic: boolean = false;
   public isUniverse: boolean = false;
@@ -60,26 +69,45 @@ export class Hexagon {
     if (isGalactic) {
       this.size = 100;
       this.isGalactic = true;
-      this.elementsInside.push(
-        new Planet(canvas, ctx, this.x, this.y, isSun, isGalactic, isUniverse)
+      this.elementsInside.planet = new Planet(
+        canvas,
+        ctx,
+        this.x,
+        this.y,
+        isSun,
+        isGalactic,
+        isUniverse
       );
     }
 
     if (isUniverse) {
       this.size = 150;
-
       this.isUniverse = true;
-      this.elementsInside.push(
-        new Planet(canvas, ctx, this.x, this.y, isSun, isGalactic, isUniverse)
+      this.elementsInside.planet = new Planet(
+        canvas,
+        ctx,
+        this.x,
+        this.y,
+        isSun,
+        isGalactic,
+        isUniverse
       );
     }
 
     this.countHeight();
     this.calculatePosition();
+    // console.log(elementInside);
 
-    elementInside.length > 0 &&
-      this.elementsInside.push(
-        new Planet(canvas, ctx, this.x, this.y, isSun, false, false)
+    if (elementInside.planet)
+      this.elementsInside.planet = new Planet(
+        canvas,
+        ctx,
+        this.x,
+        this.y,
+        isSun,
+        false,
+        false,
+        elementInside.planet
       );
   }
 
@@ -150,7 +178,14 @@ export class Hexagon {
     this.ctx.strokeStyle = '#009971';
     this.ctx.lineWidth = this.lineWidth;
     this.ctx.stroke(this.polygonPath);
-    this.elementsInside.forEach((elem: Planet) =>
+
+    this.elementsInside.planet?.draw(
+      this.x * sizeModifier + startPositionX,
+      this.y * sizeModifier + startPositionY,
+      sizeModifier
+    );
+
+    this.elementsInside.fleet.forEach((elem: Planet) =>
       elem.draw(
         this.x * sizeModifier + startPositionX,
         this.y * sizeModifier + startPositionY,
