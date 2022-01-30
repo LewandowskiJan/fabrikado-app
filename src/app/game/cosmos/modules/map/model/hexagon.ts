@@ -1,5 +1,6 @@
 import { ElementRef } from '@angular/core';
 
+import { FleetMapObject } from './fleet/fleet';
 import { HexagonCoordinates } from './interfaces/hexagon-coordinates';
 import { Planet } from './planet/planet';
 
@@ -96,7 +97,6 @@ export class Hexagon {
 
     this.countHeight();
     this.calculatePosition();
-    // console.log(elementInside);
 
     if (elementInside.planet)
       this.elementsInside.planet = new Planet(
@@ -109,6 +109,10 @@ export class Hexagon {
         false,
         elementInside.planet
       );
+
+    if (elementInside.fleet.length > 0) {
+      this.elementsInside.fleet.push(new FleetMapObject(this.canvas, this.ctx));
+    }
   }
 
   public calculatePosition(): void {
@@ -185,7 +189,7 @@ export class Hexagon {
       sizeModifier
     );
 
-    this.elementsInside.fleet.forEach((elem: Planet) =>
+    this.elementsInside.fleet.forEach((elem: FleetMapObject) =>
       elem.draw(
         this.x * sizeModifier + startPositionX,
         this.y * sizeModifier + startPositionY,

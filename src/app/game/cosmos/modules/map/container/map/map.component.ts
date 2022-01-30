@@ -123,8 +123,6 @@ export class MapComponent
       const hexagon: Hexagon | undefined = this.findHexagon(event);
 
       if (!hexagon) return;
-      console.log(hexagon);
-      console.log(hexagon.position);
       if (hexagon.isGalactic && hexagon.position.solarSystem) {
         this.navigateToNextSolarSystem(hexagon.position.solarSystem);
         return;
@@ -330,7 +328,7 @@ export class MapComponent
         });
 
         this.specialMapObjects.forEach((sp: SpecialMapObject) => sp.draw());
-        this.fleetMapObjects.forEach((sp: FleetMapObject) => sp.draw());
+        // this.fleetMapObjects.forEach((sp: FleetMapObject) => sp.draw());
 
         this.paths.forEach((path: Path) => {
           path.pathsCoordinates.forEach(

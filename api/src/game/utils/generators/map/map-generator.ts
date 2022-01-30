@@ -1,3 +1,5 @@
+import { Clan } from '../../models/enums/clan';
+import { MoveDirection } from '../../models/enums/move-direction';
 import { Planet } from './../../../../game/modules/game-map/planet/planet';
 import { GameState } from './../../../game.state';
 import { Hexagon } from './../../../game-map/hexagon';
@@ -103,9 +105,7 @@ export class MapGenerator {
     config?: GameMap
   ): void {
     hexagons.forEach((hexagon: Hexagon) => {
-      let canAddPlanet: boolean = false;
-
-      canAddPlanet = !hexagon.scopeHexagon
+      const canAddPlanet: boolean = !hexagon.scopeHexagon
         .filter((scopeHexagon: Hexagon) => scopeHexagon.orbit !== 0)
         .some((scopeHexagon: Hexagon) => {
           return !!scopeHexagon.elementsInside.planet;
@@ -120,6 +120,18 @@ export class MapGenerator {
         solarSystem.addPlanet(planet);
         hexagon.elementsInside = planet.getData().solarSystemMapPlanetData;
         if (config) config.planets.set(planet.name, planet);
+      } else if (Math.random() <= 0.2) {
+        hexagon.elementsInside.fleet.push({
+          id: '12',
+          size: 3,
+          speed: 100,
+          position: {
+            direction: MoveDirection.TOP,
+            progress: 10,
+          },
+          isEnemyFleet: true,
+          clan: Clan.EMPIRE,
+        });
       }
 
       if (solarSystem.planets[0] && GameState.planetsDiscovered.length === 0) {

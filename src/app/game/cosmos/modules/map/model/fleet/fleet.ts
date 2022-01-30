@@ -67,7 +67,9 @@ export class FleetMapObject {
     this.y = y;
   }
 
-  public draw(): void {
+  public draw(x: number, y: number, size: number): void {
+    this.x = x;
+    this.y = y;
     if (!this.x || !this.y) {
       return;
     }
@@ -86,10 +88,10 @@ export class FleetMapObject {
         row * this.frameHeight,
         this.frameWidth,
         this.frameHeight,
-        this.x,
-        this.y,
-        this.frameWidth / 5,
-        this.frameHeight / 5
+        this.x - ((this.frameWidth / 7) * size) / 2,
+        this.y - ((this.frameHeight / 7) * size) / 2,
+        (this.frameWidth / 7) * size,
+        (this.frameHeight / 7) * size
       );
     }
   }
