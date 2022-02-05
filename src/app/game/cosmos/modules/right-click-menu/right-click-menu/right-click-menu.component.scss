@@ -25,6 +25,7 @@ $shadow-color-blue-green: #009971;
   background-color: rgba($color: $shadow-color-blue-green, $alpha: 0.01);
   box-shadow: inset 0px 0px 2px 2px $shadow-color-blue-green;
   animation: gradient-green-blue 5s infinite ease;
+
   border: 1px;
   color: #fff;
   letter-spacing: 2px;

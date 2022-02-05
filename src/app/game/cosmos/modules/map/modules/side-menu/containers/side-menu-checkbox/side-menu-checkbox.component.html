@@ -1,0 +1,23 @@
+<div
+  class="container"
+  (click)="$event.stopPropagation()"
+  (keydown)="$event.stopPropagation()"
+>
+  <section class="example-section" [formGroup]="visibleOptionForm">
+    <mat-checkbox class="example-margin" formControlName="fleet"
+      >Fleet</mat-checkbox
+    >
+    <p></p>
+    <mat-checkbox class="example-margin" formControlName="notes"
+      >Notes</mat-checkbox
+    >
+    <p></p>
+    <mat-checkbox class="example-margin" formControlName="friends"
+      >Friends</mat-checkbox
+    >
+    <p></p>
+    <mat-checkbox class="example-margin" formControlName="quickNavigation"
+      >Quick navigation</mat-checkbox
+    >
+  </section>
+</div>

@@ -1,6 +1,9 @@
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 
 import { LayoutModule } from '@src/app/shared/layout/layout.module';
@@ -17,6 +20,7 @@ import { SideMenuModule } from './modules/side-menu/side-menu.module';
   declarations: [MapComponent, DialogComponent, GameMapBoxComponent],
   exports: [MapComponent],
   imports: [
+    FormsModule,
     CommonModule,
     MatDialogModule,
     MatButtonModule,
@@ -25,6 +29,8 @@ import { SideMenuModule } from './modules/side-menu/side-menu.module';
     SideMenuModule,
     NavigationPanelModule,
     RightClickMenuModule,
+    DragDropModule,
+    MatCheckboxModule,
   ],
 })
 export class MapModule {}

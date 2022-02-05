@@ -1,0 +1,26 @@
+.mat-expansion-panel {
+  background-color: rgba($color: #22b3ab, $alpha: 0.4);
+
+  &.mat-expanded {
+
+    margin: 0;
+    padding: 0px;
+  }
+
+}
+
+:host ::ng-deep mat-expansion-panel {
+  .mat-expansion-panel-body {
+    background-color: red;
+  }
+
+  &.class1 {
+
+    .mat-expansion-panel-body {
+
+      display: none;
+    }
+  }
+}
+
+.container {}

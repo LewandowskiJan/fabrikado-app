@@ -25,7 +25,10 @@ import { SpecialMapObject } from './../../model/special-map-object/special-map-o
 import { MapService } from './../../services/map.service';
 import { MouseButton } from './../../services/mouse-service/mouse-handler.service';
 
-
+const mousemoveProofComponentSet: Set<string> = new Set([
+  'APP-NAVIGATION-PANEL',
+  'APP-SIDE-MENU',
+]);
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -115,6 +118,8 @@ export class MapComponent
 
   @HostListener('mousedown', ['$event'])
   public onClick(event: any): void {
+    if (event.path.some((e: any) => mousemoveProofComponentSet.has(e.tagName)))
+      return;
     if (this.isDisplayContextMenu) {
       return;
     }
@@ -163,6 +168,9 @@ export class MapComponent
 
   @HostListener('mousemove', ['$event'])
   public onMouseHover(event: any): void {
+    if (event.path.some((e: any) => mousemoveProofComponentSet.has(e.tagName)))
+      return;
+    console.log(event.path.some((e: any) => e.tagName === 'APP-SIDE-MENU'));
     if (this.onHold && this.onLeftCtrl) {
       this.onDrag = true;
       this.startPositionX -= event.movementX;
