@@ -25,6 +25,7 @@ import { SpecialMapObject } from './../../model/special-map-object/special-map-o
 import { MapService } from './../../services/map.service';
 import { MouseButton } from './../../services/mouse-service/mouse-handler.service';
 
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -328,21 +329,20 @@ export class MapComponent
         });
 
         this.specialMapObjects.forEach((sp: SpecialMapObject) => sp.draw());
-        // this.fleetMapObjects.forEach((sp: FleetMapObject) => sp.draw());
 
         this.paths.forEach((path: Path) => {
           path.pathsCoordinates.forEach(
             ({ x, y }: { x: number; y: number }) => {
               const hex: Hexagon | undefined = this.hexagons.find(
                 (hexagon: Hexagon) => {
-                  this.context?.isPointInPath(hexagon.polygonPath as any, x, y);
+                  return hexagon.x === x && hexagon.y === y;
                 }
               );
 
-              hex && hex.click();
+              hex && hex.setAsPath();
             }
           );
-          path.drawMe();
+          path.drawMe(this.startPositionX, this.startPositionY, this.size);
         });
 
         this.timer = 0;

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Hexagon } from '../../model/hexagon';
+import { hexagonRouteDraw } from '../../model/path/hexagon-util';
 import { SelectedHexagonIds } from '../mouse-service/mouse-handler.service';
 import { HexagonCoordinates } from './../../model/interfaces/hexagon-coordinates';
 import { Path } from './../../model/path/path';
@@ -38,9 +39,27 @@ export class DrawService {
     const to: Hexagon | undefined = selectedHexagons.get(
       selectedHexagonId.second
     );
+
     if (from && to) {
-      // this.getAllHexagonInPath(from, to, paths);
-      this.getDirectPathLine(from, to, paths);
+      const currentPaths: { q: number; r: number; s: number }[] =
+        hexagonRouteDraw(from, to);
+
+      const pathsArr: any[] = [];
+      currentPaths.forEach(
+        (currentPath: { q: number; r: number; s: number }) => {
+          const hexagon: Hexagon | undefined = this.hexagonMap?.get(
+            `q${currentPath.q}r${currentPath.r}s${currentPath.s}`
+          );
+          if (hexagon) {
+            pathsArr.push({
+              x: hexagon.x,
+              y: hexagon.y,
+            });
+          }
+        }
+      );
+
+      paths.push(new Path(this.context, pathsArr));
     }
   }
 
@@ -157,7 +176,6 @@ export class DrawService {
         // this.drawRightUpLeftDown(from, to, iteration);
       }
     }
-
 
     this.context &&
       paths.push(

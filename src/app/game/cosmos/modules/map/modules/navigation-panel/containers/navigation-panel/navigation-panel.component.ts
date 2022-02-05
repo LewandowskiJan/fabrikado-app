@@ -3,7 +3,9 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { PlanetService } from '@src/app/game/cosmos/planet/services/planet.service';
+import { GameMapContext } from '@src/app/shared/models/enums/game-map-context';
 
+import { ContextService } from './../../../../services/context/context.service';
 import { NavigationPanelService } from './../../services/navigation-panel.service';
 
 @Component({
@@ -14,6 +16,8 @@ import { NavigationPanelService } from './../../services/navigation-panel.servic
 export class NavigationPanelComponent implements OnInit {
   @Output() public navigateToPlanet: EventEmitter<string> = new EventEmitter();
 
+  public currentFleetContext$: Observable<GameMapContext> =
+    this.contextService.getCurrentGameMapContext();
   public myPlanets$: Observable<string[]> | undefined;
 
   public myCurrentPlanets$: Observable<any> =
@@ -21,7 +25,8 @@ export class NavigationPanelComponent implements OnInit {
 
   constructor(
     private planetService: PlanetService,
-    private navigationPanelService: NavigationPanelService
+    private navigationPanelService: NavigationPanelService,
+    private contextService: ContextService
   ) {}
 
   ngOnInit(): void {

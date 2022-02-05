@@ -21,6 +21,7 @@ export class Path {
   ) {
     this.pathsCoordinates = pathsCoordinates;
     this.ctx = ctx;
+    console.log(pathsCoordinates);
   }
 
   public hover(): void {
@@ -37,7 +38,11 @@ export class Path {
     this.clicked = !this.clicked;
   }
 
-  public drawMe(): void {
+  public drawMe(
+    startPositionX: number,
+    startPositionY: number,
+    sizeModifier: number
+  ): void {
     if (this.onHover && !this.click) {
       this.lineWidth = 3;
     }
@@ -57,17 +62,20 @@ export class Path {
 
     this.ctx.beginPath();
     this.linePath.moveTo(
-      this.pathsCoordinates[0].x,
-      this.pathsCoordinates[0].y
+      this.pathsCoordinates[0].x * sizeModifier + startPositionX,
+      this.pathsCoordinates[0].y * sizeModifier + startPositionY
     );
     for (let i: number = 1; i <= this.pathsCoordinates.length - 1; i++) {
       this.linePath.lineTo(
-        this.pathsCoordinates[i].x,
-        this.pathsCoordinates[i].y
+        this.pathsCoordinates[i].x * sizeModifier + startPositionX,
+        this.pathsCoordinates[i].y * sizeModifier + startPositionY
       );
 
       this.points.push(
-        this.drawPoint(this.pathsCoordinates[i].x, this.pathsCoordinates[i].y)
+        this.drawPoint(
+          this.pathsCoordinates[i].x * sizeModifier + startPositionX,
+          this.pathsCoordinates[i].y * sizeModifier + startPositionY
+        )
       );
     }
 

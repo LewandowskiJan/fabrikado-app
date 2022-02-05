@@ -43,6 +43,7 @@ export class Hexagon {
 
   public isGalactic: boolean = false;
   public isUniverse: boolean = false;
+  public isPath: boolean = false;
 
   constructor(
     canvas: ElementRef<HTMLCanvasElement>,
@@ -138,12 +139,21 @@ export class Hexagon {
     this.clicked = !this.clicked;
   }
 
+  public setAsPath(): void {
+    this.isPath = true;
+  }
+
+  public unsetAsPath(): void {
+    this.isPath = false;
+  }
+
   public drawMe(
     startPositionX: number,
     startPositionY: number,
     sizeModifier: number
   ): void {
     this.polygonPath = new Path2D();
+
     if (this.onHover && !this.click) {
       this.lineWidth = 3;
     }
@@ -153,6 +163,7 @@ export class Hexagon {
       this.lineWidth = 0.1;
       if (this.isGalactic) this.lineWidth = 0.5;
       if (this.isUniverse) this.lineWidth = 1;
+      if (this.isPath) this.lineWidth = 1.5;
     }
 
     const numberOfSides: number = 6;
@@ -197,18 +208,18 @@ export class Hexagon {
       )
     );
     this.ctx.font = '12px Arial';
-    this.ctx.font = '1px Arial';
+    this.ctx.font = '10px Arial';
     this.ctx.fillStyle = 'red';
     this.ctx.fillText(
       `q: ${this.attributes.q}, r: ${this.attributes.r}, s: ${
         this.attributes.s
-      } ${
+      } || ${
         Math.abs(this.attributes.q) +
         Math.abs(this.attributes.r) +
         Math.abs(this.attributes.s)
       }`,
-      this.x + startPositionX - this.height / 2,
-      this.y
+      this.x * sizeModifier + startPositionX,
+      this.y * sizeModifier + startPositionY
     );
     this.ctx.restore();
   }

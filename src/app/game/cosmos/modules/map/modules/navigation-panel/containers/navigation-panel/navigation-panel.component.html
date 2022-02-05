@@ -1,4 +1,5 @@
 <div class="navigation-panel">
+  {{ currentFleetContext$ | async }}
   <div *ngFor="let planetName of myPlanets$ | async">
     <button
       type="button"

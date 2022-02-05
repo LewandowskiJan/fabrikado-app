@@ -5,12 +5,15 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 
+import { GameMapContext } from '@src/app/shared/models/enums/game-map-context';
+
 import { DialogComponent } from '../../map/container/dialog/dialog.component';
 import { ElementsInsideHexagonData, Hexagon } from '../../map/model/hexagon';
 import { rightClickMenuConfiguration } from '../configuration/right-click-menu.configuration';
 import { RightClickMenuModel } from '../model/right-click-menu.model';
 import { RightClickMenuEvent } from '../model/right-click-menu-event';
 import { RightClickMenuType } from '../model/right-click-menu-type';
+import { ContextService } from './../../map/services/context/context.service';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +28,10 @@ export class RightClickService {
   public rightClickMenuPositionX: number | undefined;
   public rightClickMenuPositionY: number | undefined;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    public dialog: MatDialog,
+    private contextService: ContextService
+  ) {}
 
   public displayContextMenu(event: any): void {
     this.isDisplayContextMenu = true;
@@ -60,11 +66,19 @@ export class RightClickService {
   }
 
   public handleMenuItemClick(event: any): void {
+    console.log(event);
     switch (event.data) {
       case RightClickMenuEvent.RESEARCH:
         break;
       case RightClickMenuEvent.FLEET_OPTION:
+        this.contextService.setCurrentGameMapContext(
+          GameMapContext.SELECTED_FLEET
+        );
+        break;
       case RightClickMenuEvent.PLANET_OPTION:
+        this.contextService.setCurrentGameMapContext(
+          GameMapContext.SELECTED_PLANET
+        );
         this.data && this.openDialog(this.data);
         break;
       default:
