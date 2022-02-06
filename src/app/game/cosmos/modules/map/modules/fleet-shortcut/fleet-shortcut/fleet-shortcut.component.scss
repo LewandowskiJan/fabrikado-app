@@ -1,0 +1,59 @@
+.container {
+  display: grid;
+  grid-template-columns: 5px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 0.8fr 5px;
+  grid-template-rows: 5px 5px 12px 8px 15px 10px 1px 1px 5px;
+  grid-auto-columns: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    ". . . . . . . . . . . . ."
+    ". . . . . . . . . FleetType FleetType Favorites ."
+    ". . FleetIcon FleetIcon FleetName FleetName FleetName FleetName FleetName FleetType FleetType Favorites ."
+    ". . FleetIcon FleetIcon FleetPosition FleetPosition FleetPosition FleetPosition FleetPosition FleetPosition . . ."
+    ". . FleetIcon FleetIcon . . . . . AdmiralAvatar AdmiralAvatar AdmiralAvatar ."
+    ". . FleetIcon FleetIcon FleetFuel FleetFuel FleetFuel . . AdmiralAvatar AdmiralAvatar AdmiralAvatar ."
+    ". . . . . . . . . . . . ."
+    ". . . . . . . . . . . . ."
+    ". . . . . . . . . . . . .";
+}
+
+.Favorites {
+  grid-area: Favorites;
+  display: grid;
+  justify-content: start;
+}
+
+.FleetIcon {
+  grid-area: FleetIcon;
+  display: grid;
+  justify-content: start;
+  padding-top: 5px
+}
+
+.FleetType {
+  grid-area: FleetType;
+  display: grid;
+  justify-content: end;
+}
+
+.FleetName {
+  grid-area: FleetName;
+}
+
+.FleetPosition {
+  grid-area: FleetPosition;
+}
+
+.FleetFuel {
+  grid-area: FleetFuel;
+  display: grid;
+  justify-content: start;
+}
+
+.AdmiralAvatar {
+  grid-area: AdmiralAvatar;
+  padding-right: 5px;
+  padding-bottom: 5px;
+  display: grid;
+  justify-content: end;
+}
