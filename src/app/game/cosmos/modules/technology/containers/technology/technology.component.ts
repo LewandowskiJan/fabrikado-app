@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { BuildingType } from '@src/app/shared/models/buildingType';
+import { BuildingType } from '@models/enums/building-type';
+import { UnitType } from '@models/enums/unit-type';
+import { Technology } from '@models/types/technology';
 
-import { UnitType } from '../../../shipyard/model/unit';
-import { Technology } from './../../model/technology';
 import { TechnologyService } from './../../services/technology.service';
 
 @Component({

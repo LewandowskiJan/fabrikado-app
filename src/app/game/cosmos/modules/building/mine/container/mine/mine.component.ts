@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { BuildingType } from '@src/app/shared/models/buildingType';
+import { BuildingType } from '@models/enums/building-type';
+import { UnitType } from '@models/enums/unit-type';
+import { Mine } from '@models/interfaces/game/building/mine';
 
-import { UnitType } from '../../../../shipyard/model/unit';
-import { Mine } from '../../model/mine';
 import { MineService } from '../../services/mine.service';
 
 @Component({

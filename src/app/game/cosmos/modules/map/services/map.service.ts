@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { GameMapEvents } from '@src/app/domain/endpoints/map/game-map-events.map';
+import { GameMapEvents } from '@models/enums/game-map-events.map';
+import { GameMapData } from '@models/interfaces/game/game-map/game-map-data';
 
-import { GameMapData } from './../../../../../domain/endpoints/map/game-map-data';
-import { SocketService } from './../../../../../domain/services/socket.service';
+import { SocketService } from '@domain/socket.service';
 
 @Injectable({
   providedIn: 'any',

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { SocketService } from '@src/app/domain/services/socket.service';
+import { SocketService } from '@src/app/domain/socket.service';
 
 @Component({
   selector: 'app-logout-page',

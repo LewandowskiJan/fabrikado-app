@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 
+import { HexagonCoordinates } from '@models/interfaces/game/coordinates/hexagon-coordinates';
+import { SelectedHexagonIds } from '@models/interfaces/game/game-map/selected-hexagon-ids';
+
 import { Hexagon } from '../../model/hexagon';
 import { hexagonRouteDraw } from '../../model/path/hexagon-util';
-import { SelectedHexagonIds } from '../mouse-service/mouse-handler.service';
-import { HexagonCoordinates } from './../../model/interfaces/hexagon-coordinates';
 import { Path } from './../../model/path/path';
 
 @Injectable({

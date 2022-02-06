@@ -1,14 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { SideMenuService } from '../../services/side-menu.service';
+import { VisibleOptionFormData } from '@models/interfaces/game/game-map/visible-option-form-data';
 
-export interface VisibleOptionFormData {
-  fleet: boolean;
-  notes: boolean;
-  friends: boolean;
-  quickNavigation: boolean;
-}
+import { SideMenuService } from '../../services/side-menu.service';
 
 @Component({
   selector: 'app-side-menu-checkbox',
@@ -32,7 +27,6 @@ export class SideMenuCheckboxComponent implements OnInit {
   ngOnInit(): void {
     this.visibleOptionForm.valueChanges.subscribe(
       (visibleOptionFormData: VisibleOptionFormData) => {
-        console.log(visibleOptionFormData);
         this.sideMenuService.setData(visibleOptionFormData);
       }
     );

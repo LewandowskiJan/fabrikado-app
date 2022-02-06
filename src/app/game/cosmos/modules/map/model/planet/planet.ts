@@ -1,17 +1,7 @@
 import { ElementRef } from '@angular/core';
 
-export interface PlanetSocketData {
-  armySize: number;
-  defenceLevel: number;
-  isUnderSiege: boolean;
-  moonsNumber: number;
-  planetName: string;
-  planetSize: number;
-  planetType: string;
-  universe: string;
-  galactic: string;
-  solarSystem: string;
-}
+import { PlanetSocketDataForView } from '@models/interfaces/game/planet/planet-socket-data-for-view';
+
 export class Planet {
   public canvas: ElementRef<HTMLCanvasElement>;
   public ctx: CanvasRenderingContext2D;
@@ -22,7 +12,7 @@ export class Planet {
   public lineWidth: number = 1;
   public clicked: boolean = false;
   public image: HTMLImageElement | undefined;
-  public data: PlanetSocketData | undefined;
+  public data: PlanetSocketDataForView | undefined;
 
   constructor(
     canvas: ElementRef<HTMLCanvasElement>,
@@ -32,7 +22,7 @@ export class Planet {
     isSun: boolean = false,
     isGalactic: boolean = false,
     isUniverse: boolean = false,
-    data?: PlanetSocketData
+    data?: PlanetSocketDataForView
   ) {
     this.x = x;
     this.y = y;

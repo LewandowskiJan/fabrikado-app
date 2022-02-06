@@ -8,6 +8,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { LayoutModule } from '@src/app/shared/layout/layout.module';
 
+import { SideContextMenuForSelectionModule } from '../side-context-menu-for-selection/side-context-menu-for-selection.module';
 import { RightClickMenuModule } from './../right-click-menu/right-click-menu.module';
 import { DialogComponent } from './container/dialog/dialog.component';
 import { GameMapBoxComponent } from './container/game-map-box/game-map-box.component';
@@ -31,6 +32,7 @@ import { SideMenuModule } from './modules/side-menu/side-menu.module';
     RightClickMenuModule,
     DragDropModule,
     MatCheckboxModule,
+    SideContextMenuForSelectionModule,
   ],
 })
 export class MapModule {}

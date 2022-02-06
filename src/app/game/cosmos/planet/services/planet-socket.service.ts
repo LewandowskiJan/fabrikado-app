@@ -3,24 +3,19 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { shareReplay, tap } from 'rxjs/operators';
 
-import { BuildingType } from '@src/app/shared/models/buildingType';
+import { BuildingEvents } from '@models/enums/building-events.map';
+import { BuildingType } from '@models/enums/building-type';
+import { PlanetEvents } from '@models/enums/planet-events.map';
+import { PlayerEvents } from '@models/enums/player-events.map';
+import { ResourceEvents } from '@models/enums/resource-events.map';
+import { UnitEvents } from '@models/enums/unit-events.map';
+import { UnitType } from '@models/enums/unit-type';
+import { Coordinates } from '@models/interfaces/game/coordinates/coordinates';
+import { PlanetSocketData } from '@models/interfaces/game/planet/planet-socket-data';
 
-import { BuildingEvents } from '@domain/endpoints/buildings/building-events.map';
-import { PlanetSocketData } from '@domain/endpoints/planet/planet-data';
-import { PlanetEvents } from '@domain/endpoints/planet/planet-events.map';
-import { PlayerEvents } from '@domain/endpoints/player/player-events.map';
-import { ResourceEvents } from '@domain/endpoints/resource/resource-events.map';
-import { UnitEvents } from '@domain/endpoints/unit/unit-events.map';
-import { SocketService } from '@domain/services/socket.service';
+import { SocketService } from '@domain/socket.service';
 
-import { UnitType } from '../../modules/shipyard/model/unit';
 import { PlanetService } from './planet.service';
-
-export interface Coordinates {
-  galacticIndex: number;
-  solarSystemIndex: number;
-  planetIndex: number;
-}
 
 @Injectable({
   providedIn: 'root',
@@ -47,7 +42,8 @@ export class PlanetSocketService {
     return this.socketService.listeningOnEvent<any>(PlayerEvents.PLAYER_READ);
   }
 
-  public preparePlanet(id: string): void {
+  public preparePlanet(id: string | undefined): void {
+    if (!id) return;
     this.socketService.sendToEvent(PlanetEvents.PLANET_READ, id);
   }
 

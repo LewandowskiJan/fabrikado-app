@@ -2,11 +2,10 @@ import { Component } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
+import { MappedResource } from '@models/interfaces/game/resources/mapped-resource';
+
 import { ResourceShortCode } from '../../model/resource-short-code-map';
-import {
-  MappedResource,
-  ResourcesService,
-} from './../../services/resources.service';
+import { ResourcesService } from './../../services/resources.service';
 
 @Component({
   selector: 'app-resources',

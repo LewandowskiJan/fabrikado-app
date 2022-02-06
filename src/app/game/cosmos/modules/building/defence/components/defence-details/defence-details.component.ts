@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Unit } from '../../../../shipyard/model/unit';
+import { UnitSocketData } from '@models/interfaces/game/unit/unit-socket-data';
 
 @Component({
   selector: 'app-defence-details',
@@ -8,5 +8,5 @@ import { Unit } from '../../../../shipyard/model/unit';
   styleUrls: ['./defence-details.component.scss'],
 })
 export class DefenceDetailsComponent {
-  @Input() currentDefenceUnit: Unit | undefined;
+  @Input() currentDefenceUnit: UnitSocketData | undefined;
 }

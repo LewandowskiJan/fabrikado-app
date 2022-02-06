@@ -1,0 +1,32 @@
+<div
+  [@openClose]="
+    (currentFleetContext$ | async) !== gameMapContext.DEFAULT
+      ? 'open'
+      : 'closed'
+  "
+  [@change]="
+    (currentFleetContext$ | async) === gameMapContext.SELECTED_FLEET ||
+    (currentFleetContext$ | async) === gameMapContext.SELECTED_FLEET
+      ? 'change'
+      : ''
+  "
+  class="side-context-menu-for-selection-container"
+>
+  <button (click)="close()" (keydown)="close()">close</button>
+  <ng-container *ngIf="planetData$ | async as data">
+    <h4>{{ data?.name }}</h4>
+    <p>
+      {{ data?.coordinates?.galacticIndex }} |
+      {{ data?.coordinates?.solarSystemIndex }} |
+      {{ data?.coordinates?.planetIndex }}
+    </p>
+    <p>size: {{ data?.size }}</p>
+    <p>Avg temp: {{ data?.averageTemperature }} st C</p>
+    <p>Max temp: {{ data?.maxTemperature }} st C</p>
+    <p>Min temp: {{ data?.minTemperature }} st C</p>
+    <p>Satellite strength: {{ data?.satStrength }}</p>
+    <p></p>
+    <p></p>
+    <p></p>
+  </ng-container>
+</div>

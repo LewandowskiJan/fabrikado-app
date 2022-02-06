@@ -4,11 +4,12 @@ import { Router } from '@angular/router';
 import { from, Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 
-import { SocketService } from '@src/app/domain/services/socket.service';
-import { UserData } from '@src/app/domain/services/user/user-data';
+import { UserData } from '@models/interfaces/domain/user-data';
+
+import { RestService } from '@src/app/domain/rest.service';
+import { SocketService } from '@src/app/domain/socket.service';
 
 import { Credentials } from '../model/credentials';
-import { RestService } from './../../../domain/services/rest.service';
 import { CosmosService } from './../../../game/cosmos/services/cosmos.service';
 
 @Injectable({

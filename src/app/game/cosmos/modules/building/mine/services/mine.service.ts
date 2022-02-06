@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { distinctUntilChanged, map, shareReplay } from 'rxjs/operators';
 
-import { PlanetSocketService } from '@src/app/game/cosmos/planet/services/planet-socket.service';
-import { BuildingType } from '@src/app/shared/models/buildingType';
+import { BuildingType } from '@models/enums/building-type';
+import { UnitType } from '@models/enums/unit-type';
+import { Mine } from '@models/interfaces/game/building/mine';
+import { PlanetSocketData } from '@models/interfaces/game/planet/planet-socket-data';
 
-import { UnitType } from '../../../shipyard/model/unit';
-import { Mine } from '../model/mine';
-import { PlanetSocketData } from './../../../../../../domain/endpoints/planet/planet-data';
+import { PlanetSocketService } from '@src/app/game/cosmos/planet/services/planet-socket.service';
 
 const buildingImageByTypeMap: Map<BuildingType, string> = new Map([
   [BuildingType.CRYSTAL_MINE, 'structure3'],

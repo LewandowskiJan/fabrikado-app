@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Mine } from './../../model/mine';
+import { Mine } from '@models/interfaces/game/building/mine';
 
 @Component({
   selector: 'app-mine-detail',

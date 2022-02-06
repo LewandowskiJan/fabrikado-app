@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { FleetData } from './../../../../../../domain/endpoints/fleets/fleet-data';
+import { FleetData } from '@models/interfaces/game/unit/fleet-data';
+
 import { FleetService } from './../../services/fleet.service';
 
 @Component({

@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Unit, UnitType } from '@src/app/game/cosmos/modules/shipyard/model/unit';
-import { BuildingType } from '@src/app/shared/models/buildingType';
-
-import { Building } from './../../../models/building';
+import { BuildingType } from '@models/enums/building-type';
+import { UnitType } from '@models/enums/unit-type';
+import { BuildingSocketData } from '@models/interfaces/game/building/building-socket-data';
+import { UnitSocketData } from '@models/interfaces/game/unit/unit-socket-data';
 
 @Component({
   selector: 'app-structure',
@@ -11,7 +11,7 @@ import { Building } from './../../../models/building';
   styleUrls: ['./structure.component.scss'],
 })
 export class StructureComponent {
-  @Input() public building: Building | Unit | undefined;
+  @Input() public building: BuildingSocketData | UnitSocketData | undefined;
   @Output() public selectEmitter: EventEmitter<
     BuildingType | UnitType | undefined
   > = new EventEmitter();

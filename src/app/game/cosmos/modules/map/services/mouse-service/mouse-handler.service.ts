@@ -1,23 +1,10 @@
 import { Injectable } from '@angular/core';
-import {
-  MatDialog,
-  MatDialogConfig,
-  MatDialogRef,
-} from '@angular/material/dialog';
 
-import { DialogComponent } from '../../container/dialog/dialog.component';
+import { SelectedHexagonIds } from '@models/interfaces/game/game-map/selected-hexagon-ids';
+
 import { DrawService } from '../canvas/draw.service';
 import { Hexagon } from './../../model/hexagon';
 import { ClickService } from './click.service';
-
-export enum MouseButton {
-  LEFT = 0,
-  RIGHT = 2,
-}
-export interface SelectedHexagonIds {
-  first: string | undefined;
-  second: string | undefined;
-}
 
 @Injectable({
   providedIn: 'root',
@@ -31,7 +18,7 @@ export class MouseHandlerService {
 
   constructor(
     private clickService: ClickService,
-    private drawService: DrawService,
+    private drawService: DrawService
   ) {}
 
   public clear(): void {

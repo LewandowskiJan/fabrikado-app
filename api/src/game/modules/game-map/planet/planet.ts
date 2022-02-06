@@ -215,9 +215,8 @@ export class Planet extends PlanetAbstract {
   }
 
   private upgradeMiningForce(building: Building): void {
-    if (!building.miningResource) {
-      return;
-    }
+    if (!building.miningResource) return;
+
     const miningResource: Partial<Resource> = building.miningResource;
 
     if (miningResource.metal === 0) delete miningResource.metal;

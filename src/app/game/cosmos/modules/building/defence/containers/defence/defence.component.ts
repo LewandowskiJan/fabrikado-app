@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { BuildingType } from '@src/app/shared/models/buildingType';
+import { BuildingType } from '@models/enums/building-type';
+import { UnitType } from '@models/enums/unit-type';
+import { UnitSocketData } from '@models/interfaces/game/unit/unit-socket-data';
 
-import { Unit, UnitType } from '../../../../shipyard/model/unit';
 import { DefenceService } from './../../services/defence.service';
 
 @Component({
@@ -13,10 +14,10 @@ import { DefenceService } from './../../services/defence.service';
   styleUrls: ['./defence.component.scss'],
 })
 export class DefenceComponent {
-  public defenceUnits$: Observable<Unit[] | undefined> =
+  public defenceUnits$: Observable<UnitSocketData[] | undefined> =
     this.defenceService.defenceUnits$;
 
-  public currentDefenceUnit$: Observable<Unit | undefined> =
+  public currentDefenceUnit$: Observable<UnitSocketData | undefined> =
     this.defenceService.currentDefenceUnit$;
 
   constructor(private defenceService: DefenceService) {}
