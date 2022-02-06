@@ -2,8 +2,9 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { PlanetService } from '@src/app/game/cosmos/planet/services/planet.service';
 import { GameMapContext } from '@models/enums/game-map-context';
+
+import { PlanetService } from '@src/app/game/cosmos/planet/services/planet.service';
 
 import { ContextService } from './../../../../services/context/context.service';
 import { NavigationPanelService } from './../../services/navigation-panel.service';

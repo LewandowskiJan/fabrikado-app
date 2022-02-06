@@ -3,7 +3,7 @@
     <app-fleet-favorites></app-fleet-favorites>
   </div>
   <div class="FleetName">
-    <app-fleet-name></app-fleet-name>
+    <app-fleet-name [name]="fleetShortcutData?.name"></app-fleet-name>
   </div>
   <div class="FleetPosition"></div>
   <div class="FleetIcon">
@@ -13,9 +13,13 @@
     <app-fleet-type-icon></app-fleet-type-icon>
   </div>
   <div class="FleetFuel">
-    <app-fleet-fuel-level></app-fleet-fuel-level>
+    <app-fleet-fuel-level
+      [fuelLevel]="fleetShortcutData.fuelLevel"
+    ></app-fleet-fuel-level>
   </div>
   <div class="AdmiralAvatar">
-    <app-fleet-admiral-avatar></app-fleet-admiral-avatar>
+    <app-fleet-admiral-avatar
+      [admiralAvatar]="fleetShortcutData?.admiralAvatar"
+    ></app-fleet-admiral-avatar>
   </div>
 </div>
