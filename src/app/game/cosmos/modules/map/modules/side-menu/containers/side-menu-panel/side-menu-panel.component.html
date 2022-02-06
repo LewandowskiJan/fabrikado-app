@@ -6,12 +6,11 @@
         [ngClass]="{ class1: !visible }"
         cdkDragLockAxis="y"
         cdkDrag
-        
       >
         <mat-expansion-panel-header *ngIf="(accordions$ | async)[panel.type]">
           <mat-panel-description>{{ panel.description }}</mat-panel-description>
         </mat-expansion-panel-header>
-        <app-testcontainer *ngIf="visible"></app-testcontainer>
+        <app-fleet-shortcut *ngIf="panel.type === 'fleet'"></app-fleet-shortcut>
       </mat-expansion-panel>
     </mat-accordion>
   </div>

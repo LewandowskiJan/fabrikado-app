@@ -11,6 +11,7 @@ import { MatMenuModule } from '@angular/material/menu';
 
 import { AngularResizeEventModule } from 'angular-resize-event';
 
+import { FleetShortcutModule } from './../fleet-shortcut/fleet-shortcut.module';
 import { BottomBarComponent } from './containers/bottom-bar/bottom-bar.component';
 import { SideMenuComponent } from './containers/side-menu/side-menu.component';
 import { SideMenuCheckboxComponent } from './containers/side-menu-checkbox/side-menu-checkbox.component';
@@ -40,6 +41,7 @@ import { TopbarButtonsComponent } from './containers/topbar-buttons/topbar-butto
     MatIconModule,
     AngularResizeEventModule,
     ReactiveFormsModule,
+    FleetShortcutModule,
   ],
 })
 export class SideMenuModule {}
