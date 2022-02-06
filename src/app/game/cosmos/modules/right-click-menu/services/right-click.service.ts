@@ -5,14 +5,16 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 
-import { GameMapContext } from '@src/app/shared/models/enums/game-map-context';
+import { Observable, ReplaySubject, Subject } from 'rxjs';
+
+import { GameMapContext } from '@models/enums/game-map-context';
+import { RightClickMenuEvent } from '@models/enums/right-click-menu-event';
+import { RightClickMenuType } from '@models/enums/right-click-menu-type';
+import { ElementsInsideHexagonData } from '@models/interfaces/game/game-map/elements-inside-hexagon-data';
+import { RightClickMenuModel } from '@models/interfaces/game/game-map/right-click-menu.model';
 
 import { DialogComponent } from '../../map/container/dialog/dialog.component';
-import { ElementsInsideHexagonData, Hexagon } from '../../map/model/hexagon';
 import { rightClickMenuConfiguration } from '../configuration/right-click-menu.configuration';
-import { RightClickMenuModel } from '../model/right-click-menu.model';
-import { RightClickMenuEvent } from '../model/right-click-menu-event';
-import { RightClickMenuType } from '../model/right-click-menu-type';
 import { ContextService } from './../../map/services/context/context.service';
 
 @Injectable({
@@ -21,6 +23,9 @@ import { ContextService } from './../../map/services/context/context.service';
 export class RightClickService {
   public title: string = 'context-menu';
   public style: any | undefined;
+
+  public data$: Subject<ElementsInsideHexagonData | null> = new ReplaySubject();
+
   public data: ElementsInsideHexagonData | undefined;
 
   public isDisplayContextMenu: boolean | undefined;
@@ -39,6 +44,14 @@ export class RightClickService {
     this.rightClickMenuPositionX = event.clientX;
     this.rightClickMenuPositionY = event.clientY;
     this.style = this.getRightClickMenuStyle();
+  }
+
+  public getData(): Observable<ElementsInsideHexagonData | null> {
+    return this.data$.asObservable();
+  }
+
+  public setData(data: ElementsInsideHexagonData | null): void {
+    this.data$.next(data);
   }
 
   public getMenuItems(
@@ -66,7 +79,6 @@ export class RightClickService {
   }
 
   public handleMenuItemClick(event: any): void {
-    console.log(event);
     switch (event.data) {
       case RightClickMenuEvent.RESEARCH:
         break;
@@ -74,12 +86,14 @@ export class RightClickService {
         this.contextService.setCurrentGameMapContext(
           GameMapContext.SELECTED_FLEET
         );
+        this.data$.next(this.data);
         break;
       case RightClickMenuEvent.PLANET_OPTION:
         this.contextService.setCurrentGameMapContext(
           GameMapContext.SELECTED_PLANET
         );
-        this.data && this.openDialog(this.data);
+        this.data$.next(this.data);
+        // this.data && this.openDialog(this.data);
         break;
       default:
     }

@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
 
+import { ResourceElement } from '@models/interfaces/game/resources/resource-element';
+
 import {
   ResourceShortCode,
   resourceShortCodeMap,
 } from '../../model/resource-short-code-map';
-import { ResourceElement } from '../../services/resources.service';
 
 @Component({
   selector: 'app-resource-element',

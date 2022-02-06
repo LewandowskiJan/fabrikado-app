@@ -4,9 +4,9 @@ import { CanLoad, Router } from '@angular/router';
 import { from, Observable, of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 
-import { UserData } from '@src/app/domain/services/user/user-data';
+import { UserData } from '@models/interfaces/domain/user-data';
 
-import { RestService } from './../../../../domain/services/rest.service';
+import { RestService } from './../../../../domain/rest.service';
 import { CosmosService } from './../cosmos.service';
 
 @Injectable({

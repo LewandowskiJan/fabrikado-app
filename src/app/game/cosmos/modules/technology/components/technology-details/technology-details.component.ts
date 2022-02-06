@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Technology } from '../../model/technology';
+import { Technology } from '../../../../../../shared/models/types/technology';
 
 @Component({
   selector: 'app-technology-details',

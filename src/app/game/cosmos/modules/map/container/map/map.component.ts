@@ -12,18 +12,20 @@ import {
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { RightClickMenuModel } from '../../../right-click-menu/model/right-click-menu.model';
+import { FleetSprite } from '@models/enums/fleet-sprite';
+import { KeyboardCode } from '@models/enums/keyboard.config';
+import { MouseButton } from '@models/enums/mouse-button';
+import { GameMapData } from '@models/interfaces/game/game-map/game-map-data';
+import { RightClickMenuModel } from '@models/interfaces/game/game-map/right-click-menu.model';
+
 import { RightClickService } from '../../../right-click-menu/services/right-click.service';
-import { FleetMapObject, FleetSprite } from '../../model/fleet/fleet';
+import { FleetMapObject } from '../../model/fleet/fleet';
 import { Hexagon } from '../../model/hexagon';
+import { HotKeyPanel } from '../../model/hot-key-panel/hot-key-panel';
 import { Path } from '../../model/path/path';
+import { SpecialMapObject } from '../../model/special-map-object/special-map-object';
+import { MapService } from '../../services/map.service';
 import { MouseHandlerService } from '../../services/mouse-service/mouse-handler.service';
-import { KeyboardCode } from '../configuration/keyboard.config';
-import { GameMapData } from './../../../../../../domain/endpoints/map/game-map-data';
-import { HotKeyPanel } from './../../model/hot-key-panel/hot-key-panel';
-import { SpecialMapObject } from './../../model/special-map-object/special-map-object';
-import { MapService } from './../../services/map.service';
-import { MouseButton } from './../../services/mouse-service/mouse-handler.service';
 
 const mousemoveProofComponentSet: Set<string> = new Set([
   'APP-NAVIGATION-PANEL',
@@ -129,13 +131,13 @@ export class MapComponent
       const hexagon: Hexagon | undefined = this.findHexagon(event);
 
       if (!hexagon) return;
-      if (hexagon.isGalactic && hexagon.position.solarSystem) {
-        this.navigateToNextSolarSystem(hexagon.position.solarSystem);
+      if (hexagon.isGalactic && hexagon.position.solarSystemIndex) {
+        this.navigateToNextSolarSystem(hexagon.position.solarSystemIndex);
         return;
       }
 
-      if (hexagon.isUniverse && hexagon.position.galactic) {
-        this.navigateToNextSolarSystem(hexagon.position.galactic);
+      if (hexagon.isUniverse && hexagon.position.galacticIndex) {
+        this.navigateToNextSolarSystem(hexagon.position.galacticIndex);
         return;
       }
 
@@ -252,13 +254,13 @@ export class MapComponent
   private navigateUnder(): void {
     const hexagon: Hexagon = this.hexagons[0];
 
-    if (hexagon.position.galactic && hexagon.position.universe) {
+    if (hexagon.position.galacticIndex && hexagon.position.universeIndex) {
       if (hexagon.isGalactic) {
-        this.navigateToNextSolarSystem(hexagon.position.universe);
+        this.navigateToNextSolarSystem(hexagon.position.universeIndex);
         this.size = 1.5;
       }
       if (!hexagon.isGalactic && !hexagon.isUniverse) {
-        this.navigateToNextSolarSystem(hexagon.position.galactic);
+        this.navigateToNextSolarSystem(hexagon.position.galacticIndex);
         this.size = 1.5;
       }
     }
@@ -297,9 +299,9 @@ export class MapComponent
           gameMapData.attributes,
           gameMapData.name,
           {
-            solarSystem: gameMapData.solarSystem,
-            galactic: gameMapData.galactic,
-            universe: gameMapData.universe,
+            solarSystemIndex: gameMapData.solarSystem,
+            galacticIndex: gameMapData.galactic,
+            universeIndex: gameMapData.universe,
           },
           gameMapData.isGalactic,
           gameMapData.isUniverse,

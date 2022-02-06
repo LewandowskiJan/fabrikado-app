@@ -4,8 +4,8 @@ import { EMPTY, of } from 'rxjs';
 
 import { MockProvider } from 'ng-mocks';
 
-import { Building } from './../../../../../../models/building';
-import { Resource } from './../../../../../../models/resource';
+import { Building } from './../../../../../../@models/building';
+import { Resource } from './../../../../../../@models/resource';
 import { MineService } from './../../services/mine.service';
 import { MineComponent } from './mine.component';
 

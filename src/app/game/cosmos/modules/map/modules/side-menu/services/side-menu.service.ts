@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
-import { VisibleOptionFormData } from './../containers/side-menu-checkbox/side-menu-checkbox.component';
+import { VisibleOptionFormData } from '@models/interfaces/game/game-map/visible-option-form-data';
 
 @Injectable({
   providedIn: 'root',

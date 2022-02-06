@@ -19,8 +19,6 @@ export class SideMenuPanelComponent implements AfterContentInit {
   constructor(private sideMenuService: SideMenuService) {}
 
   ngAfterContentInit(): void {
-    console.log('abcd');
-
     setTimeout(() => {
       this.visible = true;
     }, 1000);

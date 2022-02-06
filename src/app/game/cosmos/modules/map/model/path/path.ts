@@ -21,7 +21,6 @@ export class Path {
   ) {
     this.pathsCoordinates = pathsCoordinates;
     this.ctx = ctx;
-    console.log(pathsCoordinates);
   }
 
   public hover(): void {

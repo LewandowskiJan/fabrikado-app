@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Unit } from '../../model/unit';
+import { UnitSocketData } from '@models/interfaces/game/unit/unit-socket-data';
 
 @Component({
   selector: 'app-shipyard-details',
@@ -8,5 +8,5 @@ import { Unit } from '../../model/unit';
   styleUrls: ['./shipyard-details.component.scss'],
 })
 export class ShipyardDetailsComponent {
-  @Input() unit: Unit | undefined;
+  @Input() unit: UnitSocketData | undefined;
 }

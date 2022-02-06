@@ -1,7 +1,7 @@
 import { Server, Socket } from 'socket.io';
 import { ExtendedError } from 'socket.io/dist/namespace';
 
-import { BuildingEvents } from './../../../src/app/domain/endpoints/buildings/building-events.map';
+import { BuildingEvents } from '../../../src/app/shared/models/enums/building-events.map';
 import { addTestUserToDatabase } from './../db/test/user.mock';
 import {
   AllEvents,

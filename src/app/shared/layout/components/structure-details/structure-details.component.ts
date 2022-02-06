@@ -2,8 +2,8 @@ import { Component, Input } from '@angular/core';
 
 import { Observable, of } from 'rxjs';
 
-import { Unit } from '@src/app/game/cosmos/modules/shipyard/model/unit';
-import { Building } from '@src/app/shared/models/building';
+import { BuildingSocketData } from '@models/interfaces/game/building/building-socket-data';
+import { UnitSocketData } from '@models/interfaces/game/unit/unit-socket-data';
 
 @Component({
   selector: 'app-structure-details',
@@ -11,6 +11,7 @@ import { Building } from '@src/app/shared/models/building';
   styleUrls: ['./structure-details.component.scss'],
 })
 export class StructureDetailsComponent {
-  @Input() public buildingDetails$: Observable<Building | Unit | undefined> =
-    of(undefined);
+  @Input() public buildingDetails$: Observable<
+    BuildingSocketData | UnitSocketData | undefined
+  > = of(undefined);
 }

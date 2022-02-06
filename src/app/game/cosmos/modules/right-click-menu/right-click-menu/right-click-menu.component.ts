@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { RightClickMenuModel } from '../model/right-click-menu.model';
+import { RightClickMenuModel } from '@models/interfaces/game/game-map/right-click-menu.model';
 
 @Component({
   selector: 'app-right-click-menu',

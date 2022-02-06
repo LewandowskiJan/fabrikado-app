@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { SocketService } from '@src/app/domain/services/socket.service';
+import { SocketService } from '@src/app/domain/socket.service';
 
 export enum LogoutLocalization {
   DEFAULT = 'login-page',

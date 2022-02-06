@@ -1,26 +1,18 @@
 import { ElementRef } from '@angular/core';
 
+import { Coordinates } from '@models/interfaces/game/coordinates/coordinates';
+import { HexagonCoordinates } from '@models/interfaces/game/coordinates/hexagon-coordinates';
+import { ElementsInsideHexagonData } from '@models/interfaces/game/game-map/elements-inside-hexagon-data';
+
 import { FleetMapObject } from './fleet/fleet';
-import { HexagonCoordinates } from './interfaces/hexagon-coordinates';
 import { Planet } from './planet/planet';
 
-export interface ElementsInsideHexagonData {
-  planet?: Planet;
-  fleet: any[];
-  isBattle: boolean;
-}
-
-export interface Position {
-  solarSystem?: string;
-  galactic?: string;
-  universe?: string;
-}
 export class Hexagon {
   public canvas: ElementRef<HTMLCanvasElement>;
   public ctx: CanvasRenderingContext2D;
   public polygonPath: Path2D | undefined;
 
-  public position: Position;
+  public position: Coordinates;
 
   public name: string;
   public size: number = 60;
@@ -50,7 +42,7 @@ export class Hexagon {
     ctx: CanvasRenderingContext2D,
     attributes: HexagonCoordinates,
     name: string,
-    position: Position,
+    position: Coordinates,
     isGalactic: boolean,
     isUniverse: boolean,
     elementInside?: any

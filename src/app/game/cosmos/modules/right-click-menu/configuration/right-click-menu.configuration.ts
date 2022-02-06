@@ -1,6 +1,6 @@
-import { RightClickMenuModel } from '../model/right-click-menu.model';
-import { RightClickMenuEvent } from '../model/right-click-menu-event';
-import { RightClickMenuType } from '../model/right-click-menu-type';
+import { RightClickMenuEvent } from '@models/enums/right-click-menu-event';
+import { RightClickMenuType } from '@models/enums/right-click-menu-type';
+import { RightClickMenuModel } from '@models/interfaces/game/game-map/right-click-menu.model';
 
 export const rightClickMenuConfiguration: Map<
   RightClickMenuType,

@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { distinctUntilChanged, map, shareReplay } from 'rxjs/operators';
 
-import { PlanetSocketData } from '@src/app/domain/endpoints/planet/planet-data';
+import { BuildingType } from '@models/enums/building-type';
+import { UnitType } from '@models/enums/unit-type';
+import { PlanetSocketData } from '@models/interfaces/game/planet/planet-socket-data';
+import { Technology } from '@models/types/technology';
 
 import { PlanetSocketService } from '../../../planet/services/planet-socket.service';
-import { UnitType } from '../../shipyard/model/unit';
-import { BuildingType } from './../../../../../shared/models/buildingType';
-import { Technology } from './../model/technology';
 
 const buildingImageByTypeMap: Map<BuildingType, string> = new Map([
   [BuildingType.COMBUSTION_DRIVE, 'structure3'],

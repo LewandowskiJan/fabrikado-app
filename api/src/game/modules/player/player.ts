@@ -1,6 +1,6 @@
 import { Server, Socket } from 'socket.io';
 
-import { BuildingEvents } from './../../../../../src/app/domain/endpoints/buildings/building-events.map';
+import { BuildingEvents } from '../../../../../src/app/shared/models/enums/building-events.map';
 import { BuildingManager } from './../../../sockets/components/buildings/building-socket.manager';
 import { GameMapManager } from './../../../sockets/components/map/game-map-socket.manager';
 import { PlanetManager } from './../../../sockets/components/planet/planet-socket.manager';

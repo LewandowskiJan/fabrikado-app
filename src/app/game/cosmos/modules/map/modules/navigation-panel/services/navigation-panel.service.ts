@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { SocketService } from '@src/app/domain/services/socket.service';
+import { PlanetEvents } from '@models/enums/planet-events.map';
 
-import { PlanetEvents } from './../../../../../../../domain/endpoints/planet/planet-events.map';
+import { SocketService } from '@src/app/domain/socket.service';
 
 @Injectable({
   providedIn: 'root',

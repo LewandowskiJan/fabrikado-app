@@ -4,7 +4,8 @@ import { of } from 'rxjs';
 
 import { MockPipe, MockProvider } from 'ng-mocks';
 
-import { Resource } from '@src/app/shared/models/resource';
+import { ResourceData } from '@models/interfaces/game/resources/resource-data';
+
 import { NumberDisplayPipe } from '@src/app/shared/pipes/number-display/number-display.pipe';
 
 import { ResourcesService } from '../../services/resources.service';
@@ -29,7 +30,7 @@ describe('ResourcesComponent', () => {
               crystal: 10,
               deuterium: 10,
               energy: 10,
-            } as Resource),
+            } as ResourceData),
         }),
       ],
     }).compileComponents();

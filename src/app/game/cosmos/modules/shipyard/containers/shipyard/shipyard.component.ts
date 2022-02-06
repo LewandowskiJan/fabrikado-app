@@ -2,8 +2,10 @@ import { Component } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { BuildingType } from './../../../../../../shared/models/buildingType';
-import { Unit, UnitType } from './../../model/unit';
+import { BuildingType } from '@models/enums/building-type';
+import { UnitType } from '@models/enums/unit-type';
+import { UnitSocketData } from '@models/interfaces/game/unit/unit-socket-data';
+
 import { ShipyardService } from './../../services/shipyard.service';
 
 @Component({
@@ -12,9 +14,10 @@ import { ShipyardService } from './../../services/shipyard.service';
   styleUrls: ['./shipyard.component.scss'],
 })
 export class ShipyardComponent {
-  public units$: Observable<Unit[] | undefined> = this.shipyardService.units$;
+  public units$: Observable<UnitSocketData[] | undefined> =
+    this.shipyardService.units$;
 
-  public currentUnit$: Observable<Unit | undefined> =
+  public currentUnit$: Observable<UnitSocketData | undefined> =
     this.shipyardService.currentUnit$;
 
   constructor(private shipyardService: ShipyardService) {}

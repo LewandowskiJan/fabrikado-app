@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
-import { GameMapContext } from '@src/app/shared/models/enums/game-map-context';
+import { GameMapContext } from '@models/enums/game-map-context';
 
 import { FleetContextService } from './fleet-context/fleet-context.service';
 import { PlanetContextService } from './planet-context/planet-context.service';

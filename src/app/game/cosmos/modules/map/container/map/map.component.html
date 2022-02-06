@@ -20,4 +20,7 @@
   [contextMenuItems]="contextMenuContent"
   (onContextMenuItemClick)="handleMenuItemClick($event)"
 ></app-right-click-menu>
-<app-navigation-panel (navigateToPlanet)="navigationPanelAction($event)"></app-navigation-panel>
+<app-navigation-panel
+  (navigateToPlanet)="navigationPanelAction($event)"
+></app-navigation-panel>
+<app-side-context-menu-for-selection></app-side-context-menu-for-selection>

@@ -3,21 +3,13 @@ import { Injectable } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 
-import { PlanetSocketData } from '@src/app/domain/endpoints/planet/planet-data';
+import { ResourceData } from 'api/src/sockets/domain/endpoints/resource/resource-data';
+
 import { PlanetSocketService } from '@src/app/game/cosmos/planet/services/planet-socket.service';
-import { Resource } from '@src/app/shared/models/resource';
+import { PlanetSocketData } from '@models/interfaces/game/planet/planet-socket-data';
+import { MappedResource } from '@models/interfaces/game/resources/mapped-resource';
 import { NumberDisplayPipe } from '@src/app/shared/pipes/number-display/number-display.pipe';
 
-export interface ResourceElement {
-  value: string | number;
-  capacity: string | number;
-}
-export interface MappedResource {
-  metal: ResourceElement;
-  deuterium: ResourceElement;
-  energy: ResourceElement;
-  crystal: ResourceElement;
-}
 @Injectable({
   providedIn: 'root',
 })
@@ -32,7 +24,7 @@ export class ResourcesService {
       this.resourceListener(),
       this.capacityListener(),
     ]).pipe(
-      map(([resource, capacity]: [Resource, Resource]) =>
+      map(([resource, capacity]: [ResourceData, ResourceData]) =>
         this.mapResource(resource, capacity)
       ),
       distinctUntilChanged((prev: MappedResource, curr: MappedResource) =>
@@ -41,19 +33,22 @@ export class ResourcesService {
     );
   }
 
-  public resourceListener(): Observable<Resource> {
+  public resourceListener(): Observable<ResourceData> {
     return this.planetSocketService
       .onPlanetListening()
       .pipe(map((planet: PlanetSocketData) => planet.resources));
   }
 
-  public capacityListener(): Observable<Resource> {
+  public capacityListener(): Observable<ResourceData> {
     return this.planetSocketService
       .onPlanetListening()
       .pipe(map((planet: PlanetSocketData) => planet.resourcesCapacity));
   }
 
-  private mapResource(resource: Resource, capacity: Resource): MappedResource {
+  private mapResource(
+    resource: ResourceData,
+    capacity: ResourceData
+  ): MappedResource {
     return {
       metal: {
         value: this.numberDisplayPipe.transform(resource.metal, 'bold-suffix'),

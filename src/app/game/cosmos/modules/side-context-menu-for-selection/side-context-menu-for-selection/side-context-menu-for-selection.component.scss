@@ -1,0 +1,14 @@
+$shadow-color-blue-green: #009971;
+
+:host {
+  display: block;
+}
+
+.side-context-menu-for-selection-container {
+  height: calc(100vh - 40px);
+  background-color: rgba($color: $shadow-color-blue-green, $alpha: .4);
+  width: 20vw;
+  top: 40px;
+  position: absolute;
+  left: -20vw;
+}

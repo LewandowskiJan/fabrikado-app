@@ -3,11 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { distinctUntilChanged, map, shareReplay } from 'rxjs/operators';
 
-import { PlanetSocketData } from '@src/app/domain/endpoints/planet/planet-data';
-import { PlanetSocketService } from '@src/app/game/cosmos/planet/services/planet-socket.service';
-import { BuildingType } from '@src/app/shared/models/buildingType';
+import { BuildingType } from '@models/enums/building-type';
+import { UnitType } from '@models/enums/unit-type';
+import { PlanetSocketData } from '@models/interfaces/game/planet/planet-socket-data';
+import { UnitSocketData } from '@models/interfaces/game/unit/unit-socket-data';
 
-import { Unit, UnitType } from '../../../shipyard/model/unit';
+import { PlanetSocketService } from '@src/app/game/cosmos/planet/services/planet-socket.service';
 
 const defenceUnitImageByTypeMap: Map<UnitType, string> = new Map([
   [UnitType.ROCKET_LAUNCHER, 'structure'],
@@ -25,24 +26,24 @@ const defenceUnitImageByTypeMap: Map<UnitType, string> = new Map([
   providedIn: 'root',
 })
 export class DefenceService {
-  public defenceUnits$: Observable<Unit[]>;
+  public defenceUnits$: Observable<UnitSocketData[]>;
 
-  public currentDefenceUnit$: Observable<Unit | undefined> = of(undefined);
+  public currentDefenceUnit$: Observable<UnitSocketData | undefined> = of(undefined);
 
   constructor(private socketPlanetService: PlanetSocketService) {
     this.defenceUnits$ = this.socketPlanetService.onPlanetListening().pipe(
       map((planet: PlanetSocketData) => {
-        return planet.defence.map((unit: Unit) => {
+        return planet.defence.map((unit: UnitSocketData) => {
           return {
             ...unit,
             image: defenceUnitImageByTypeMap.get(unit.type) || 'structure',
           };
         });
       }),
-      distinctUntilChanged((prev: Unit[], curr: Unit[]) => {
-        return curr.every((currUnit: Unit) => {
-          const previousUnit: Unit | undefined = prev.find(
-            (prevUnit: Unit) => currUnit.type === prevUnit.type
+      distinctUntilChanged((prev: UnitSocketData[], curr: UnitSocketData[]) => {
+        return curr.every((currUnit: UnitSocketData) => {
+          const previousUnit: UnitSocketData | undefined = prev.find(
+            (prevUnit: UnitSocketData) => currUnit.type === prevUnit.type
           );
           return (
             previousUnit &&
@@ -55,7 +56,7 @@ export class DefenceService {
 
   public selectDetails(type: UnitType | BuildingType | undefined): void {
     this.currentDefenceUnit$ = this.defenceUnits$.pipe(
-      map((units: Unit[]) => units.find((unit: Unit) => unit.type === type)),
+      map((units: UnitSocketData[]) => units.find((unit: UnitSocketData) => unit.type === type)),
       shareReplay(1)
     );
   }

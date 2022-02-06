@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { PlanetSocketData } from '@src/app/domain/endpoints/planet/planet-data';
+import { PlanetSocketData } from '@models/interfaces/game/planet/planet-socket-data';
 
 import { PlanetService } from '../../services/planet.service';
 import { PlanetSocketService } from '../../services/planet-socket.service';

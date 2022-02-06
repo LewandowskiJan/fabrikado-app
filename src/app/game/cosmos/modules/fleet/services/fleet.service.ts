@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
 
 import { Observable, of } from 'rxjs';
-import { distinctUntilChanged, map, shareReplay } from 'rxjs/operators';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 
-import { PlanetSocketData } from '@src/app/domain/endpoints/planet/planet-data';
+import { UnitType } from '@models/enums/unit-type';
+import { PlanetSocketData } from '@models/interfaces/game/planet/planet-socket-data';
+import { FleetData } from '@models/interfaces/game/unit/fleet-data';
+import { UnitNumbers } from '@models/interfaces/game/unit/unit-numbers';
 
-import {
-  FleetData,
-  UnitNumbers,
-} from '../../../../../domain/endpoints/fleets/fleet-data';
 import { PlanetSocketService } from '../../../planet/services/planet-socket.service';
-import { UnitType } from '../../shipyard/model/unit';
 
 const unitImageByTypeMap: Map<UnitType, string> = new Map([
   [UnitType.SMALL_CARGO_SHIP, 'structure2'],

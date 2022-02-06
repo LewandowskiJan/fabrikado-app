@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { PlanetSocketData } from '@src/app/domain/endpoints/planet/planet-data';
+import { PlanetSocketData } from '@models/interfaces/game/planet/planet-socket-data';
 
 @Injectable({
   providedIn: 'root',
