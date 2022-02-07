@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { FleetAdmiralAvatarComponent } from './components/fleet-admiral-avatar/fleet-admiral-avatar.component';
 import { FleetFavoritesComponent } from './components/fleet-favorites/fleet-favorites.component';
@@ -22,6 +23,6 @@ import { FleetShortcutComponent } from './containers/fleet-shortcut/fleet-shortc
     FleetFavoritesComponent,
   ],
   exports: [FleetShortcutComponent],
-  imports: [CommonModule],
+  imports: [CommonModule, MatTooltipModule],
 })
 export class FleetShortcutModule {}

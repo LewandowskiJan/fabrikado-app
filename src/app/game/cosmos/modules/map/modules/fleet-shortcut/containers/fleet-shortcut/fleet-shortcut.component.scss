@@ -1,7 +1,7 @@
 .container {
   display: grid;
   grid-template-columns: 5px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 0.8fr 5px;
-  grid-template-rows: 5px 5px 12px 8px 15px 10px 1px 1px 5px;
+  grid-template-rows: 5px 5px 12px 8px 15px 12px 5px;
   grid-auto-columns: 1fr;
   gap: 0px 0px;
   grid-auto-flow: row;
@@ -12,8 +12,6 @@
     ". . FleetIcon FleetIcon FleetPosition FleetPosition FleetPosition FleetPosition FleetPosition FleetPosition . . ."
     ". . FleetIcon FleetIcon . . . . . AdmiralAvatar AdmiralAvatar AdmiralAvatar ."
     ". . FleetIcon FleetIcon FleetFuel FleetFuel FleetFuel . . AdmiralAvatar AdmiralAvatar AdmiralAvatar ."
-    ". . . . . . . . . . . . ."
-    ". . . . . . . . . . . . ."
     ". . . . . . . . . . . . .";
 }
 
